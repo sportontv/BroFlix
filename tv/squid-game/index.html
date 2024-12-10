@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BroFlix</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #141414;
+            color: white;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #e50914;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .season-select {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        select {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .episodes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .episode-card {
+            background-color: #333;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .episode-card:hover {
+            transform: scale(1.05);
+        }
+
+        .episode-image {
+            width: 100%;
+            height: 169px;
+            object-fit: cover;
+        }
+
+        .episode-info {
+            padding: 15px;
+        }
+
+        .episode-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .episode-description {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 15px;
+        }
+
+        .watch-button {
+            display: inline-block;
+            background-color: #e50914;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .watch-button:hover {
+            background-color: #f40612;
+        }
+
+        @media (max-width: 768px) {
+            .episodes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .episode-card {
+                max-width: 100%;
+            }
+
+            body {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Squid Game</h1>
+        
+        <div class="season-select">
+            <select id="seasonSelect" onchange="changeSeason()">
+                <option value="1">Season 1</option>
+                <option value="2">Season 2</option>
+            </select>
+        </div>
+
+        <div class="episodes-grid" id="season1">
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/vMFJS9LIUUAmQ1thq4vJ7iHKwRz.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 1: Red Light, Green Light</h3>
+                    <p class="episode-description">Hoping to win easy money, a broke and desperate Gi-hun agrees to take part in an enigmatic game. Not long into the first round, unforeseen horrors unfold.</p>
+                    <a href="s1/e1" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/uacNwki3PqXEFk9Pal9Ng5NwwAI.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 2: Hell</h3>
+                    <p class="episode-description">Split on whether to continue or quit, the group holds a vote. But their realities in the outside world may prove to be just as unforgiving as the game.</p>
+                    <a href="s1/e2" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/xNtgrNEsMXvmRQQtcFuJdbXOjmP.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 3: The Man with the Umbrella</h3>
+                    <p class="episode-description">A few players enter the next round — which promises equal doses of sweet and deadly — with hidden advantages. Meanwhile, Jun-ho sneaks his way inside.</p>
+                    <a href="s1/e3" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/9cUGOdLN4gmnf3b9ILArnJsJI8Q.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 4: Stick to the Team</h3>
+                    <p class="episode-description">As alliances form among the players, no one is safe in the dorm after lights-out. The third game challenges Gi-hun's team to think strategically.</p>
+                    <a href="s1/e4" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/2pE9f6drlF7y9rwUw6dh1w6jF5M.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 5: A Fair World</h3>
+                    <p class="episode-description">Gi-hun and his team take turns keeping guard through the night. The masked men encounter trouble with their co-conspirators.</p>
+                    <a href="s1/e5" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/cohCCQzTe2ncdQczJDUsO0vzxPR.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 6: Gganbu</h3>
+                    <p class="episode-description">Players pair off for the fourth game. Gi-hun grapples with a moral dilemma, Sang-woo chooses self-preservation and Sae-byeok shares her untold story.</p>
+                    <a href="s1/e6" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/4pVfv4HaM5QpFJTHm19p2UI0StN.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 7: VIPS</h3>
+                    <p class="episode-description">The Masked Leader welcomes VIP guests to the facility for a front-row viewing of the show. In the fifth game, some players crack under pressure.</p>
+                    <a href="s1/e7" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/lOgFVmykN9qlpAoiBSIV2lu7XCS.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 8: Front Man</h3>
+                    <p class="episode-description">Ahead of the last round, distrust and disgust run deep among the finalists. Jun-ho makes a getaway, determined to expose the game's dirty secrets.</p>
+                    <a href="s1/e8" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/sKeQbHeEUQLyoSdopa0QXm604cz.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 9: One Lucky Day</h3>
+                    <p class="episode-description">The final round presents another cruel test — but this time, how it ends depends on just one player. The game's creator steps out of the shadows.</p>
+                    <a href="s1/e9" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="episodes-grid" id="season2" style="display: none;">
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/w500/1f8yoYT3aWN6BuAqp8DhgPK4CUx.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 1: Coming Soon</h3>
+                    <p class="episode-description">Season 2 is currently in production.</p>
+                    <a href="#" class="watch-button" style="background-color: #666;">Coming Soon</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function changeSeason() {
+            const season = document.getElementById('seasonSelect').value;
+            document.getElementById('season1').style.display = season === '1' ? 'grid' : 'none';
+            document.getElementById('season2').style.display = season === '2' ? 'grid' : 'none';
+        }
+    </script>
+</body>
+</html>

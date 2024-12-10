@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inside Out Collection - BroFlix</title>
+    <link rel="icon" type="image/x-icon" href="../logo.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #141414;
+            color: white;
+        }
+
+        header {
+            position: fixed;
+            width: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+            padding: 20px 40px;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            color: #e50914;
+            font-size: 28px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .banner {
+            position: relative;
+            height: 80vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                        url('https://images.ctfassets.net/3m6gg2lxde82/TMiEcMTDjDPJYiGdNfqnB/fc4790d43dd71bc70b6223dde2bea161/inside-out-2.png?w=2048&h=1137&fit=fill&f=faces&q=90&fm=webp') center/cover;
+            margin-bottom: 20px;
+        }
+
+        .banner-content {
+            position: absolute;
+            bottom: 50px;
+            left: 50px;
+        }
+
+        .banner-title {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .movie-section {
+            position: relative;
+            padding: 20px;
+        }
+
+        .movie-row {
+            display: flex;
+            gap: 15px;
+            padding: 10px 0;
+        }
+
+        .movie-card {
+            min-width: 300px;
+            height: 169px;
+            border-radius: 4px;
+            transition: transform 0.3s;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .movie-card:hover {
+            transform: scale(1.05);
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .modal-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .modal-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.7);
+            width: 850px;
+            max-width: 90%;
+            background-color: #181818;
+            border-radius: 6px;
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .modal.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .modal.active .modal-container {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-header {
+            position: relative;
+            height: 480px;
+            background-size: cover;
+            background-position: center top;
+        }
+
+        .modal-header-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9) 40%, #181818);
+        }
+
+        .modal-title {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .movie-meta {
+            display: flex;
+            gap: 20px;
+            margin: 15px 0;
+            font-size: 14px;
+            color: #a3a3a3;
+        }
+
+        .movie-info {
+            color: #a3a3a3;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .modal-info {
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 30px;
+        }
+
+        .modal-poster {
+            width: 200px;
+            border-radius: 4px;
+        }
+
+        .modal-details p {
+            margin-bottom: 10px;
+            color: #a3a3a3;
+        }
+
+        .modal-details strong {
+            color: white;
+        }
+
+        .watch-now-btn {
+            background-color: #e50914;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 15px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .burger-menu {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: #141414;
+                padding: 20px;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                margin: 0 !important;
+            }
+
+            nav {
+                justify-content: space-between;
+            }
+
+                .featured-content img {
+                display: none; /* Hide the movie logo */
+            }
+        }
+
+        @media screen and (max-width: 1366px) {
+            .modal-container {
+                width: 100%;
+                height: 100%;
+                max-width: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                transform: none;
+                border-radius: 0;
+                overflow-y: auto;
+            }
+
+            .modal.active .modal-container {
+                transform: none;
+            }
+
+            .modal-header {
+                height: 40vh; /* Adjust height for smaller screens */
+            }
+
+            .modal-info {
+                grid-template-columns: 150px 1fr; /* Smaller poster width */
+                gap: 20px;
+                padding: 20px;
+            }
+
+            .modal-poster {
+                width: 150px; /* Smaller poster */
+            }
+
+            /* Prevent body scrolling when modal is open */
+            body.modal-open {
+                overflow: hidden;
+                position: fixed;
+                width: 100%;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .banner {
+                height: 50vh; /* Shorter height on mobile */
+            }
+            
+            .banner-content {
+                left: 20px;
+                bottom: 30px;
+            }
+            
+            .banner-title {
+                font-size: 32px;
+            }
+        }
+
+        .movie-section {
+            position: relative;
+            padding: 20px;
+        }
+
+        .movie-row-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .movie-row {
+            display: flex;
+            gap: 15px;
+            padding: 10px 0;
+            transition: transform 0.5s ease;
+        }
+
+        .scroll-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 2px solid white;
+            color: white;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .scroll-button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .scroll-button.prev {
+            left: 0;
+        }
+
+        .scroll-button.next {
+            right: 0;
+        }
+
+        .scroll-button.hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="../index.html" class="logo">FlicksFlix</a>
+        </nav>
+    </header>
+
+    <div class="banner">
+        <div class="banner-content">
+            <h1 class="banner-title">Inside Out Collection</h1>
+        </div>
+    </div>
+
+    <section class="movie-section">
+        <div class="movie-row-container">
+            <button class="scroll-button prev hidden">❮</button>
+            <div class="movie-row">
+                <div class="movie-card" onclick="openModal(13)">
+                    <img src="https://image.tmdb.org/t/p/original/9dSyguWPrYKqRGPKlF955M5kKGN.jpg">
+                </div>
+                <div class="movie-card" onclick="openModal(1)">
+                    <img src="https://image.tmdb.org/t/p/original/hLuPF9HxtjbS7ZzSjMRG3RpUffp.jpg">
+                </div>
+            </div>
+            <button class="scroll-button next">❯</button>
+        </div>
+    </section>    
+
+    <!-- Modal for Inside Out -->
+    <div class="modal" id="movieModal13">
+        <div class="modal-background"></div>
+        <div class="modal-container">
+            <button class="close-modal" onclick="closeModal(13)">✕</button>
+            <div class="modal-header" style="background-image: url('https://image.tmdb.org/t/p/original/jJKZaTBNenlFclQyjrnvzkRmvWE.jpg')">
+                <div class="modal-header-content">
+                    <h1 class="modal-title">Inside Out</h1>
+                    <div class="movie-meta">
+                        <span>2015</span>
+                        <span>1h 35m</span>
+                        <span>Animation</span>
+                    </div>
+                    <a href="../movies/inside-out" class="watch-now-btn">Watch Now</a>
+                </div>
+            </div>
+            <div class="modal-info">
+                <img src="https://image.tmdb.org/t/p/original/2H1TmgdfNtsKlU9jKdeNyYL5y8T.jpg" class="modal-poster">
+                <div class="modal-details">
+                    <p class="movie-info">
+                        When 11-year-old Riley moves to a new city, her Emotions team up to help her through the transition. Joy, Fear, Anger, Disgust and Sadness work together, but when Joy and Sadness get lost, they must journey through unfamiliar places to get back home.
+                    </p>
+                    <div>
+                        <p><strong>Director:</strong> Pete Docter</p>
+                        <p><strong>Cast:</strong> Amy Poehler, Phyllis Smith, Richard Kind, Bill Hader, Lewis Black, Mindy Kaling</p>
+                        <p><strong>Genre:</strong> Animation, Family, Adventure, Comedy</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Inside Out 2 -->
+    <div class="modal" id="movieModal1">
+        <div class="modal-background"></div>
+        <div class="modal-container">
+            <button class="close-modal" onclick="closeModal(1)">✕</button>
+            <div class="modal-header" style="background-image: url('https://images.ctfassets.net/3m6gg2lxde82/TMiEcMTDjDPJYiGdNfqnB/fc4790d43dd71bc70b6223dde2bea161/inside-out-2.png?w=2048&h=1137&fit=fill&f=faces&q=90&fm=webp')">
+                <div class="modal-header-content">
+                    <h1 class="modal-title">Inside Out 2</h1>
+                    <div class="movie-meta">
+                        <span>2024</span>
+                        <span>1h 35m</span>
+                        <span>Animation</span>
+                    </div>
+                    <a href="../movies/inside-out-2" class="watch-now-btn">Watch Now</a>
+                </div>
+            </div>
+            <div class="modal-info">
+                <img src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg" class="modal-poster">
+                <div class="modal-details">
+                    <p class="movie-info">
+                        Teenage Riley's head is turned upside down when new emotions appear during a particularly trying time in her life. Joy, Sadness, Anger, Fear and Disgust, who've long been running a successful operation by this point, aren't sure how to feel about these new emotions showing up in Headquarters.
+                    </p>
+                    <div>
+                        <p><strong>Director:</strong> Kelsey Mann</p>
+                        <p><strong>Cast:</strong> Amy Poehler, Phyllis Smith, Lewis Black, Tony Hale</p>
+                        <p><strong>Genre:</strong> Animation, Comedy, Family</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(movieId) {
+            const modal = document.getElementById(`movieModal${movieId}`);
+            if (modal) {
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                setTimeout(() => {
+                    modal.classList.add('active');
+                }, 10);
+            }
+        }
+
+        function closeModal(movieId) {
+            const modal = document.getElementById(`movieModal${movieId}`);
+            if (modal) {
+                modal.classList.remove('active');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }, 300);
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal-background')) {
+                const modals = document.querySelectorAll('.modal');
+                modals.forEach(modal => {
+                    modal.classList.remove('active');
+                    setTimeout(() => {
+                        modal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }, 300);
+                });
+            }
+        };
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const modals = document.querySelectorAll('.modal');
+                modals.forEach(modal => {
+                    modal.classList.remove('active');
+                    setTimeout(() => {
+                        modal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }, 300);
+                });
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const containers = document.querySelectorAll('.movie-row-container');
+            
+            containers.forEach(container => {
+                const row = container.querySelector('.movie-row');
+                const prevBtn = container.querySelector('.scroll-button.prev');
+                const nextBtn = container.querySelector('.scroll-button.next');
+                let scrollPosition = 0;
+                
+                function getScrollDistance() {
+                    const movieCard = row.querySelector('.movie-card');
+                    if (movieCard) {
+                        return movieCard.offsetWidth + 15;
+                    }
+                    return 300;
+                }
+
+                nextBtn.addEventListener('click', () => {
+                    const maxScroll = row.scrollWidth - container.clientWidth;
+                    const scrollDistance = getScrollDistance();
+                    scrollPosition = Math.min(scrollPosition + scrollDistance, maxScroll);
+                    row.style.transform = `translateX(-${scrollPosition}px)`;
+                    updateButtons();
+                });
+
+                prevBtn.addEventListener('click', () => {
+                    const scrollDistance = getScrollDistance();
+                    scrollPosition = Math.max(scrollPosition - scrollDistance, 0);
+                    row.style.transform = `translateX(-${scrollPosition}px)`;
+                    updateButtons();
+                });
+
+                function updateButtons() {
+                    prevBtn.classList.toggle('hidden', scrollPosition === 0);
+                    const maxScroll = row.scrollWidth - container.clientWidth;
+                    nextBtn.classList.toggle('hidden', scrollPosition >= maxScroll);
+                }
+
+                updateButtons();
+                window.addEventListener('resize', updateButtons);
+            });
+        });
+    </script>
+</body>
+</html>

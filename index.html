@@ -1,0 +1,2384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BroFlix - Watch Movies & Series</title>
+    <link rel="icon" type="image/x-icon" href="logo.png">
+    <meta name="description" content="Free movies and tv shows">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #141414;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        header {
+            position: fixed;
+            width: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+            padding: 20px 40px;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            color: #e50914;
+            font-size: 28px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            margin-left: 40px;
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #e50914;
+        }
+
+        .featured {
+            position: relative;
+            height: 80vh;
+            width: 100%;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .featured-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+                        url('https://image.tmdb.org/t/p/original/kU98MbVVgi72wzceyrEbClZmMFe.jpg') center/cover;
+        }
+
+        .featured-content {
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 40px;
+            max-width: 1000px;
+        }
+
+        .watch-button {
+            background-color: #e50914;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 4px;
+            font-size: 18px;
+            cursor: pointer;
+            width: fit-content;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .watch-button:hover {
+            background-color: #f40612;
+        }
+
+        .movie-section {
+            position: relative;
+            padding: 20px;
+        }
+
+        .movie-section h2 {
+            margin-bottom: 10px;
+        }
+
+        .movie-row-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .movie-row {
+            display: flex;
+            gap: 15px;
+            padding: 10px 0;
+            transition: transform 0.5s ease;
+        }
+
+        .movie-card {
+            min-width: 300px;
+            height: 169px;
+            border-radius: 4px;
+            transition: transform 0.3s;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .movie-card:hover {
+            transform: scale(1.05);
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .scroll-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 2px solid white;
+            color: white;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .scroll-button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .scroll-button.prev {
+            left: 0;
+        }
+
+        .scroll-button.next {
+            right: 0;
+        }
+
+        .scroll-button.hidden {
+            display: none;
+        }
+
+        .ribbon {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background-color: #e50914;
+            color: white;
+            text-align: center;
+            padding: 5px 0;
+            font-size: 14px;
+            font-weight: bold;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .modal-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .modal-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.7);
+            width: 850px;
+            max-width: 90%;
+            background-color: #181818;
+            border-radius: 6px;
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .modal.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .modal.active .modal-container {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid rgba(255, 255, 255, 0.7);
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .close-modal:hover {
+            border-color: white;
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        .modal-header {
+            position: relative;
+            height: 480px;
+            background-size: cover;
+            background-position: center top;
+        }
+
+        .modal-header-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9) 40%, #181818);
+        }
+
+        .modal-info {
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 30px;
+        }
+
+        .modal-poster {
+            width: 200px;
+            border-radius: 4px;
+        }
+
+        .movie-meta {
+            display: flex;
+            gap: 20px;
+            margin: 15px 0;
+            font-size: 14px;
+            color: #a3a3a3;
+        }
+
+        .movie-info {
+            color: #a3a3a3;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .modal-details p {
+            margin-bottom: 10px;
+            color: #a3a3a3;
+        }
+
+        .modal-details strong {
+            color: white;
+        }
+
+        .modal-title {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .watch-now-btn {
+            background-color: #e50914;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 15px;
+            transition: background-color 0.2s;
+        }
+
+        .watch-now-btn:hover {
+            background-color: #f40612;
+        }
+
+        footer {
+            background-color: #141414;
+            color: #a3a3a3;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: #a3a3a3;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .copyright {
+            font-size: 12px;
+        }
+
+        .dmca-notice {
+            font-size: 12px;
+            margin-top: 20px;
+        }
+
+        .add-to-list-btn {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 2px solid white;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: all 0.3s;
+            margin-top: -9px;
+        }
+
+        .add-to-list-btn .remove-text {
+            display: none;
+        }
+
+        .add-to-list-btn.added .add-text {
+            display: none;
+        }
+
+        .add-to-list-btn.added .remove-text {
+            display: inline;
+        }
+
+        .add-to-list-btn.added {
+            background-color: white;
+            color: black;
+        }
+
+        .profiles-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #141414;
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profiles-title {
+            font-size: 3.5vw;
+            color: #fff;
+            margin-bottom: 30px;
+        }
+
+        .profiles-container {
+            display: flex;
+            flex-wrap: nowrap; /* Single row of avatars */
+            overflow-x: auto; /* Enable horizontal scrolling */
+            gap: 30px; /* Space between profiles */
+            padding: 10px 20px;
+            max-width: 80%; /* Limit width for better appearance */
+            justify-content: start; /* Align items to the left */
+        }
+
+        .profiles-container::-webkit-scrollbar {
+            height: 8px; /* Adjust scrollbar height */
+        }
+
+        .profiles-container::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3); /* Subtle scrollbar */
+            border-radius: 4px;
+        }
+
+        .profiles-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5); /* Highlighted on hover */
+        }
+
+        .profile {
+            cursor: pointer;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease;
+            margin: 10px;
+        }
+
+        .profile:hover {
+            transform: scale(1.1);
+        }
+
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            border: 3px solid transparent;
+        }
+
+        .profile:hover .profile-avatar {
+            border-color: #fff; /* Keep the white border on hover */
+            border-radius: 50%; /* Make the border circular */
+            transition: border-radius 0.3s ease, transform 0.3s ease; /* Add smooth transition for the hover effect */
+        }
+
+        .profile-name {
+            color: grey;
+            font-size: 1.2em;
+            text-align: center;
+        }
+
+        .profile:hover .profile-name {
+            color: #fff;
+        }
+
+        .add-profile-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .add-profile-icon {
+            width: 150px;
+            height: 150px;
+            border-radius: 4px;
+            background: #141414;
+            border: 1px solid grey;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5em;
+            color: grey;
+            margin-bottom: 10px;
+        }
+
+        .add-profile-btn:hover .add-profile-icon {
+            border-color: #fff;
+            color: #fff;
+        }
+
+        .add-profile-btn:hover .profile-name {
+            color: #fff;
+        }
+
+        /* Profile Creation Modal */
+        .profile-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.85);
+            padding: 30px;
+            border-radius: 4px;
+            z-index: 2001;
+            display: none;
+        }
+
+        .profile-modal input {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            background: #333;
+            border: none;
+            color: #fff;
+        }
+
+        .profile-modal button {
+            padding: 10px 20px;
+            margin: 10px 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .profile-modal button.save {
+            background: #e50914;
+            color: #fff;
+        }
+
+        .profile-modal button.cancel {
+            background: transparent;
+            border: 1px solid #fff;
+            color: #fff;
+        }
+
+        .edit-profiles-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #e50914;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .edit-profiles-btn:hover {
+            background-color: #f40612;
+        }
+
+        .avatar-selection {
+            display: flex;
+            flex-direction: column; /* Stack title above gallery */
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .avatar-title {
+            font-size: 1.2em;
+            color: white;
+            margin-bottom: 10px; /* Space between title and avatars */
+            text-align: center;
+        }
+
+        .avatar-option {
+            width: 80px; /* Adjust size as needed */
+            height: 80px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .avatar-option:hover {
+            border-color: white;
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            /* Adjust profile modal for smaller screens */
+            .profile-modal {
+                width: 90%;
+                max-width: 400px;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                height: 90vh; /* Take up most of the viewport */
+                box-sizing: border-box;
+            }
+
+            /* Restrict avatar gallery to a scrollable area */
+            .avatar-selection {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+                max-height: 50%; /* Restrict height to leave space for input and buttons */
+                overflow-y: auto; /* Enable vertical scrolling */
+                padding: 10px;
+                border: 1px solid #333; /* Optional: Add a border to distinguish this area */
+            }
+
+            /* Make avatars more compact */
+            .avatar-option {
+                width: 60px;
+                height: 60px;
+            }
+
+            /* Ensure text box and buttons are visible */
+            .profile-modal input,
+            .profile-modal button {
+                margin: 10px 0;
+                width: 100%;
+            }
+
+            /* Sticky title for the avatar gallery */
+            .avatar-title {
+                position: sticky;
+                top: 0;
+                background: rgba(0, 0, 0, 0.8);
+                padding: 10px;
+                width: 100%;
+                text-align: center;
+                z-index: 10;
+            }
+
+            /* Adjust profile container on smaller screens */
+            .profiles-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            /* Slightly reduce avatar size on "Who's Watching" screen */
+            .profile-avatar {
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        @media screen and (max-width: 1366px) {
+            .modal-container {
+                width: 100%;
+                height: 100%;
+                max-width: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                transform: none;
+                border-radius: 0;
+                overflow-y: auto;
+            }
+
+            .modal.active .modal-container {
+                transform: none;
+            }
+
+            .modal-header {
+                height: 40vh; /* Adjust height for smaller screens */
+            }
+
+            .modal-info {
+                grid-template-columns: 150px 1fr; /* Smaller poster width */
+                gap: 20px;
+                padding: 20px;
+            }
+
+            .modal-poster {
+                width: 150px; /* Smaller poster */
+            }
+
+            /* Prevent body scrolling when modal is open */
+            body.modal-open {
+                overflow: hidden;
+                position: fixed;
+                width: 100%;
+            }
+        }
+
+        /*4-digit Pins*/
+
+        .lock-icon {
+            margin-left: 5px;
+            font-size: 14px;
+            color: #e50914;
+        }
+
+        .pin-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            padding: 30px;
+            border-radius: 8px;
+            z-index: 2002;
+            display: none;
+            width: 300px;
+            text-align: center;
+        }
+
+        .pin-input {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .pin-digit {
+            width: 40px;
+            height: 40px;
+            background: #333;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .pin-message {
+            color: #e50914;
+            margin-top: 10px;
+            font-size: 14px;
+            min-height: 20px;
+        }
+
+        .set-pin-btn {
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .set-pin-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .remove-pin-btn {
+            background: #e50914;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .profile-actions {
+            display: none; /* Hide by default */
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .profile[data-editing="true"] .profile-actions {
+            display: flex;
+        }
+
+        .profile-actions button {
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .delete-profile-btn {
+            background: #e50914;
+            color: white;
+            border: none;
+        }
+
+        .set-pin-btn {
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+        }
+
+        .set-pin-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .delete-profile-btn:hover {
+            background: #f40612;
+        }
+
+        .lock-icon {
+            margin-left: 5px;
+            font-size: 14px;
+        }
+
+        .pin-ok-btn {
+            background: #e50914;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .pin-ok-btn:hover {
+            background: #f40612;
+        }
+
+        /* Mobile Navigation Styles */
+        .burger-menu {
+            display: none;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .burger-menu div {
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 5px 0;
+            transition: 0.4s;
+        }
+
+        @media screen and (max-width: 768px) {
+            .burger-menu {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: #141414;
+                padding: 20px;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links a {
+                margin: 0 !important;
+            }
+
+            nav {
+                justify-content: space-between;
+            }
+
+                .featured-content img {
+                display: none; /* Hide the movie logo */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profiles-overlay" id="profilesOverlay">
+        <h1 class="profiles-title">Who's Watching?</h1>
+        <p>Website will be rebranded to "BroFlix" on 10th of December.</p>
+        <button id="editProfilesBtn" class="edit-profiles-btn" onclick="toggleEditProfiles()">Edit Profiles</button>
+        <div class="profiles-container" id="profilesContainer">
+            <!-- Profiles will be added dynamically here -->
+            <div class="add-profile-btn" onclick="showProfileModal()">
+                <div class="add-profile-icon">+</div>
+                <span class="profile-name">Add Profile</span>
+            </div>
+        </div>
+    </div>    
+    
+    <div class="profile-modal" id="profileModal">
+        <h2>Create Profile</h2>
+        <input type="text" id="profileName" placeholder="Name">
+        <div class="avatar-selection">
+            <h3 class="avatar-title">Choose Avatar</h3>
+            <div id="avatarGallery"></div>
+        </div>
+        <button class="save" onclick="createProfile()">Save</button>
+        <button class="cancel" onclick="hideProfileModal()">Cancel</button>
+    </div>
+    
+    <div class="pin-modal" id="pinModal">
+        <h2 id="pinModalTitle">Enter PIN</h2>
+        <div class="pin-input">
+            <input type="password" maxlength="1" class="pin-digit" />
+            <input type="password" maxlength="1" class="pin-digit" />
+            <input type="password" maxlength="1" class="pin-digit" />
+            <input type="password" maxlength="1" class="pin-digit" />
+        </div>
+        <div class="pin-message" id="pinMessage"></div>
+        <button class="pin-ok-btn" id="pinOkBtn">OK</button>
+        <button class="set-pin-btn" id="setPinBtn" style="display: none;">Set PIN</button>
+        <button class="remove-pin-btn" id="removePinBtn" style="display: none;">Remove PIN</button>
+    </div>
+    
+    <header>
+        <nav>
+            <a href="index.html" class="logo">BroFlix</a>
+            <div class="burger-menu" onclick="toggleMenu()">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="nav-links">
+                <a href="#coming">Coming Soon</a>
+                <a href="#my-list">My List</a>
+                <a href="contact.html">Contact us</a>
+                <p style="color: #e50914; font-weight: bolder;">WEBSITE IS GETTING REBRANDED | NEW LINK AVAILABLE FROM 10TH OF DECEMBER 2024 -> BROFLIX.PAGES.DEV</p>
+            </div>
+        </nav>
+    </header>
+
+    <section class="featured">
+        <div class="featured-image"></div>
+        <div class="featured-content">
+            <img src="https://image.tmdb.org/t/p/original/zeJgbSww6qHz1pHYWVd5oDRNv9G.svg" style="width: 400px; margin-bottom: 30px;">
+            <a href="/avatar/" class="watch-button">Watch Now</a>
+        </div>
+    </section>
+
+    <section class="movie-section">
+        <h2><span style="color: #e50914;">New</span> on BroFlix</h2>
+        <div class="movie-row-container">
+            <button class="scroll-button prev hidden">❮</button>
+            <div class="movie-row" id="new-on-flicksflix">
+                <div class="movie-card" data-movie-id="8" onclick="openModal(8)">
+                    <img src="https://image.tmdb.org/t/p/original/jrKYozgUgF2umKaGx0ptEvCe2oz.jpg">
+                    <div class="ribbon">Season 2 to be added soon!</div>
+                </div>
+                <div class="movie-card" data-movie-id="15" onclick="openModal(15)">
+                    <img src="https://image.tmdb.org/t/p/original/hOsTmukXHBNsxbTfwGYTzMTOkS1.jpg">
+                    <div class="ribbon">New Addition</div>
+                </div>
+            </div>
+            <button class="scroll-button next">❯</button>
+        </div>
+    </section>
+
+    <section class="movie-section" id="my-list">
+        <h2>My List</h2>
+        <div class="movie-row-container">
+            <button class="scroll-button prev" style="display: block;">❮</button>
+            <div class="movie-row" id="my-list-row">
+                <!-- Movies will be added here dynamically -->
+            </div>
+            <button class="scroll-button next" style="display: block;">❯</button>
+        </div>
+    </section>
+
+    <section class="movie-section">
+        <h2>Now Streaming</h2>
+        <div class="movie-row-container">
+            <button class="scroll-button prev hidden">❮</button>
+            <div class="movie-row" id="now-streaming">
+                <div class="movie-card" data-movie-id="1" onclick="openModal(1)">
+                    <img src="https://image.tmdb.org/t/p/original/hLuPF9HxtjbS7ZzSjMRG3RpUffp.jpg">
+                </div>
+                <div class="movie-card" data-movie-id="2" onclick="openModal(2)">
+                    <img src="https://image.tmdb.org/t/p/original/envkfRiMpfNHXfxgTX3ZLgLkmoE.jpg">
+                </div>
+                <div class="movie-card" data-movie-id="3" onclick="openModal(3)">
+                    <img src="https://image.tmdb.org/t/p/original/k1gZafHuIIlqnzBgFCTYc0IkpLL.jpg">
+                </div>
+                <div class="movie-card" data-movie-id="4" onclick="openModal(4)">
+                    <img src="https://image.tmdb.org/t/p/original/qkQGUK99fKQ45JuLRK2v4D6DLgl.jpg">
+                </div>
+                <div class="movie-card" data-movie-id="5" onclick="openModal(5)">
+                    <img src="https://image.tmdb.org/t/p/original/cfBHNVv9pto26a4qnwJ5F0gq9jg.jpg">
+                </div>
+                <div class="movie-card" data-movie-id="9" onclick="openModal(9)">
+                    <img src="https://image.tmdb.org/t/p/original/e8rNsJBrOsspbdC9TLbZtZm9npX.jpg">
+                </div>
+                <div class="movie-card" data-movie-id="13" onclick="openModal(13)">
+                    <img src="https://image.tmdb.org/t/p/original/9dSyguWPrYKqRGPKlF955M5kKGN.jpg">
+                </div>
+                <div class="movie-card" data-movie-id="15" onclick="openModal(15)">
+                    <img src="https://image.tmdb.org/t/p/original/hOsTmukXHBNsxbTfwGYTzMTOkS1.jpg">
+                    <div class="ribbon">New Addition</div>
+                </div>
+            </div>
+            <button class="scroll-button next">❯</button>
+        </div>
+    </section>
+
+    <section class="movie-section">
+        <h2>Christmas Spirit</h2>
+        <div class="movie-row-container">
+            <button class="scroll-button prev hidden">❮</button>
+            <div class="movie-row" id="christmas-spirit">
+                <div class="movie-card" data-movie-id="6" onclick="openModal(6)">
+                    <img src="https://image.tmdb.org/t/p/original/rVhYYt1aBLGo5tyEMB25OULD1dF.jpg">
+                </div>
+                <div class="movie-card" data-movie-id="7" onclick="openModal(7)">
+                    <img src="https://image.tmdb.org/t/p/original/qh5ITDiFk7LMDfLiQX0jXD3z0w3.jpg">
+                </div>
+                <div class="movie-card" data-movie-id="12" onclick="openModal(12)">
+                    <img src="https://image.tmdb.org/t/p/original/e5sPyFrkHiLanReaHrlleX3R8hp.jpg">
+                </div>
+            </div>
+            <button class="scroll-button next">❯</button>
+        </div>
+    </section>
+
+    <section class="movie-section">
+        <h2>Series</h2>
+        <div class="movie-row-container">
+            <button class="scroll-button prev hidden">❮</button>
+            <div class="movie-row" id="series">
+                <div class="movie-card" data-movie-id="8" onclick="openModal(8)">
+                    <img src="https://image.tmdb.org/t/p/original/jrKYozgUgF2umKaGx0ptEvCe2oz.jpg">
+                    <div class="ribbon">Season 2 to be added soon!</div>
+                </div>
+            </div>
+            <button class="scroll-button next">❯</button>
+        </div>
+    </section>
+
+    <section class="movie-section">
+        <h2>Collections</h2>
+        <div class="movie-row-container">
+            <button class="scroll-button prev hidden">❮</button>
+            <div class="movie-row" id="collections">
+                <a href="collections/inside-out" class="movie-card">
+                    <img src="https://image.tmdb.org/t/p/original/7wL3dPMzXXrplNgStX6lt8SwLlJ.jpg">
+                    <div class="ribbon">Collection</div>
+                </a>
+            </div>
+            <button class="scroll-button next">❯</button>
+        </div>
+    </section>    
+
+    <section class="movie-section">
+        <h2>Live Events</h2>
+        <div class="movie-row-container">
+            <button class="scroll-button prev hidden">❮</button>
+            <div class="movie-row" id="live-events">
+            </div>
+            <button class="scroll-button next">❯</button>
+        </div>
+    </section>
+
+    <section class="movie-section" id="coming">
+        <h2>Coming Soon</h2>
+        <div class="movie-row-container">
+            <button class="scroll-button prev hidden">❮</button>
+            <div class="movie-row" id="coming-soon">
+                <div class="movie-card" data-movie-id="10" onclick="openModal(10)">
+                    <img src="https://image.tmdb.org/t/p/original/bWBlql9EXgWrZO7WabsViwOiwok.jpg">
+                    <div class="ribbon">Availble Before 15th Dec.</div>
+                </div>
+                <div class="movie-card" data-movie-id="19" onclick="openModal(19)">
+                    <img src="https://image.tmdb.org/t/p/original/gxwYr2jtBzMvp85lbCr9ooJMFPc.jpg">
+                    <div class="ribbon">Available before 25th Dec.</div>
+                </div>
+                <div class="movie-card" data-movie-id="11" onclick="openModal(11)">
+                    <img src="https://image.tmdb.org/t/p/original/y8emTndyl9OF9BnuGkLuJ7V2Ubk.jpg">
+                    <div class="ribbon">Available Anytime Before 2025</div>
+                </div>
+                <div class="movie-card" data-movie-id="14" onclick="openModal(14)">
+                    <img src="https://image.tmdb.org/t/p/original/a6gXQS8V0uoexozgd5FdROFyEtO.jpg">
+                    <div class="ribbon">Available Soon</div>
+                </div>
+                <div class="movie-card" data-movie-id="16" onclick="openModal(16)">
+                    <img src="https://image.tmdb.org/t/p/original/m1K7yNXS0HdGENFl7Z5beJ4NsPc.jpg">
+                    <div class="ribbon">Available on 15-17 of December</div>
+                </div>
+                <div class="movie-card" data-movie-id="20" onclick="openModal(20)">
+                    <img src="https://image.tmdb.org/t/p/original/pgy1mO4cnnLKB4E31zY8VxGVTMW.jpg">
+                    <div class="ribbon">Available between 1-10 of January</div>
+                </div>
+                <div class="movie-card" data-movie-id="17" onclick="openModal(17)">
+                    <img src="https://image.tmdb.org/t/p/original/4yz5PvVNRW9IqfRywo9zZ9FCSA5.jpg">
+                    <div class="ribbon">Available soon</div>
+                </div>
+                <div class="movie-card" data-movie-id="18" onclick="openModal(18)">
+                    <img src="https://image.tmdb.org/t/p/original/gIWrwIlzGmdOn2X4MWTKGZOkmno.jpg">
+                    <div class="ribbon">Available by 2025</div>
+                </div>
+                <div class="movie-card" data-movie-id="21" onclick="openModal(21)">
+                    <img src="https://image.tmdb.org/t/p/original/4Nf77qGt4t5Fna6e2PcUtPZRlFA.jpg">
+                    <div class="ribbon">Available soon</div>
+                </div>
+                <div class="movie-card" data-movie-id="23" onclick="openModal(23)">
+                    <img src="https://image.tmdb.org/t/p/original/mFP1aLKpwo0Bkt7aD3FHcp537ft.jpg">
+                    <div class="ribbon">Available on 15th of January</div>
+                </div>
+                <div class="movie-card" data-movie-id="22" onclick="openModal(22)">
+                    <img src="https://image.tmdb.org/t/p/original/hwIAR9FDsKULo8efoOUuxsFtO2u.jpg">
+                    <div class="ribbon">Season 1 Available on 4th of January</div>
+                </div>
+            </div>
+            <button class="scroll-button next">❯</button>
+        </div>
+    </section>
+
+    <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+    <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+    <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+    <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+    <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+    <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+    <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+    <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+    <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+    <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+    <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+    <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+    <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+    <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+    <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+    <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+    <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+    <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+    <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+
+    <div class="modal" id="movieModal1">
+        <div class="modal-background"></div>
+        <div class="modal-container">
+            <button class="close-modal" onclick="closeModal(1)">✕</button>
+            
+            <div class="modal-header" style="background-image: url('https://images.ctfassets.net/3m6gg2lxde82/TMiEcMTDjDPJYiGdNfqnB/fc4790d43dd71bc70b6223dde2bea161/inside-out-2.png?w=2048&h=1137&fit=fill&f=faces&q=90&fm=webp')">
+                <div class="modal-header-content">
+                    <h1 class="modal-title">Inside Out 2</h1>
+                    <div class="movie-meta">
+                        <span>2024</span>
+                        <span>1h 35m</span>
+                        <span>Animation</span>
+                        <button class="add-to-list-btn" onclick="toggleMyList(1)">
+                            <span class="add-text">+ My List</span>
+                            <span class="remove-text">✓ Added</span>
+                        </button>
+                    </div>
+                    <a href="movies/inside-out-2" class="watch-now-btn">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="modal-info">
+                <img src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg" class="modal-poster">
+                <div class="modal-details">
+                    <p class="movie-info">
+                        Teenage Riley's head is turned upside down when new emotions appear during a particularly trying time in her life. Joy, Sadness, Anger, Fear and Disgust, who've long been running a successful operation by this point, aren't sure how to feel about these new emotions showing up in Headquarters.
+                    </p>
+                    <div>
+                        <p><strong>Director:</strong> Kelsey Mann</p>
+                        <p><strong>Cast:</strong> Amy Poehler, Phyllis Smith, Lewis Black, Tony Hale</p>
+                        <p><strong>Genre:</strong> Animation, Comedy, Family</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+
+    <div class="modal" id="movieModal2">
+        <div class="modal-background"></div>
+        <div class="modal-container">
+            <button class="close-modal" onclick="closeModal(2)">✕</button>
+            
+            <div class="modal-header" style="background-image: url('https://media.themoviedb.org/t/p/w533_and_h300_bestv2/4eylxg940ocgdkHjab2Tm8jv2hb.jpg')">
+                <div class="modal-header-content">
+                    <h1 class="modal-title">Titanic</h1>
+                    <div class="movie-meta">
+                        <span>1997</span>
+                        <span>3h 14m</span>
+                        <span>Romantic</span>
+                        <span>13+ (PG-13)</span>
+                        <button class="add-to-list-btn" onclick="toggleMyList(2)">
+                            <span class="add-text">+ My List</span>
+                            <span class="remove-text">✓ Added</span>
+                        </button>
+                    </div>
+                    <a href="movies/titanic-1997" class="watch-now-btn">Watch Now</a>
+                    <a href="https://youtu.be/oHY7D7K58BM" class="watch-now-btn">Trailer</a>
+                </div>
+            </div>
+
+            <div class="modal-info">
+                <img src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg" class="modal-poster">
+                <div class="modal-details">
+                    <p class="movie-info">
+                        101-year-old Rose DeWitt Bukater tells the story of her life aboard the Titanic, 84 years later. A young Rose boards the ship with her mother and fiancé. Meanwhile, Jack Dawson and Fabrizio De Rossi win third-class tickets aboard the ship. Rose tells the whole story from Titanic's departure through to its death—on its first and last voyage—on April 15, 1912.
+                    </p>
+                    <div>
+                        <p><strong>Director:</strong> James Cameron</p>
+                        <p><strong>Cast:</strong> Leonardo DiCaprio, Kate Winslet, Billy Zane, Kathy Bates, Frances Fisher, Gloria Stuart, Victor Garber, Bill Paxton, Bernard Hill</p>
+                        <p><strong>Genre:</strong> Drama, Romantic</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+
+    <div class="modal" id="movieModal3">
+        <div class="modal-background"></div>
+        <div class="modal-container">
+            <button class="close-modal" onclick="closeModal(3)">✕</button>
+            
+            <div class="modal-header" style="background-image: url('https://image.tmdb.org/t/p/original/3gwCYulwHFRZsucxKHuzbRBZHQS.jpg')">
+                <div class="modal-header-content">
+                    <h1 class="modal-title">Cars</h1>
+                    <div class="movie-meta">
+                        <span>2006</span>
+                        <span>1h 57m</span>
+                        <span>Animation</span>
+                        <button class="add-to-list-btn" onclick="toggleMyList(3)">
+                            <span class="add-text">+ My List</span>
+                            <span class="remove-text">✓ Added</span>
+                        </button>
+                    </div>
+                    <a href="movies/cars-2006" class="watch-now-btn">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="modal-info">
+                <img src="https://image.tmdb.org/t/p/original/u4G8EkiIBZYx0wEg2xDlXZigTOZ.jpg" class="modal-poster">
+                <div class="modal-details">
+                    <p class="movie-info">
+                        Lightning McQueen, a hotshot rookie race car driven to succeed, discovers that life is about the journey, not the finish line, when he finds himself unexpectedly detoured in the sleepy Route 66 town of Radiator Springs. On route across the country to the big Piston Cup Championship in California to compete against two seasoned pros, McQueen gets to know the town's offbeat characters.
+                    </p>
+                    <div>
+                        <p><strong>Director:</strong> John Lasseter</p>
+                        <p><strong>Cast:</strong> Owen Wilson, Larry the Cable Guy, Bonnie Hunt, Paul Newman, Tony Shalhoub</p>
+                        <p><strong>Genre:</strong> Animation, Comedy, Adventure</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+
+    <div class="modal" id="movieModal4">
+        <div class="modal-background"></div>
+        <div class="modal-container">
+            <button class="close-modal" onclick="closeModal(4)">✕</button>
+            
+            <div class="modal-header" style="background-image: url('https://image.tmdb.org/t/p/original/xgDj56UWyeWQcxQ44f5A3RTWuSs.jpg')">
+                <div class="modal-header-content">
+                    <h1 class="modal-title">Ratatouille</h1>
+                    <div class="movie-meta">
+                        <span>2007</span>
+                        <span>1h 51m</span>
+                        <span>Animation</span>
+                        <button class="add-to-list-btn" onclick="toggleMyList(4)">
+                            <span class="add-text">+ My List</span>
+                            <span class="remove-text">✓ Added</span>
+                        </button>
+                    </div>
+                    <a href="movies/ratatouille" class="watch-now-btn">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="modal-info">
+                <img src="https://image.tmdb.org/t/p/original/t3vaWRPSf6WjDSamIkKDs1iQWna.jpg" class="modal-poster">
+                <div class="modal-details">
+                    <p class="movie-info">
+                        Remy, a resident of Paris, appreciates good food and has quite a sophisticated palate. He would love to become a chef so he can create and enjoy culinary masterpieces to his heart's delight. The only problem is, Remy is a rat. When he winds up in the sewer beneath one of Paris' finest restaurants, the rodent gourmet finds himself ideally placed to realize his dream.
+                    </p>
+                    <div>
+                        <p><strong>Director:</strong> Brad Bird</p>
+                        <p><strong>Cast:</strong> Patton Oswalt, Ian Holm, Lou Romano, Brian Dennehy, Janeane Garofalo</p>
+                        <p><strong>Genre:</strong> Animation, Comedy, Family</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+
+    <div class="modal" id="movieModal5">
+        <div class="modal-background"></div>
+        <div class="modal-container">
+            <button class="close-modal" onclick="closeModal(5)">✕</button>
+            
+            <div class="modal-header" style="background-image: url('https://image.tmdb.org/t/p/original/hkAVgWvAMmM8tj9CDEvGqMdNQBE.jpg')">
+                <div class="modal-header-content">
+                    <h1 class="modal-title">Ted</h1>
+                    <div class="movie-meta">
+                        <span>2012</span>
+                        <span>1h 47m</span>
+                        <span>Comedy</span>
+                        <button class="add-to-list-btn" onclick="toggleMyList(5)">
+                            <span class="add-text">+ My List</span>
+                            <span class="remove-text">✓ Added</span>
+                        </button>
+                    </div>
+                    <a href="movies/ted" class="watch-now-btn">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="modal-info">
+                <img src="https://image.tmdb.org/t/p/original/1QVZXQQHCEIj8lyUhdBYd2qOYtq.jpg" class="modal-poster">
+                <div class="modal-details">
+                    <p class="movie-info">
+                        John Bennett, a man whose childhood wish of bringing his teddy bear to life came true, now must decide between keeping the relationship with the bear or his girlfriend, Lori.
+                    </p>
+                    <div>
+                        <p><strong>Director:</strong> Seth MacFarlane</p>
+                        <p><strong>Cast:</strong> Mark Wahlberg, Mila Kunis, Seth MacFarlane</p>
+                        <p><strong>Genre:</strong> Comedy, Fantasy</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+
+    <div class="modal" id="movieModal6">
+        <div class="modal-background"></div>
+        <div class="modal-container">
+            <button class="close-modal" onclick="closeModal(6)">✕</button>
+            
+            <div class="modal-header" style="background-image: url('https://image.tmdb.org/t/p/original/vBOiZj6QVkybUEKmcCHYu2vcQPv.jpg')">
+                <div class="modal-header-content">
+                    <h1 class="modal-title">The Christmas Chronicles</h1>
+                    <div class="movie-meta">
+                        <span>2018</span>
+                        <span>1h 44m</span>
+                        <span>Adventure</span>
+                        <button class="add-to-list-btn" onclick="toggleMyList(6)">
+                            <span class="add-text">+ My List</span>
+                            <span class="remove-text">✓ Added</span>
+                        </button>
+                    </div>
+                    <a href="movies/the-christmas-chronicles" class="watch-now-btn">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="modal-info">
+                <img src="https://image.tmdb.org/t/p/original/5Il2EMSF2KecrUKZPuen6BZmaCP.jpg" class="modal-poster">
+                <div class="modal-details">
+                    <p class="movie-info">
+                        Siblings Kate and Teddy try to prove Santa Claus is real, but when they accidentally cause his sleigh to crash, they have to save Christmas.
+                    </p>
+                    <div>
+                        <p><strong>Director:</strong> Clay Kaytis</p>
+                        <p><strong>Cast:</strong> Darby Camp, Judah Lewis, Kurt Russell</p>
+                        <p><strong>Genre:</strong> Adventure, Comedy, Family, Fantasy</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+
+    <div class="modal" id="movieModal7">
+        <div class="modal-background"></div>
+        <div class="modal-container">
+            <button class="close-modal" onclick="closeModal(7)">✕</button>
+            
+            <div class="modal-header" style="background-image: url('https://image.tmdb.org/t/p/original/xKG9aVg4GvNn9puHjUPaTNkNDcC.jpg')">
+                <div class="modal-header-content">
+                    <h1 class="modal-title">Home Alone</h1>
+                    <div class="movie-meta">
+                        <span>1990</span>
+                        <span>1h 43m</span>
+                        <span>Comedy</span>
+                        <button class="add-to-list-btn" onclick="toggleMyList(7)">
+                            <span class="add-text">+ My List</span>
+                            <span class="remove-text">✓ Added</span>
+                        </button>
+                    </div>
+                    <a href="movies/home-alone" class="watch-now-btn">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="modal-info">
+                <img src="https://image.tmdb.org/t/p/original/onTSipZ8R3bliBdKfPtsDuHTdlL.jpg" class="modal-poster">
+                <div class="modal-details">
+                    <p class="movie-info">
+                        Eight-year-old Kevin McCallister makes the most of the situation after his family unwittingly leaves him behind when they go on Christmas vacation. But when a pair of bungling burglars set their sights on Kevin's house, the plucky kid stands ready to defend his territory. By planting booby traps galore, adorably mischievous Kevin stands his ground as his frantic mother attempts to race home before Christmas Day.
+                    </p>
+                    <div>
+                        <p><strong>Director:</strong> Chris Columbus</p>
+                        <p><strong>Cast:</strong> Macaulay Culkin, Joe Pesci, Daniel Stern</p>
+                        <p><strong>Genre:</strong> Comedy, Family</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+
+        <div class="modal" id="movieModal8">
+            <div class="modal-background"></div>
+            <div class="modal-container">
+                <button class="close-modal" onclick="closeModal(8)">✕</button>
+                
+                <div class="modal-header" style="background-image: url('https://image.tmdb.org/t/p/original/cJdnkIrD9vcIUiCbWjay55qoaQz.jpg')">
+                    <div class="modal-header-content">
+                        <h1 class="modal-title">Avatar: The Last Airbender</h1>
+                        <div class="movie-meta">
+                            <span>2005</span>
+                            <span style="border: 1px solid white; padding: 1px 3px; border-radius: 4px; color: white;">TV-Y7</span>
+                            <span>Animation</span>
+                            <button class="add-to-list-btn" onclick="toggleMyList(8)">
+                                <span class="add-text">+ My List</span>
+                                <span class="remove-text">✓ Added</span>
+                            </button>
+                        </div>
+                        <a href="tv/avatar" class="watch-now-btn">Watch Now</a>
+                        <a href="https://youtu.be/IyZ0xetSb9s" class="watch-now-btn">Trailer</a>
+                    </div>
+                </div>
+        
+                <div class="modal-info">
+                    <img src="https://image.tmdb.org/t/p/original/9RQhVb3r3mCMqYVhLoCu4EvuipP.jpg" class="modal-poster">
+                    <div class="modal-details">
+                        <p class="movie-info">
+                            In a war-torn world of elemental magic, a young boy reawakens to undertake a dangerous mystic quest to fulfill his destiny as the Avatar, and bring peace to the world.
+                        </p>
+                        <div>
+                            <p><strong>Creator:</strong> Michael Dante DiMartino, Bryan Konietzko</p>
+                            <p><strong>Cast:</strong> Zach Tyler Eisen, Mae Whitman, Jack De Sena, Dante Basco, Dee Bradley Baker, Michaela Jill Murphy, Mako</p>
+                            <p><strong>Genre:</strong> Animation, Action & Adventure, Sci-Fi & Fantasy</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>             
+
+    <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+
+    <div class="modal" id="movieModal9">
+        <div class="modal-background"></div>
+        <div class="modal-container">
+            <button class="close-modal" onclick="closeModal(9)">✕</button>
+            
+            <div class="modal-header" style="background-image: url('https://image.tmdb.org/t/p/original/aCHn2TXYJfzPXQKA6r9mKPbMlUB.jpg')">
+                <div class="modal-header-content">
+                    <h1 class="modal-title">The Truman Show</h1>
+                    <div class="movie-meta">
+                        <span>1998</span>
+                        <span>1h 43m</span>
+                        <span>Comedy</span>
+                        <button class="add-to-list-btn" onclick="toggleMyList(9)">
+                            <span class="add-text">+ My List</span>
+                            <span class="remove-text">✓ Added</span>
+                        </button>
+                    </div>
+                    <a href="movies/the-truman-show" class="watch-now-btn">Watch Now</a>
+                    <a href="https://youtu.be/loTIzXAS7v4" class="watch-now-btn">Trailer</a>
+                </div>
+            </div>
+
+            <div class="modal-info">
+                <img src="https://image.tmdb.org/t/p/original/vuza0WqY239yBXOadKlGwJsZJFE.jpg" class="modal-poster">
+                <div class="modal-details">
+                    <p class="movie-info">
+                        Every second of every day, from the moment he was born, for the last thirty years, Truman Burbank has been the unwitting star of the longest running, most popular documentary-soap opera in history. The picture-perfect town of Seahaven that he calls home is actually a gigantic soundstage. Truman's friends and family - everyone he meets, in fact - are actors. He lives every moment under the unblinking gaze of thousands of hidden TV cameras.
+                    </p>
+                    <div>
+                        <p><strong>Director:</strong> Peter Weir</p>
+                        <p><strong>Cast:</strong> Jim Carrey, Laura Linney, Noah Emmerich, Natascha McElhone</p>
+                        <p><strong>Genre:</strong> Comedy, Drama</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+
+        <div class="modal" id="movieModal12">
+            <div class="modal-background"></div>
+            <div class="modal-container">
+                <button class="close-modal" onclick="closeModal(12)">✕</button>
+                
+                <div class="modal-header" style="background-image: url('https://image.tmdb.org/t/p/original/xWT5F1DNxciNLEMXRl49iq8zvN7.jpg')">
+                    <div class="modal-header-content">
+                        <h1 class="modal-title">The Nightmare Before Christmas</h1>
+                        <div class="movie-meta">
+                            <span>1993</span>
+                            <span>1h 16m</span>
+                            <span>Fantasy</span>
+                            <button class="add-to-list-btn" onclick="toggleMyList(12)">
+                                <span class="add-text">+ My List</span>
+                                <span class="remove-text">✓ Added</span>
+                            </button>
+                        </div>
+                        <a href="movies/the-nightmare-before-christmas" class="watch-now-btn">Watch Now</a>
+                        <a href="https://youtu.be/lVtetOjX_vk" class="watch-now-btn">Trailer</a>
+                    </div>
+                </div>
+    
+                <div class="modal-info">
+                    <img src="https://image.tmdb.org/t/p/original/oQffRNjK8e19rF7xVYEN8ew0j7b.jpg" class="modal-poster">
+                    <div class="modal-details">
+                        <p class="movie-info">
+                            Tired of scaring humans every October 31 with the same old bag of tricks, Jack Skellington, the spindly king of Halloween Town, kidnaps Santa Claus and plans to deliver shrunken heads and other ghoulish gifts to children on Christmas morning. But as Christmas approaches, Jack's rag-doll girlfriend, Sally, tries to foil his misguided plans.
+                        </p>
+                        <div>
+                            <p><strong>Director:</strong> Henry Selick</p>
+                            <p><strong>Cast:</strong> Danny Elfman, Chris Sarandon, Catherine O'Hara, William Hickey, Glenn Shadix, Paul Reubens</p>
+                            <p><strong>Genre:</strong> Fantasy, Animation, Family</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+
+        <div class="modal" id="movieModal13">
+            <div class="modal-background"></div>
+            <div class="modal-container">
+                <button class="close-modal" onclick="closeModal(13)">✕</button>
+                
+                <div class="modal-header" style="background-image: url('https://image.tmdb.org/t/p/original/jJKZaTBNenlFclQyjrnvzkRmvWE.jpg')">
+                    <div class="modal-header-content">
+                        <h1 class="modal-title">Inside Out</h1>
+                        <div class="movie-meta">
+                            <span>2015</span>
+                            <span>1h 35m</span>
+                            <span>Animation</span>
+                            <button class="add-to-list-btn" onclick="toggleMyList(13)">
+                                <span class="add-text">+ My List</span>
+                                <span class="remove-text">✓ Added</span>
+                            </button>
+                        </div>
+                        <a href="movies/inside-out" class="watch-now-btn">Watch Now</a>
+                    </div>
+                </div>
+    
+                <div class="modal-info">
+                    <img src="https://image.tmdb.org/t/p/original/2H1TmgdfNtsKlU9jKdeNyYL5y8T.jpg" class="modal-poster">
+                    <div class="modal-details">
+                        <p class="movie-info">
+                            When 11-year-old Riley moves to a new city, her Emotions team up to help her through the transition. Joy, Fear, Anger, Disgust and Sadness work together, but when Joy and Sadness get lost, they must journey through unfamiliar places to get back home.
+                        </p>
+                        <div>
+                            <p><strong>Director:</strong> Pete Docter</p>
+                            <p><strong>Cast:</strong> Amy Poehler, Phyllis Smith, Richard Kind, Bill Hader, Lewis Black, Mindy Kaling</p>
+                            <p><strong>Genre:</strong> Animation, Family, Adventure, Comedy</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+
+        <div class="modal" id="movieModal15">
+            <div class="modal-background"></div>
+            <div class="modal-container">
+                <button class="close-modal" onclick="closeModal(15)">✕</button>
+                
+                <div class="modal-header" style="background-image: url('https://image.tmdb.org/t/p/original/8uzlRk21FMcIOS9EjuoFnjF3ChZ.jpg')">
+                    <div class="modal-header-content">
+                        <h1 class="modal-title">Squid Game</h1>
+                        <div class="movie-meta">
+                            <span>2021</span>
+                            <span>16+</span>
+                            <span>Action & Adventure</span>
+                            <button class="add-to-list-btn" onclick="toggleMyList(15)">
+                                <span class="add-text">+ My List</span>
+                                <span class="remove-text">✓ Added</span>
+                            </button>
+                        </div>
+                        <a href="tv/squid-game/" class="watch-now-btn">Watch Now</a>
+                    </div>
+                </div>
+    
+                <div class="modal-info">
+                    <img src="https://image.tmdb.org/t/p/original/fRKEvCCELSZwPN5jw3VqvRDnLDZ.jpg" class="modal-poster">
+                    <div class="modal-details">
+                        <p class="movie-info">
+                            Hundreds of cash-strapped players accept a strange invitation to compete in children's games. Inside, a tempting prize awaits — with deadly high stakes.
+                        </p>
+                        <div>
+                            <p><strong>Director:</strong> Hwang Dong-hyuk</p>
+                            <p><strong>Cast:</strong> Wi Ha-jun, Lee Jung-jae, Park Hae-soo, HoYeon, Oh Young-soo, Heo Sung-tae, Kim Joo-ryoung, Anupam Tripathi</p>
+                            <p><strong>Genre:</strong> Action & Adventure, Mystery, Drama</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">Home</a>
+            <a href="directory.txt">Movie Directory</a>
+        </div>
+        <div class="copyright">
+            &copy; 2024 BroFlix. All rights reserved.
+        </div>
+        <div class="dmca-notice">
+            This website uses content from various third-party sources. We do not own or host any of the content displayed on this site. Any DMCA or other copyright-related complaints should be directed to the respective content owners.
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.backgroundColor = '#141414';
+            } else {
+                header.style.backgroundColor = 'transparent';
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const containers = document.querySelectorAll('.movie-row-container');
+            
+            containers.forEach(container => {
+                const row = container.querySelector('.movie-row');
+                const prevBtn = container.querySelector('.scroll-button.prev');
+                const nextBtn = container.querySelector('.scroll-button.next');
+                let scrollPosition = 0;
+                
+                function getScrollDistance() {
+                    const movieCard = row.querySelector('.movie-card');
+                    if (movieCard) {
+                        // Get the movie card width plus the gap (15px)
+                        return movieCard.offsetWidth + 15;
+                    }
+                    return 300; // fallback value
+                }
+
+                nextBtn.addEventListener('click', () => {
+                    const maxScroll = row.scrollWidth - container.clientWidth;
+                    const scrollDistance = getScrollDistance();
+                    scrollPosition = Math.min(scrollPosition + scrollDistance, maxScroll);
+                    row.style.transform = `translateX(-${scrollPosition}px)`;
+                    updateButtons();
+                });
+
+                prevBtn.addEventListener('click', () => {
+                    const scrollDistance = getScrollDistance();
+                    scrollPosition = Math.max(scrollPosition - scrollDistance, 0);
+                    row.style.transform = `translateX(-${scrollPosition}px)`;
+                    updateButtons();
+                });
+
+                function updateButtons() {
+                    prevBtn.classList.toggle('hidden', scrollPosition === 0);
+                    const maxScroll = row.scrollWidth - container.clientWidth;
+                    nextBtn.classList.toggle('hidden', scrollPosition >= maxScroll);
+                }
+
+                updateButtons();
+                window.addEventListener('resize', updateButtons);
+            });
+        });
+
+        function openModal(movieId) {
+            const modal = document.getElementById(`movieModal${movieId}`);
+            if (modal) {
+                modal.style.display = 'block';
+                document.body.classList.add('modal-open'); // Add class to disable scrolling
+                modal.offsetHeight; // Force reflow
+                modal.classList.add('active');
+
+                // Sync the "Add to List" button
+                const addToListBtn = modal.querySelector('.add-to-list-btn');
+                if (addToListBtn) {
+                    const isAdded = myList.includes(movieId);
+                    addToListBtn.classList.toggle('added', isAdded);
+                    updateButtonText(addToListBtn, isAdded);
+                }
+            }
+        }
+
+        function closeModal(movieId) {
+            const modal = document.getElementById(`movieModal${movieId}`);
+            if (modal) {
+                modal.classList.remove('active');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    document.body.classList.remove('modal-open'); // Remove class to re-enable scrolling
+                }, 300);
+            }
+        }
+
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal-background')) {
+                const modals = document.querySelectorAll('.modal');
+                modals.forEach(modal => {
+                    modal.classList.remove('active');
+                    setTimeout(() => {
+                        modal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }, 300);
+                });
+            }
+        };
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const modals = document.querySelectorAll('.modal');
+                modals.forEach(modal => {
+                    modal.classList.remove('active');
+                    setTimeout(() => {
+                        modal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }, 300);
+                });
+            }
+        });
+
+        //List
+
+        const myList = JSON.parse(localStorage.getItem('myList')) || [];
+
+        function toggleMyList(movieId) {
+            const index = myList.indexOf(movieId);
+            const btn = document.querySelector(`#movieModal${movieId} .add-to-list-btn`);
+            
+            if (index === -1) {
+                // Add to list
+                myList.push(movieId);
+                btn.classList.add('added');
+            } else {
+                // Remove from list
+                myList.splice(index, 1);
+                btn.classList.remove('added');
+            }
+            
+            localStorage.setItem('myList', JSON.stringify(myList));
+            updateMyListSection();
+        }
+
+        function updateMyListSection() {
+            const myListRow = document.getElementById('my-list-row');
+            myListRow.innerHTML = '';
+            
+            myList.forEach(movieId => {
+                const originalCard = document.querySelector(`[data-movie-id="${movieId}"]`);
+                if (originalCard) {
+                    const clone = originalCard.cloneNode(true);
+                    myListRow.appendChild(clone);
+                }
+            });
+
+            // Show/hide scroll buttons based on content
+            const container = document.querySelector('#my-list .movie-row-container');
+            const row = myListRow;
+            const prevBtn = container.querySelector('.scroll-button.prev');
+            const nextBtn = container.querySelector('.scroll-button.next');
+            
+            // Reset scroll position
+            let scrollPosition = 0;
+            row.style.transform = 'translateX(0)';
+
+            // Show/hide buttons based on content width
+            const hasOverflow = row.scrollWidth > container.clientWidth;
+            prevBtn.style.display = hasOverflow ? 'block' : 'none';
+            nextBtn.style.display = hasOverflow ? 'block' : 'none';
+
+            // Clear previous event listeners
+            prevBtn.replaceWith(prevBtn.cloneNode(true));
+            nextBtn.replaceWith(nextBtn.cloneNode(true));
+
+            // Get fresh references after replacing elements
+            const newPrevBtn = container.querySelector('.scroll-button.prev');
+            const newNextBtn = container.querySelector('.scroll-button.next');
+
+            // Add new event listeners
+            newNextBtn.addEventListener('click', () => {
+                const maxScroll = row.scrollWidth - container.clientWidth;
+                scrollPosition = Math.min(scrollPosition + 1000, maxScroll);
+                row.style.transform = `translateX(-${scrollPosition}px)`;
+                updateButtons();
+            });
+
+            newPrevBtn.addEventListener('click', () => {
+                scrollPosition = Math.max(scrollPosition - 1000, 0);
+                row.style.transform = `translateX(-${scrollPosition}px)`;
+                updateButtons();
+            });
+
+            function updateButtons() {
+                newPrevBtn.classList.toggle('hidden', scrollPosition === 0);
+                const maxScroll = row.scrollWidth - container.clientWidth;
+                newNextBtn.classList.toggle('hidden', scrollPosition >= maxScroll);
+            }
+
+            updateButtons();
+        }
+
+        // Initialize My List on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            updateMyListSection();
+            
+            // Update "Add to List" buttons state
+            myList.forEach(movieId => {
+                const btn = document.querySelector(`#movieModal${movieId} .add-to-list-btn`);
+                if (btn) btn.classList.add('added');
+            });
+        });
+
+        // Profile Management
+        let currentProfile = null;
+
+        function initializeProfiles() {
+            // Get profiles from localStorage or default to an empty array
+            let profiles = JSON.parse(localStorage.getItem('profiles')) || [];
+
+            if (profiles.length === 0) {
+                // If no profiles exist, show the overlay and disable scrolling
+                document.getElementById('profilesOverlay').style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            } else {
+                // If profiles exist, display the profile selection screen and disable scrolling
+                updateProfilesDisplay();
+                document.getElementById('profilesOverlay').style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function updateProfilesDisplay() {
+            const profiles = JSON.parse(localStorage.getItem('profiles')) || [];
+            const container = document.getElementById('profilesContainer');
+            
+            // Clear existing profiles
+            container.innerHTML = '';
+            
+            // Add profiles
+            profiles.forEach(profile => {
+                const profileElement = document.createElement('div');
+                profileElement.className = 'profile';
+                profileElement.setAttribute('data-profile-id', profile.id);
+
+                // Attach profile selection only if not editing
+                profileElement.onclick = !isEditingProfiles ? () => selectProfile(profile) : null;
+
+                // Include lock icon in the profile name if PIN is set
+                profileElement.innerHTML = `
+                    <img class="profile-avatar" src="${profile.avatar}" alt="${profile.name}">
+                    <span class="profile-name">
+                        ${profile.name}
+                        ${profile.pin ? '<span class="lock-icon">🔒</span>' : ''}
+                    </span>
+                `;
+
+                // If in edit mode, add the action buttons
+                if (isEditingProfiles) {
+                    const actionButtons = document.createElement('div');
+                    actionButtons.className = 'profile-actions';
+                    actionButtons.innerHTML = `
+                        <button class="set-pin-btn">${profile.pin ? 'Remove PIN' : 'Set PIN'}</button>
+                        <button class="delete-profile-btn">Delete</button>
+                    `;
+
+                    // Add event listeners for the buttons
+                    const pinBtn = actionButtons.querySelector('.set-pin-btn');
+                    const deleteBtn = actionButtons.querySelector('.delete-profile-btn');
+
+                    pinBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        showPinModal(profile.pin ? 'remove' : 'set', profile.id);
+                    };
+
+                    deleteBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        deleteProfile(profile.id);
+                    };
+
+                    profileElement.appendChild(actionButtons);
+                }
+
+                container.appendChild(profileElement);
+            });
+
+            // Add the "Add Profile" button back
+            const addProfileBtn = document.createElement('div');
+            addProfileBtn.className = 'add-profile-btn';
+            addProfileBtn.onclick = showProfileModal;
+            addProfileBtn.innerHTML = `
+                <div class="add-profile-icon">+</div>
+                <span class="profile-name">Add Profile</span>
+            `;
+            container.appendChild(addProfileBtn);
+        }
+
+        function showProfileModal() {
+            document.getElementById('profileModal').style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Disable scrolling
+        }
+
+        function hideProfileModal() {
+            document.getElementById('profileModal').style.display = 'none';
+            document.body.style.overflow = 'hidden'; // Keep scrolling disabled while profiles screen is active
+        }
+
+        function createProfile() {
+            const name = document.getElementById('profileName').value.trim();
+            if (name) {
+                const profiles = JSON.parse(localStorage.getItem('profiles')) || [];
+                const newProfile = {
+                    id: Date.now(),
+                    name: name,
+                    myList: []
+                };
+                profiles.push(newProfile);
+                localStorage.setItem('profiles', JSON.stringify(profiles));
+                hideProfileModal();
+                updateProfilesDisplay();
+            }
+        }
+
+        function selectProfile(profile) {
+            if (profile.pin) {
+                showPinModal('verify', profile.id);
+                const inputs = document.querySelectorAll('.pin-digit');
+                const okButton = document.getElementById('pinOkBtn');
+                
+                // Function to verify PIN
+                const verifyPin = () => {
+                    const enteredPin = getEnteredPin();
+                    if (enteredPin === profile.pin) {
+                        document.getElementById('pinModal').style.display = 'none';
+                        activateProfile(profile);
+                    } else {
+                        document.getElementById('pinMessage').textContent = 'Incorrect PIN';
+                        inputs.forEach(input => input.value = '');
+                        inputs[0].focus();
+                    }
+                };
+
+                // Automatic verification when all digits are entered
+                inputs[3].addEventListener('keyup', (e) => {
+                    if (e.key >= 0 && e.key <= 9) {
+                        verifyPin();
+                    }
+                });
+
+                // Manual verification when OK button is clicked
+                okButton.onclick = verifyPin;
+
+            } else {
+                activateProfile(profile);
+            }
+        }
+
+        function syncAddToListButtons() {
+            const allAddButtons = document.querySelectorAll('.add-to-list-btn');
+
+            allAddButtons.forEach(button => {
+                const movieCard = button.closest('[data-movie-id]');
+                if (movieCard) {
+                    const movieId = parseInt(movieCard.dataset.movieId, 10);
+                    const isAdded = myList.includes(movieId);
+
+                    button.classList.toggle('added', isAdded);
+                    updateButtonText(button, isAdded);
+                }
+            });
+        }
+
+        // Modify the toggleMyList function to work with profiles
+        function toggleMyList(movieId) {
+            if (!currentProfile) return; // Ensure a profile is selected
+
+            const index = myList.indexOf(movieId);
+            const btn = document.querySelector(`#movieModal${movieId} .add-to-list-btn`);
+            
+            if (index === -1) {
+                // Add to list
+                myList.push(movieId);
+                btn.classList.add('added');
+            } else {
+                // Remove from list
+                myList.splice(index, 1);
+                btn.classList.remove('added');
+            }
+
+            // Update button text
+            updateButtonText(btn, index === -1);
+
+            // Update the current profile's list in localStorage
+            const profiles = JSON.parse(localStorage.getItem('profiles')) || [];
+            const profileIndex = profiles.findIndex(p => p.id === currentProfile.id);
+            if (profileIndex !== -1) {
+                profiles[profileIndex].myList = myList;
+                localStorage.setItem('profiles', JSON.stringify(profiles));
+            }
+
+            updateMyListSection();
+        }
+
+        // Helper function to update button text based on the current state
+        function updateButtonText(button, isAdded) {
+            if (isAdded) {
+                button.querySelector('.add-text').style.display = 'none';
+                button.querySelector('.remove-text').style.display = 'inline';
+            } else {
+                button.querySelector('.add-text').style.display = 'inline';
+                button.querySelector('.remove-text').style.display = 'none';
+            }
+        }
+
+        // Initialize profiles when the page loads
+        document.addEventListener('DOMContentLoaded', initializeProfiles);
+
+        // List of avatar image URLs hosted on your server
+        const avatarImages = [
+            'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/EA2AE1BF47B714DEB1B9E050450AB5CF76FF3A7397D69F6B235DAB265123A071/scale?width=300&aspectRatio=1.00&format=png',
+            'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/2D1BACACD140222501ACB2F3F85A9E13A20469CD1E3EA4ACE2461851D15E888D/scale?width=300&aspectRatio=1.00&format=png',
+            'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/7AF80638BF5375882B663D6B7613A431D7E5513ECE97A6BB6512F6FD22EC69B4/scale?width=300&aspectRatio=1.00&format=png',
+            'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/830A63659C4DBEB64FE705A5BEB57823D0F883E321EEC787852D1B59C512013A/scale?width=300&aspectRatio=1.00&format=png',
+            'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/CD05FF92A733E897568A4DF2C05D279892E1F9D19082F3BB55DE277E5A4BDC0E/scale?width=300&aspectRatio=1.00&format=png',
+            'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/F73277B06EE997988A5DD3356F145DB4A0D9C82A7656796DB20B93B2D0DC7C79/scale?width=300&aspectRatio=1.00&format=png',
+            'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/751640804A7E00D762A3C4C9AEE66FB07C53178ACD62703964526177DC1E31FA/scale?width=300&aspectRatio=1.00&format=png',
+            'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/035666D95D62EEAAE70D11B1C5A1B84AAF97297C022F04C7F6399E4A55A2D068/scale?width=300&aspectRatio=1.00&format=png',
+            'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/0B1CBFF3F397FF5A8CA180BE6404FFBBF42C5C8408176330CC8AAF43FAB40A0C/scale?width=300&aspectRatio=1.00&format=png',
+            'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/4A993C424D26F3A4910ADA5551330DE74BED8F6D790363C9E06E0E9B7957D89C/scale?width=300&aspectRatio=1.00&format=png',
+            'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/C13051D2045FE177C84AE90DE864E20B24E2D9BAA02C425153D9269364562FF2/scale?width=300&aspectRatio=1.00&format=png',
+            'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/52821BBD6A36902BC6152E2F16A64DFF5AB6759844E06E6A3E4E2DFA59A3C9DE/scale?width=300&aspectRatio=1.00&format=png',
+            'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/9117E672F6814F42E026235154D3E438A05573222E559F161C14B89ED3A4F65B/scale?width=300&aspectRatio=1.00&format=png',
+            'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/FE49954B252C628EC809C68832E9137D5926C2085D58A6510F8BBA12933F7B7E/scale?width=300&aspectRatio=1.00&format=png',
+            'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/E86A0B41FAD9D1E71117EA587A8A3CCE2F90CAEE497C4D589C8D72D9D9EB440A/scale?width=300&aspectRatio=1.00&format=png',
+            'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/317859BB86DDB612979FF08CAE39011C7BE7A64D7D7ECB952489546AAA239194/scale?width=300&aspectRatio=1.00&format=png',
+            'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/A70AE42D2F721B8E2F293C57E4BC934607D3DD1305DC4EC4B19D48163C9B68BB/scale?width=300&aspectRatio=1.00&format=png',
+            'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/0E815741CEFA1CCBBCDFB5546DEC85092537C823100CDED57442D2A5649D263F/scale?width=300&aspectRatio=1.00&format=png',
+            'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/EA9705B1B18DDFC8DB720708A00151A38351F8459D2F0A0DAB5C9B081F79AEC1/scale?width=300&aspectRatio=1.00&format=png',
+            'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/BD2FA0F3965617FC515E3CEBD3AD51C00CCFFBF98F96448EFE46B82867FCE542/scale?width=300&aspectRatio=1.00&format=png',
+            'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/9B9BD428EFE9C3EA7DE723534401B0BD8BD2743647C39839F33F11D1DE0AD2A5/scale?width=300&aspectRatio=1.00&format=png',
+            'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/58A1E29AEE806CE56D4FB7E902435DD6303E562F23A7F8944DF37F51FF4BC020/scale?width=300&aspectRatio=1.00&format=png',
+            'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/ACE4F4BFED3DB6029C69C846D1572C3620FF908F0B7AFA387FF22EE65BC53C2E/scale?width=300&aspectRatio=1.00&format=png',
+            'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/9ED384B20C3A89FC2ED445FD89DFE0A8B7354381D670C8E18F619AF33902F712/scale?width=300&aspectRatio=1.00&format=png',
+            'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/2A53CC399D20855B67CD7CD3518B3E83C13AD9575340E4178B12CE68ED5BF218/scale?width=300&aspectRatio=1.00&format=png',
+            'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/6552F370F58E97EFE932B2A8386B441DDE3E5ED179B248C5BA45528B6278E297/scale?width=300&aspectRatio=1.00&format=png',
+            'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/CD8071968651B5EC425DC55F0BDFCE4877E7EFAFC9616E96F4243C38A940DBA8/scale?width=300&aspectRatio=1.00&format=png',
+            'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/BA2B0A0DBDAED26E6546A7533238E3F41F811DD1D3B20DF41992D856C64D9CDB/scale?width=300&aspectRatio=1.00&format=png',
+            'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/912D34995E37BB375284B59F1849F76B9369556D3807BDCADFA8589758169FBA/scale?width=300&aspectRatio=1.00&format=png'
+        ];
+
+        let selectedAvatar = null;
+
+        function showProfileModal() {
+            const modal = document.getElementById('profileModal');
+            const avatarGallery = document.getElementById('avatarGallery');
+            
+            // Generate avatar selection gallery
+            avatarGallery.innerHTML = avatarImages.map(imgUrl => `
+                <img src="${imgUrl}" class="avatar-option" 
+                    onclick="selectAvatar('${imgUrl}')">
+            `).join('');
+            
+            modal.style.display = 'block';
+        }
+
+        function selectAvatar(avatar) {
+            selectedAvatar = avatar;
+            // Highlight the selected avatar
+            document.querySelectorAll('.avatar-option').forEach(img => {
+                img.style.border = img.src === avatar ? '3px solid white' : 'none';
+            });
+        }
+
+        function createProfile() {
+            const name = document.getElementById('profileName').value.trim();
+            if (name && selectedAvatar) {
+                const profiles = JSON.parse(localStorage.getItem('profiles')) || [];
+                const newProfile = {
+                    id: Date.now(),
+                    name: name,
+                    avatar: selectedAvatar,
+                    myList: []
+                };
+                profiles.push(newProfile);
+                localStorage.setItem('profiles', JSON.stringify(profiles));
+                hideProfileModal();
+                updateProfilesDisplay();
+            } else {
+                alert('Please enter a name and select an avatar.');
+            }
+        }
+
+        //Edit Profiles
+
+        let isEditingProfiles = false;
+
+        function toggleEditProfiles() {
+            const editBtn = document.getElementById('editProfilesBtn');
+            isEditingProfiles = !isEditingProfiles;
+
+            if (isEditingProfiles) {
+                editBtn.textContent = 'Done';
+                enableProfileEditing();
+            } else {
+                editBtn.textContent = 'Edit Profiles';
+                disableProfileEditing();
+            }
+        }
+
+        function deleteProfile(profileId) {
+            let profiles = JSON.parse(localStorage.getItem('profiles')) || [];
+            profiles = profiles.filter(profile => profile.id !== profileId);
+            localStorage.setItem('profiles', JSON.stringify(profiles));
+            updateProfilesDisplay();
+        }
+
+        function enableProfileEditing() {
+            const profiles = JSON.parse(localStorage.getItem('profiles')) || [];
+            const container = document.getElementById('profilesContainer');
+            
+            container.innerHTML = '';
+            
+            profiles.forEach(profile => {
+                const profileElement = document.createElement('div');
+                profileElement.className = 'profile';
+                profileElement.setAttribute('data-profile-id', profile.id);
+                profileElement.setAttribute('data-editing', 'true');
+                
+                profileElement.innerHTML = `
+                    <img class="profile-avatar" src="${profile.avatar}" alt="${profile.name}">
+                    <span class="profile-name">
+                        ${profile.name}
+                        ${profile.pin ? '<span class="lock-icon">🔒</span>' : ''}
+                    </span>
+                    <div class="profile-actions">
+                        <button class="set-pin-btn">${profile.pin ? 'Remove PIN' : 'Set PIN'}</button>
+                        <button class="delete-profile-btn">Delete</button>
+                    </div>
+                `;
+
+                const pinBtn = profileElement.querySelector('.set-pin-btn');
+                const deleteBtn = profileElement.querySelector('.delete-profile-btn');
+
+                pinBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    showPinModal(profile.pin ? 'remove' : 'set', profile.id);
+                };
+
+                deleteBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    deleteProfile(profile.id);
+                };
+
+                container.appendChild(profileElement);
+            });
+
+            // Add the "Add Profile" button
+            const addProfileBtn = document.createElement('div');
+            addProfileBtn.className = 'add-profile-btn';
+            addProfileBtn.onclick = showProfileModal;
+            addProfileBtn.innerHTML = `
+                <div class="add-profile-icon">+</div>
+                <span class="profile-name">Add Profile</span>
+            `;
+            container.appendChild(addProfileBtn);
+        }
+
+        function disableProfileEditing() {
+            updateProfilesDisplay();
+        }
+
+        function updateProfilesDisplay() {
+            const profiles = JSON.parse(localStorage.getItem('profiles')) || [];
+            const container = document.getElementById('profilesContainer');
+            
+            container.innerHTML = '';
+            
+            profiles.forEach(profile => {
+                const profileElement = document.createElement('div');
+                profileElement.className = 'profile';
+                profileElement.setAttribute('data-profile-id', profile.id);
+                profileElement.onclick = !isEditingProfiles ? () => selectProfile(profile) : null;
+
+                profileElement.innerHTML = `
+                    <img class="profile-avatar" src="${profile.avatar}" alt="${profile.name}">
+                    <span class="profile-name">${profile.name}</span>
+                `;
+
+                container.appendChild(profileElement);
+            });
+
+            // Add the "Add Profile" button
+            const addProfileBtn = document.createElement('div');
+            addProfileBtn.className = 'add-profile-btn';
+            addProfileBtn.onclick = showProfileModal;
+            addProfileBtn.innerHTML = `
+                <div class="add-profile-icon">+</div>
+                <span class="profile-name">Add Profile</span>
+            `;
+            container.appendChild(addProfileBtn);
+
+            if (isEditingProfiles) {
+                enableProfileEditing();
+            }
+        }
+
+        // 4-digit Pins
+
+        function showPinModal(action, profileId) {
+            const modal = document.getElementById('pinModal');
+            const title = document.getElementById('pinModalTitle');
+            const setPinBtn = document.getElementById('setPinBtn');
+            const removePinBtn = document.getElementById('removePinBtn');
+            const okBtn = document.getElementById('pinOkBtn');
+            const inputs = modal.querySelectorAll('.pin-digit');
+            const message = document.getElementById('pinMessage');
+
+            // Reset the modal
+            inputs.forEach(input => input.value = '');
+            message.textContent = '';
+            setPinBtn.style.display = 'none';
+            removePinBtn.style.display = 'none';
+            okBtn.style.display = 'none';
+
+            // Configure modal based on action
+            switch(action) {
+                case 'set':
+                    title.textContent = 'Set PIN';
+                    setPinBtn.style.display = 'block';
+                    setPinBtn.onclick = () => verifyAndSetPin(profileId);
+                    break;
+                case 'verify':
+                    title.textContent = 'Enter PIN';
+                    okBtn.style.display = 'block'; // Only show OK button for verification
+                    break;
+                case 'remove':
+                    title.textContent = 'Enter PIN to Remove';
+                    removePinBtn.style.display = 'block';
+                    removePinBtn.onclick = () => verifyAndRemovePin(profileId);
+                    break;
+            }
+
+            modal.style.display = 'block';
+            inputs[0].focus();
+
+            // Set up input handling
+            setupPinInputs(inputs);
+        }
+
+        function setupPinInputs(inputs) {
+            inputs.forEach((input, index) => {
+                input.addEventListener('keyup', (e) => {
+                    if (e.key >= 0 && e.key <= 9) {
+                        if (index < inputs.length - 1) {
+                            inputs[index + 1].focus();
+                        }
+                    } else if (e.key === 'Backspace') {
+                        if (index > 0) {
+                            inputs[index - 1].focus();
+                        }
+                    }
+                });
+            });
+        }
+
+        function getEnteredPin() {
+            const inputs = document.querySelectorAll('.pin-digit');
+            return Array.from(inputs).map(input => input.value).join('');
+        }
+
+        function verifyAndSetPin(profileId) {
+            const pin = getEnteredPin();
+            if (pin.length === 4) {
+                const profiles = JSON.parse(localStorage.getItem('profiles')) || [];
+                const profile = profiles.find(p => p.id === profileId);
+                if (profile) {
+                    profile.pin = pin;
+                    localStorage.setItem('profiles', JSON.stringify(profiles));
+                    document.getElementById('pinModal').style.display = 'none';
+                    updateProfilesDisplay();
+                }
+            } else {
+                document.getElementById('pinMessage').textContent = 'Please enter a 4-digit PIN';
+            }
+        }
+
+        function verifyAndRemovePin(profileId) {
+            const pin = getEnteredPin();
+            const profiles = JSON.parse(localStorage.getItem('profiles')) || [];
+            const profile = profiles.find(p => p.id === profileId);
+            
+            if (profile && profile.pin === pin) {
+                delete profile.pin;
+                localStorage.setItem('profiles', JSON.stringify(profiles));
+                document.getElementById('pinModal').style.display = 'none';
+                updateProfilesDisplay();
+            } else {
+                document.getElementById('pinMessage').textContent = 'Incorrect PIN';
+            }
+        }
+
+        // Modify your selectProfile function to check for PIN
+        function selectProfile(profile) {
+            if (profile.pin) {
+                showPinModal('verify', profile.id);
+                const inputs = document.querySelectorAll('.pin-digit');
+                const okBtn = document.getElementById('pinOkBtn');
+                
+                // Function to verify PIN
+                const handlePinVerification = () => {
+                    const enteredPin = getEnteredPin();
+                    if (enteredPin === profile.pin) {
+                        document.getElementById('pinModal').style.display = 'none';
+                        activateProfile(profile);
+                    } else {
+                        document.getElementById('pinMessage').textContent = 'Incorrect PIN';
+                        inputs.forEach(input => input.value = '');
+                        inputs[0].focus();
+                    }
+                };
+
+                // Automatic verification when all digits are entered
+                inputs[3].addEventListener('keyup', (e) => {
+                    if (e.key >= 0 && e.key <= 9) {
+                        handlePinVerification();
+                    }
+                });
+
+                // Manual verification when OK button is clicked
+                okBtn.onclick = handlePinVerification;
+
+            } else {
+                activateProfile(profile);
+            }
+        }
+
+        function activateProfile(profile) {
+            currentProfile = profile;
+            localStorage.setItem('lastProfile', JSON.stringify(profile));
+            document.getElementById('profilesOverlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
+            myList.length = 0;
+            myList.push(...(profile.myList || []));
+            updateMyListSection();
+            syncAddToListButtons();
+        }
+
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+            
+            // Optional: Animate burger menu
+            const burgerLines = document.querySelectorAll('.burger-menu div');
+            burgerLines[0].style.transform = navLinks.classList.contains('active') ? 
+                'rotate(-45deg) translate(-5px, 6px)' : '';
+            burgerLines[1].style.opacity = navLinks.classList.contains('active') ? '0' : '1';
+            burgerLines[2].style.transform = navLinks.classList.contains('active') ? 
+                'rotate(45deg) translate(-5px, -6px)' : '';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal-background')) {
+                const modals = document.querySelectorAll('.modal');
+                modals.forEach(modal => {
+                    modal.classList.remove('active');
+                    setTimeout(() => {
+                        modal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }, 300);
+                });
+            }
+        };
+    </script>
+</body>
+</html>
