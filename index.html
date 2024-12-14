@@ -885,6 +885,45 @@
                 display: none; /* Hide the movie logo */
             }
         }
+
+        .profile-menu {
+            position: relative;
+            margin-left: auto;
+        }
+
+        .profile-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            padding: 10px;
+            min-width: 200px;
+        }
+
+        .profile-menu:hover .profile-dropdown {
+            display: block;
+        }
+
+        .logout-btn {
+            width: 100%;
+            padding: 8px;
+            background: #e50914;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -938,6 +977,13 @@
                 <a href="#my-list">My List</a>
                 <a href="contact.html">Contact us</a>
                 <p style="color: #e50914; font-weight: bolder;">WEBSITE HAS BEEN REBRANDED | NEW LINK -> BROFLIX.PAGES.DEV</p>
+            </div>
+            <div class="profile-menu">
+                <img id="profileIcon" class="profile-icon" src="" alt="">
+                <div class="profile-dropdown">
+                    <div id="profilesList"></div>
+                    <button onclick="logout()" class="logout-btn">Sign Out</button>
+                </div>
             </div>
         </nav>
     </header>
@@ -1926,6 +1972,8 @@
         // Initialize My List on page load
         document.addEventListener('DOMContentLoaded', () => {
             updateMyListSection();
+            initializeProfiles();
+            initializeWithLastProfile();
             
             // Update "Add to List" buttons state
             myList.forEach(movieId => {
@@ -2459,13 +2507,14 @@
 
         function activateProfile(profile) {
             currentProfile = profile;
-            localStorage.setItem('lastProfile', JSON.stringify(profile));
+            setCookie('lastProfile', profile, 30); // Store for 30 days
             document.getElementById('profilesOverlay').style.display = 'none';
             document.body.style.overflow = 'auto';
             myList.length = 0;
             myList.push(...(profile.myList || []));
             updateMyListSection();
             syncAddToListButtons();
+            updateProfileIcon(profile); // Add profile icon
         }
 
         function toggleMenu() {
@@ -2494,6 +2543,65 @@
                 });
             }
         };
+
+        //LAST LOG IN FUNCTIONS
+
+        function setCookie(name, value, days) {
+            const expires = new Date();
+            expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+            document.cookie = `${name}=${JSON.stringify(value)};expires=${expires.toUTCString()};path=/`;
+        }
+
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for(let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0) {
+                    try {
+                        return JSON.parse(c.substring(nameEQ.length, c.length));
+                    } catch (e) {
+                        return null;
+                    }
+                }
+            }
+            return null;
+        }
+
+        function deleteCookie(name) {
+            document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/`;
+        }
+
+        function updateProfileIcon(profile) {
+            const profileIcon = document.getElementById('profileIcon');
+            profileIcon.src = profile.avatar;
+            profileIcon.alt = profile.name;
+        }
+
+        function logout() {
+            deleteCookie('lastProfile');
+            location.reload();
+        }
+
+        function initializeWithLastProfile() {
+            const lastProfile = getCookie('lastProfile');
+            if (lastProfile) {
+                const profiles = JSON.parse(localStorage.getItem('profiles')) || [];
+                const profile = profiles.find(p => p.id === lastProfile.id);
+                if (profile) {
+                    if (profile.pin) {
+                        showPinModal('verify', profile.id);
+                    } else {
+                        activateProfile(profile);
+                    }
+                } else {
+                    document.getElementById('profilesOverlay').style.display = 'flex';
+                }
+            } else {
+                document.getElementById('profilesOverlay').style.display = 'flex';
+            }
+        }
     </script>
 </body>
 </html>
