@@ -1987,14 +1987,12 @@
             // Get profiles from localStorage or default to an empty array
             let profiles = JSON.parse(localStorage.getItem('profiles')) || [];
 
-            // Only show profiles overlay
+            // Only show the profiles overlay
             document.getElementById('profilesOverlay').style.display = 'flex';
             document.body.style.overflow = 'hidden';
             
-            // Update the profiles display if there are any profiles
-            if (profiles.length > 0) {
-                updateProfilesDisplay();
-            }
+            // Update the profiles display
+            updateProfilesDisplay();
         }
 
         function updateProfilesDisplay() {
@@ -2004,62 +2002,34 @@
             // Clear existing profiles
             container.innerHTML = '';
             
-            // Add profiles
+            // Add existing profiles
             profiles.forEach(profile => {
                 const profileElement = document.createElement('div');
                 profileElement.className = 'profile';
                 profileElement.setAttribute('data-profile-id', profile.id);
-
-                // Attach profile selection only if not editing
                 profileElement.onclick = !isEditingProfiles ? () => selectProfile(profile) : null;
 
-                // Include lock icon in the profile name if PIN is set
                 profileElement.innerHTML = `
                     <img class="profile-avatar" src="${profile.avatar}" alt="${profile.name}">
-                    <span class="profile-name">
-                        ${profile.name}
-                        ${profile.pin ? '<span class="lock-icon">🔒</span>' : ''}
-                    </span>
+                    <span class="profile-name">${profile.name}</span>
                 `;
-
-                // If in edit mode, add the action buttons
-                if (isEditingProfiles) {
-                    const actionButtons = document.createElement('div');
-                    actionButtons.className = 'profile-actions';
-                    actionButtons.innerHTML = `
-                        <button class="set-pin-btn">${profile.pin ? 'Remove PIN' : 'Set PIN'}</button>
-                        <button class="delete-profile-btn">Delete</button>
-                    `;
-
-                    // Add event listeners for the buttons
-                    const pinBtn = actionButtons.querySelector('.set-pin-btn');
-                    const deleteBtn = actionButtons.querySelector('.delete-profile-btn');
-
-                    pinBtn.onclick = (e) => {
-                        e.stopPropagation();
-                        showPinModal(profile.pin ? 'remove' : 'set', profile.id);
-                    };
-
-                    deleteBtn.onclick = (e) => {
-                        e.stopPropagation();
-                        deleteProfile(profile.id);
-                    };
-
-                    profileElement.appendChild(actionButtons);
-                }
 
                 container.appendChild(profileElement);
             });
 
-            // Add the "Add Profile" button back
+            // Add the "Add Profile" button
             const addProfileBtn = document.createElement('div');
             addProfileBtn.className = 'add-profile-btn';
-            addProfileBtn.onclick = showProfileModal;
+            addProfileBtn.onclick = () => showProfileModal(); // Use function call instead of direct reference
             addProfileBtn.innerHTML = `
                 <div class="add-profile-icon">+</div>
                 <span class="profile-name">Add Profile</span>
             `;
             container.appendChild(addProfileBtn);
+
+            if (isEditingProfiles) {
+                enableProfileEditing();
+            }
         }
 
         function showProfileModal() {
