@@ -1987,11 +1987,11 @@
             // Get profiles from localStorage or default to an empty array
             let profiles = JSON.parse(localStorage.getItem('profiles')) || [];
 
-            // Only show profiles overlay, never the create profile modal automatically
+            // Only show profiles overlay
             document.getElementById('profilesOverlay').style.display = 'flex';
             document.body.style.overflow = 'hidden';
             
-            // Update the profiles display
+            // Update the profiles display if there are any profiles
             if (profiles.length > 0) {
                 updateProfilesDisplay();
             }
