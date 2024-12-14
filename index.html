@@ -1972,8 +1972,6 @@
         // Initialize My List on page load
         document.addEventListener('DOMContentLoaded', () => {
             updateMyListSection();
-            initializeProfiles();
-            initializeWithLastProfile();
             
             // Update "Add to List" buttons state
             myList.forEach(movieId => {
@@ -2184,7 +2182,10 @@
         }
 
         // Initialize profiles when the page loads
-        document.addEventListener('DOMContentLoaded', initializeProfiles);
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeProfiles();
+            initializeWithLastProfile();
+        });
 
         // List of avatar image URLs hosted on your server
         const avatarImages = [
