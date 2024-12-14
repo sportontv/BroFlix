@@ -2591,11 +2591,8 @@
                 const profiles = JSON.parse(localStorage.getItem('profiles')) || [];
                 const profile = profiles.find(p => p.id === lastProfile.id);
                 if (profile) {
-                    if (profile.pin) {
-                        showPinModal('verify', profile.id);
-                    } else {
-                        activateProfile(profile);
-                    }
+                    // Directly activate the profile without PIN verification
+                    activateProfile(profile);
                 } else {
                     document.getElementById('profilesOverlay').style.display = 'flex';
                 }
