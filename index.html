@@ -1987,15 +1987,13 @@
             // Get profiles from localStorage or default to an empty array
             let profiles = JSON.parse(localStorage.getItem('profiles')) || [];
 
-            if (profiles.length === 0) {
-                // If no profiles exist, show the overlay and disable scrolling
-                document.getElementById('profilesOverlay').style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-            } else {
-                // If profiles exist, display the profile selection screen and disable scrolling
+            // Only show profiles overlay, never the create profile modal automatically
+            document.getElementById('profilesOverlay').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            
+            // Update the profiles display
+            if (profiles.length > 0) {
                 updateProfilesDisplay();
-                document.getElementById('profilesOverlay').style.display = 'flex';
-                document.body.style.overflow = 'hidden';
             }
         }
 
