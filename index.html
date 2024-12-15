@@ -926,44 +926,49 @@
         }
 
         .search-container {
-            position: relative;
-            margin-right: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #141414;
+            z-index: 2001;
+            display: none;
+            padding: 20px;
+        }
+
+        .search-container.active {
+            display: block;
         }
 
         .search-box {
-            background: rgba(0, 0, 0, 0.75);
-            border: 1px solid rgba(255, 255, 255, 0.85);
+            width: 100%;
+            max-width: 720px;
+            margin: 60px auto 20px;
+            padding: 12px 40px 12px 12px;
+            font-size: 24px;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.5);
             color: white;
-            padding: 8px 40px 8px 12px;
-            border-radius: 4px;
-            width: 250px;
-            font-size: 14px;
-            transition: width 0.3s;
+            transition: border-color 0.3s;
         }
 
         .search-box:focus {
             outline: none;
-            border-color: white;
-            width: 300px;
+            border-bottom-color: white;
         }
 
         .search-results {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 4px;
-            margin-top: 4px;
-            max-height: 400px;
+            max-width: 720px;
+            margin: 0 auto;
+            max-height: calc(100% - 120px);
             overflow-y: auto;
-            z-index: 1000;
-            display: none;
+            padding: 20px 0;
         }
 
         .search-result-item {
-            padding: 10px;
+            padding: 15px;
             display: flex;
             align-items: center;
             cursor: pointer;
@@ -975,76 +980,41 @@
         }
 
         .search-result-item img {
-            width: 45px;
-            height: 65px;
+            width: 100px;
+            height: 150px;
             object-fit: cover;
-            margin-right: 10px;
+            margin-right: 20px;
         }
 
         .search-result-item .title {
             color: white;
-            font-size: 14px;
+            font-size: 18px;
         }
 
         .no-results {
-            padding: 15px;
+            padding: 30px;
             color: #999;
             text-align: center;
+            font-size: 18px;
         }
 
-        @media screen and (max-width: 768px) {
-            .search-container {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: #141414;
-                z-index: 2001;
-                display: none;
-                padding: 20px;
-            }
-
-            .search-container.active {
-                display: block;
-            }
-
-            .search-box {
-                width: 100%;
-                padding: 12px 40px 12px 12px;
-                font-size: 16px;
-                margin-bottom: 20px;
-            }
-
-            .search-results {
-                position: static;
-                max-height: calc(100% - 60px);
-                overflow-y: auto;
-            }
-
-            .search-icon {
-                cursor: pointer;
-                color: white;
-                font-size: 24px;
-                margin-right: 20px;
-            }
-
-            .close-search {
-                position: absolute;
-                top: 20px;
-                right: 20px;
-                color: white;
-                background: none;
-                border: none;
-                font-size: 24px;
-                cursor: pointer;
-            }
+        .close-search {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            background: none;
+            border: none;
+            font-size: 32px;
+            cursor: pointer;
+            padding: 10px;
         }
 
-        @media screen and (min-width: 769px) {
-            .search-icon, .close-search {
-                display: none;
-            }
+        .search-icon {
+            cursor: pointer;
+            color: white;
+            font-size: 24px;
+            margin-right: 20px;
         }
     </style>
 </head>
@@ -1099,10 +1069,10 @@
             <div class="search-icon" onclick="openMobileSearch()">🔍</div>
 
             <div class="search-container">
-                <input type="text" class="search-box" placeholder="Search titles... (exact name as TMDB)">
+                <input type="text" class="search-box" placeholder="Search titles...">
                 <button class="close-search" onclick="closeMobileSearch()">✕</button>
                 <div class="search-results"></div>
-            </div>           
+            </div>                    
             <div class="profile-menu">
                 <img id="profileIcon" class="profile-icon" src="" alt="">
                 <div class="profile-dropdown">
@@ -2814,12 +2784,10 @@
         });
 
         function openMobileSearch() {
-            if (window.innerWidth <= 768) {
-                const searchContainer = document.querySelector('.search-container');
-                searchContainer.classList.add('active');
-                document.querySelector('.search-box').focus();
-                document.body.style.overflow = 'hidden';
-            }
+            const searchContainer = document.querySelector('.search-container');
+            searchContainer.classList.add('active');
+            document.querySelector('.search-box').focus();
+            document.body.style.overflow = 'hidden';
         }
 
         function closeMobileSearch() {
@@ -2829,6 +2797,16 @@
             document.querySelector('.search-results').style.display = 'none';
             document.body.style.overflow = '';
         }
+
+        // Add escape key handler
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const searchContainer = document.querySelector('.search-container');
+                if (searchContainer.classList.contains('active')) {
+                    closeMobileSearch();
+                }
+            }
+        });
 
         // Add this to your existing DOMContentLoaded event listener
         document.addEventListener('DOMContentLoaded', () => {
