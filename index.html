@@ -924,6 +924,73 @@
             cursor: pointer;
             margin-top: 10px;
         }
+
+        .search-container {
+            position: relative;
+            margin-right: 20px;
+        }
+
+        .search-box {
+            background: rgba(0, 0, 0, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.85);
+            color: white;
+            padding: 8px 40px 8px 12px;
+            border-radius: 4px;
+            width: 250px;
+            font-size: 14px;
+            transition: width 0.3s;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: white;
+            width: 300px;
+        }
+
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+            margin-top: 4px;
+            max-height: 400px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: none;
+        }
+
+        .search-result-item {
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .search-result-item:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .search-result-item img {
+            width: 45px;
+            height: 65px;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        .search-result-item .title {
+            color: white;
+            font-size: 14px;
+        }
+
+        .no-results {
+            padding: 15px;
+            color: #999;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -974,6 +1041,10 @@
                 <a href="contact.html">Contact us</a>
                 <p style="color: #e50914; font-weight: bolder;">WEBSITE HAS BEEN REBRANDED | NEW LINK -> BROFLIX.PAGES.DEV</p>
             </div>
+            <div class="search-container">
+                <input type="text" class="search-box" placeholder="Search titles...">
+                <div class="search-results"></div>
+            </div>            
             <div class="profile-menu">
                 <img id="profileIcon" class="profile-icon" src="" alt="">
                 <div class="profile-dropdown">
@@ -2609,6 +2680,55 @@
                 document.getElementById('profilesOverlay').style.display = 'flex';
             }
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchBox = document.querySelector('.search-box');
+            const searchResults = document.querySelector('.search-results');
+            
+            const movies = [
+                { id: 1, title: "Inside Out 2", poster: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg" },
+                { id: 2, title: "Titanic", poster: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg" },
+                { id: 3, title: "Cars", poster: "https://image.tmdb.org/t/p/original/u4G8EkiIBZYx0wEg2xDlXZigTOZ.jpg" },
+                // Add more movies as needed
+            ];
+
+            searchBox.addEventListener('input', () => {
+                const searchTerm = searchBox.value.toLowerCase().trim();
+                
+                if (searchTerm === '') {
+                    searchResults.style.display = 'none';
+                    return;
+                }
+
+                const filteredMovies = movies.filter(movie => 
+                    movie.title.toLowerCase().includes(searchTerm)
+                );
+
+                if (filteredMovies.length > 0) {
+                    searchResults.innerHTML = filteredMovies.map(movie => `
+                        <div class="search-result-item" onclick="openModal(${movie.id})">
+                            <img src="${movie.poster}" alt="${movie.title}">
+                            <span class="title">${movie.title}</span>
+                        </div>
+                    `).join('');
+                } else {
+                    searchResults.innerHTML = `
+                        <div class="no-results">
+                            We don't have that unfortunately, but you can request it in the contact page!
+                        </div>
+                    `;
+                }
+
+                searchResults.style.display = 'block';
+            });
+
+            // Close search results when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!searchBox.contains(e.target) && !searchResults.contains(e.target)) {
+                    searchResults.style.display = 'none';
+                }
+            });
+        });
     </script>
 </body>
 </html>
