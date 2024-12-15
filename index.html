@@ -991,6 +991,61 @@
             color: #999;
             text-align: center;
         }
+
+        @media screen and (max-width: 768px) {
+            .search-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: #141414;
+                z-index: 2001;
+                display: none;
+                padding: 20px;
+            }
+
+            .search-container.active {
+                display: block;
+            }
+
+            .search-box {
+                width: 100%;
+                padding: 12px 40px 12px 12px;
+                font-size: 16px;
+                margin-bottom: 20px;
+            }
+
+            .search-results {
+                position: static;
+                max-height: calc(100% - 60px);
+                overflow-y: auto;
+            }
+
+            .search-icon {
+                cursor: pointer;
+                color: white;
+                font-size: 24px;
+                margin-right: 20px;
+            }
+
+            .close-search {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                color: white;
+                background: none;
+                border: none;
+                font-size: 24px;
+                cursor: pointer;
+            }
+        }
+
+        @media screen and (min-width: 769px) {
+            .search-icon, .close-search {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1041,10 +1096,13 @@
                 <a href="contact.html">Contact us</a>
                 <p style="color: #e50914; font-weight: bolder;">WEBSITE HAS BEEN REBRANDED | NEW LINK -> BROFLIX.PAGES.DEV</p>
             </div>
+            <div class="search-icon" onclick="openMobileSearch()">🔍</div>
+
             <div class="search-container">
                 <input type="text" class="search-box" placeholder="Search titles...">
+                <button class="close-search" onclick="closeMobileSearch()">✕</button>
                 <div class="search-results"></div>
-            </div>            
+            </div>           
             <div class="profile-menu">
                 <img id="profileIcon" class="profile-icon" src="" alt="">
                 <div class="profile-dropdown">
@@ -2751,6 +2809,35 @@
             document.addEventListener('click', (e) => {
                 if (!searchBox.contains(e.target) && !searchResults.contains(e.target)) {
                     searchResults.style.display = 'none';
+                }
+            });
+        });
+
+        function openMobileSearch() {
+            if (window.innerWidth <= 768) {
+                const searchContainer = document.querySelector('.search-container');
+                searchContainer.classList.add('active');
+                document.querySelector('.search-box').focus();
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeMobileSearch() {
+            const searchContainer = document.querySelector('.search-container');
+            searchContainer.classList.remove('active');
+            document.querySelector('.search-box').value = '';
+            document.querySelector('.search-results').style.display = 'none';
+            document.body.style.overflow = '';
+        }
+
+        // Add this to your existing DOMContentLoaded event listener
+        document.addEventListener('DOMContentLoaded', () => {
+            // ... existing code ...
+
+            // Handle back button press to close search on mobile
+            window.addEventListener('popstate', () => {
+                if (document.querySelector('.search-container').classList.contains('active')) {
+                    closeMobileSearch();
                 }
             });
         });
