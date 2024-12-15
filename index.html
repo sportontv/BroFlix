@@ -2589,13 +2589,22 @@
         function activateProfile(profile) {
             currentProfile = profile;
             setCookie('lastProfile', profile, 30); // Store for 30 days
+            
+            // Hide the profiles overlay
             document.getElementById('profilesOverlay').style.display = 'none';
-            document.body.style.overflow = 'auto';
+            
+            // Reset body overflow and remove any fixed positioning
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
+            document.body.style.height = '';
+            
+            // Update the my list
             myList.length = 0;
             myList.push(...(profile.myList || []));
             updateMyListSection();
             syncAddToListButtons();
-            updateProfileIcon(profile); // Add profile icon
+            updateProfileIcon(profile);
         }
 
         function toggleMenu() {
@@ -2689,7 +2698,7 @@
                 { id: 1, title: "Inside Out 2", poster: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg" },
                 { id: 2, title: "Titanic", poster: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/9xjZS2rlVxm8SFx8kPC3aIGCOYQ.jpg" },
                 { id: 3, title: "Cars", poster: "https://image.tmdb.org/t/p/original/u4G8EkiIBZYx0wEg2xDlXZigTOZ.jpg" },
-                // Add more movies as needed
+                { id: 3, title: "Cars", poster: "https://image.tmdb.org/t/p/original/u4G8EkiIBZYx0wEg2xDlXZigTOZ.jpg" },
             ];
 
             searchBox.addEventListener('input', () => {
