@@ -2146,12 +2146,17 @@
 
         function showProfileModal() {
             document.getElementById('profileModal').style.display = 'block';
-            document.body.style.overflow = 'hidden'; // Disable scrolling
+            document.body.style.overflow = 'hidden';
         }
 
         function hideProfileModal() {
             document.getElementById('profileModal').style.display = 'none';
-            document.body.style.overflow = 'hidden'; // Keep scrolling disabled while profiles screen is active
+            // Only keep overflow hidden if the profiles overlay is still visible
+            if (document.getElementById('profilesOverlay').style.display === 'flex') {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
         }
 
         function createProfile() {
