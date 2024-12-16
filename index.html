@@ -31,6 +31,18 @@
         nav {
             display: flex;
             align-items: center;
+            justify-content: space-between; /* This will help separate the elements */
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px; /* Space between search icon and profile */
         }
 
         .logo {
@@ -888,7 +900,8 @@
 
         .profile-menu {
             position: relative;
-            margin-left: auto;
+            display: flex;
+            align-items: center; /* This helps align items vertically */
         }
 
         .profile-icon {
@@ -1011,10 +1024,17 @@
         }
 
         .search-icon {
+            width: 20px; /* Adjust size as needed */
+            height: 20px;
+            opacity: 0.7;
             cursor: pointer;
-            color: white;
-            font-size: 24px;
-            margin-right: 20px;
+            transition: opacity 0.2s;
+            margin-right: 15px;
+            filter: invert(1); /* Makes the icon white */
+        }
+
+        .search-icon:hover {
+            opacity: 1;
         }
     </style>
 </head>
@@ -1054,32 +1074,29 @@
     
     <header>
         <nav>
-            <a href="index.html" class="logo">BroFlix</a>
-            <div class="burger-menu" onclick="toggleMenu()">
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-            <div class="nav-links">
-                <a href="#coming">Coming Soon</a>
-                <a href="#my-list">My List</a>
-                <a href="contact.html">Contact us</a>
-                <p style="color: #e50914; font-weight: bolder;">WEBSITE HAS BEEN REBRANDED | NEW LINK -> BROFLIX.PAGES.DEV</p>
-            </div>
-            <div class="search-icon" onclick="openMobileSearch()">🔍</div>
-
-            <div class="search-container">
-                <input type="text" class="search-box" placeholder="Search titles... (exact name as TMDB)">
-                <button class="close-search" onclick="closeMobileSearch()">✕</button>
-                <div class="search-results"></div>
-            </div>                    
-            <div class="profile-menu">
-                <img id="profileIcon" class="profile-icon" src="" alt="">
-                <div class="profile-dropdown">
-                    <div id="profilesList"></div>
-                    <button onclick="logout()" class="logout-btn">Sign Out</button>
+            <div class="nav-left">
+                <a href="index.html" class="logo">BroFlix</a>
+                <div class="burger-menu" onclick="toggleMenu()">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="nav-links">
+                    <a href="#coming">Coming Soon</a>
+                    <a href="#my-list">My List</a>
+                    <a href="contact.html">Contact us</a>
                 </div>
             </div>
+            <div class="nav-right">
+                <img src="search.png" class="search-icon" onclick="openMobileSearch()" alt="Search">
+                <div class="profile-menu">
+                    <img id="profileIcon" class="profile-icon" src="" alt="">
+                    <div class="profile-dropdown">
+                        <div id="profilesList"></div>
+                        <button onclick="logout()" class="logout-btn">Sign Out</button>
+                    </div>
+                </div>
+            </div>            
         </nav>
     </header>
 
