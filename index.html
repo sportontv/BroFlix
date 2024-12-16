@@ -2820,7 +2820,7 @@
 
                 if (filteredMovies.length > 0) {
                     searchResults.innerHTML = filteredMovies.map(movie => `
-                        <div class="search-result-item" onclick="openModal(${movie.id})">
+                        <div class="search-result-item" onclick="handleSearchResultClick(${movie.id})">
                             <img src="${movie.poster}" alt="${movie.title}">
                             <span class="title">${movie.title}</span>
                         </div>
@@ -2835,6 +2835,13 @@
 
                 searchResults.style.display = 'block';
             });
+
+            function handleSearchResultClick(movieId) {
+                closeMobileSearch(); // Close the search screen first
+                setTimeout(() => {
+                    openModal(movieId); // Open the movie modal after a brief delay
+                }, 100);
+            }
 
             // Close search results when clicking outside
             document.addEventListener('click', (e) => {
