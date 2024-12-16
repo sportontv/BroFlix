@@ -2836,13 +2836,6 @@
                 searchResults.style.display = 'block';
             });
 
-            function handleSearchResultClick(movieId) {
-                closeMobileSearch(); // Close the search screen first
-                setTimeout(() => {
-                    openModal(movieId); // Open the movie modal after a brief delay
-                }, 100);
-            }
-
             // Close search results when clicking outside
             document.addEventListener('click', (e) => {
                 if (!searchBox.contains(e.target) && !searchResults.contains(e.target)) {
@@ -2850,6 +2843,18 @@
                 }
             });
         });
+
+        function handleSearchResultClick(movieId) {
+            const searchContainer = document.querySelector('.search-container');
+            searchContainer.classList.remove('active');
+            document.querySelector('.search-box').value = '';
+            document.querySelector('.search-results').style.display = 'none';
+            document.body.style.overflow = '';
+            
+            setTimeout(() => {
+                openModal(movieId);
+            }, 100);
+        }
 
         function openMobileSearch() {
             const searchContainer = document.querySelector('.search-container');
