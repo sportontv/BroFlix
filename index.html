@@ -2174,6 +2174,21 @@
 
         function updateMyListSection() {
             const myListRow = document.getElementById('my-list-row');
+            
+            if (myList.length === 0) {
+                // Display message when list is empty
+                myListRow.innerHTML = '<div style="width: 100%; text-align: center; color: #666; padding: 20px;">Nothing to show here yet...</div>';
+                
+                // Hide scroll buttons when empty
+                const container = document.querySelector('#my-list .movie-row-container');
+                const prevBtn = container.querySelector('.scroll-button.prev');
+                const nextBtn = container.querySelector('.scroll-button.next');
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+                return;
+            }
+            
+            // Rest of your existing code for when there are items in the list
             myListRow.innerHTML = '';
             
             myList.forEach(movieId => {
