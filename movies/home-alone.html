@@ -32,9 +32,29 @@
                 height: 90vh; /* Reduce height slightly to ensure controls are visible */
             }
         }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #ff0000;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+            z-index: 1000;
+            border: none;
+            cursor: pointer;
+        }
+
+        .back-button:hover {
+            background-color: #cc0000;
+        }
     </style>
 </head>
 <body>
+    <a href="/" class="back-button">Back to Home</a>
     <iframe allowfullscreen scrolling="no" src="https://vidsrc.dev/embed/movie/771"></iframe>
 </body>
 </html>
