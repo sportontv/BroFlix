@@ -1181,9 +1181,6 @@
         <div class="movie-row-container">
             <button class="scroll-button prev hidden"></button>
             <div class="movie-row" id="new-on-flicksflix">
-                <div class="movie-card" data-movie-id="8" onclick="openModal(8)">
-                    <img src="https://image.tmdb.org/t/p/original/jrKYozgUgF2umKaGx0ptEvCe2oz.jpg">
-                </div>
                 <div class="movie-card" data-movie-id="14" onclick="openModal(14)">
                     <img src="https://image.tmdb.org/t/p/original/a6gXQS8V0uoexozgd5FdROFyEtO.jpg">
                     <div class="ribbon">New Addition!</div>
@@ -1199,6 +1196,14 @@
                 <div class="movie-card" data-movie-id="16" onclick="openModal(16)">
                     <img src="https://image.tmdb.org/t/p/original/m1K7yNXS0HdGENFl7Z5beJ4NsPc.jpg">
                     <div class="ribbon">Now Available!</div>
+                </div>
+                <div class="movie-card" data-movie-id="21" onclick="openModal(21)">
+                    <img src="https://image.tmdb.org/t/p/original/4Nf77qGt4t5Fna6e2PcUtPZRlFA.jpg">
+                    <div class="ribbon">Now Available!</div>
+                </div>
+                <div class="movie-card" data-movie-id="19" onclick="openModal(19)">
+                    <img src="https://image.tmdb.org/t/p/original/gxwYr2jtBzMvp85lbCr9ooJMFPc.jpg">
+                    <div class="ribbon">New!</div>
                 </div>
             </div>
             <button class="scroll-button next"></button>
@@ -1253,6 +1258,10 @@
                     <img src="https://image.tmdb.org/t/p/original/it7ZrCZsKvDkvkGX5hiNDF4WjsT.jpg">
                     <div class="ribbon">Now Available!</div>
                 </div>
+                <div class="movie-card" data-movie-id="21" onclick="openModal(21)">
+                    <img src="https://image.tmdb.org/t/p/original/4Nf77qGt4t5Fna6e2PcUtPZRlFA.jpg">
+                    <div class="ribbon">Now Available!</div>
+                </div>
             </div>
             <button class="scroll-button next"></button>
         </div>
@@ -1265,6 +1274,10 @@
             <div class="movie-row" id="christmas-spirit">
                 <div class="movie-card" data-movie-id="6" onclick="openModal(6)">
                     <img src="https://image.tmdb.org/t/p/original/rVhYYt1aBLGo5tyEMB25OULD1dF.jpg">
+                </div>
+                <div class="movie-card" data-movie-id="19" onclick="openModal(19)">
+                    <img src="https://image.tmdb.org/t/p/original/gxwYr2jtBzMvp85lbCr9ooJMFPc.jpg">
+                    <div class="ribbon">New!</div>
                 </div>
                 <div class="movie-card" data-movie-id="10" onclick="openModal(10)">
                     <img src="https://image.tmdb.org/t/p/original/bWBlql9EXgWrZO7WabsViwOiwok.jpg">
@@ -1339,10 +1352,6 @@
         <div class="movie-row-container">
             <button class="scroll-button prev hidden"></button>
             <div class="movie-row" id="coming-soon">
-                <div class="movie-card" data-movie-id="19" onclick="openModal(19)">
-                    <img src="https://image.tmdb.org/t/p/original/gxwYr2jtBzMvp85lbCr9ooJMFPc.jpg">
-                    <div class="ribbon">Available before 25th Dec.</div>
-                </div>
                 <div class="movie-card" data-movie-id="11" onclick="openModal(11)">
                     <img src="https://image.tmdb.org/t/p/original/y8emTndyl9OF9BnuGkLuJ7V2Ubk.jpg">
                     <div class="ribbon">Available Anytime Before 2025</div>
@@ -1358,10 +1367,6 @@
                 <div class="movie-card" data-movie-id="18" onclick="openModal(18)">
                     <img src="https://image.tmdb.org/t/p/original/gIWrwIlzGmdOn2X4MWTKGZOkmno.jpg">
                     <div class="ribbon">Available by 2025</div>
-                </div>
-                <div class="movie-card" data-movie-id="21" onclick="openModal(21)">
-                    <img src="https://image.tmdb.org/t/p/original/4Nf77qGt4t5Fna6e2PcUtPZRlFA.jpg">
-                    <div class="ribbon">Available soon</div>
                 </div>
                 <div class="movie-card" data-movie-id="23" onclick="openModal(23)">
                     <img src="https://image.tmdb.org/t/p/original/mFP1aLKpwo0Bkt7aD3FHcp537ft.jpg">
@@ -2002,6 +2007,7 @@
                         <div class="movie-meta">
                             <span>2019</span>
                             <span>PG</span>
+                            <span>1h 36m</span>
                             <span>Animation</span>
                             <button class="add-to-list-btn" onclick="toggleMyList(16)">
                                 <span class="add-text">+ My List</span>
@@ -2026,6 +2032,93 @@
                             <p><strong>Screenplay:</strong> Zach Lewis, Jim Mahoney</p>
                             <p><strong>Cast:</strong> Jason Schwartzman, J.K. Simmons, Rashida Jones, Joan Cusack, Norm Macdonald, Will Sasso</p>
                             <p><strong>Genre:</strong> Animation, Family, Adventure, Comedy, Fantasy</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+
+        <div class="modal" id="movieModal19">
+            <div class="modal-background"></div>
+            <div class="modal-container">
+                <button class="close-modal" onclick="closeModal(19)">✕</button>
+                
+                <div class="modal-header" style="background-image: url('https://image.tmdb.org/t/p/original/iTNS4nPPPnqGRdbnbSpnJLjg3pT.jpg')">
+                    <div class="modal-header-content">
+                        <h1 class="modal-title">Home Alone 2: Lost in New York</h1>
+                        <div class="movie-meta">
+                            <span>1992</span>
+                            <span>PG</span>
+                            <span>2h</span>
+                            <span>Comedy</span>
+                            <button class="add-to-list-btn" onclick="toggleMyList(19)">
+                                <span class="add-text">+ My List</span>
+                                <span class="remove-text">✓ Added</span>
+                            </button>
+                        </div>
+                        <a href="/movies/home-alone-2" class="watch-button">
+                            <img src="play.png" alt="Play">
+                            Watch Now
+                        </a>
+                    </div>
+                </div>
+    
+                <div class="modal-info">
+                    <img src="https://image.tmdb.org/t/p/original/uuitWHpJwxD1wruFl2nZHIb4UGN.jpg" class="modal-poster">
+                    <div class="modal-details">
+                        <p class="movie-info">
+                            Instead of flying to Florida with his folks, Kevin ends up alone in New York, where he gets a hotel room with his dad's credit card—despite problems from a clerk and meddling bellboy. But when Kevin runs into his old nemeses, the Wet Bandits, he's determined to foil their plans to rob a toy store on Christmas Eve.
+                        </p>
+                        <div>
+                            <p><strong>Director:</strong> Chris Columbus</p>
+                            <p><strong>Screenplay:</strong> John Hughes</p>
+                            <p><strong>Cast:</strong> Macaulay Culkin, Joe Pesci, Daniel Stern, Catherine O'Hara, John Heard, Brenda Fricker</p>
+                            <p><strong>Genre:</strong> Comedy, Family, Adventure</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+
+        <div class="modal" id="movieModal21">
+            <div class="modal-background"></div>
+            <div class="modal-container">
+                <button class="close-modal" onclick="closeModal(21)">✕</button>
+                
+                <div class="modal-header" style="background-image: url('https://image.tmdb.org/t/p/original/4wKEkyVHpAj3o2dChf0uEsv0BUi.jpg')">
+                    <div class="modal-header-content">
+                        <h1 class="modal-title">Smile 2</h1>
+                        <div class="movie-meta">
+                            <span>2024</span>
+                            <span>K-18</span>
+                            <span>2h 7m</span>
+                            <span>Horror</span>
+                            <button class="add-to-list-btn" onclick="toggleMyList(21)">
+                                <span class="add-text">+ My List</span>
+                                <span class="remove-text">✓ Added</span>
+                            </button>
+                        </div>
+                        <a href="/movies/smile-2" class="watch-button">
+                            <img src="play.png" alt="Play">
+                            Watch Now
+                        </a>
+                    </div>
+                </div>
+    
+                <div class="modal-info">
+                    <img src="https://image.tmdb.org/t/p/original/ht8Uv9QPv9y7K0RvUyJIaXOZTfd.jpg" class="modal-poster">
+                    <div class="modal-details">
+                        <p class="movie-info">
+                            About to embark on a new world tour, global pop sensation Skye Riley begins experiencing increasingly terrifying and inexplicable events. Overwhelmed by the escalating horrors and the pressures of fame, Skye is forced to face her dark past to regain control of her life before it spirals out of control.
+                        </p>
+                        <div>
+                            <p><strong>Director:</strong> Parker Finn</p>
+                            <p><strong>Cast:</strong> Naomi Scott, Rosemarie DeWitt, Lukas Gage, Miles Gutierrez-Riley</p>
+                            <p><strong>Genre:</strong> Horror, Mystery</p>
                         </div>
                     </div>
                 </div>
