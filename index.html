@@ -1181,6 +1181,10 @@
         <div class="movie-row-container">
             <button class="scroll-button prev hidden"></button>
             <div class="movie-row" id="new-on-flicksflix">
+                <div class="movie-card" data-movie-id="17" onclick="openModal(17)">
+                    <img src="https://image.tmdb.org/t/p/original/4yz5PvVNRW9IqfRywo9zZ9FCSA5.jpg">
+                    <div class="ribbon">Now Available!</div>
+                </div>
                 <div class="movie-card" data-movie-id="14" onclick="openModal(14)">
                     <img src="https://image.tmdb.org/t/p/original/a6gXQS8V0uoexozgd5FdROFyEtO.jpg">
                     <div class="ribbon">New Addition!</div>
@@ -1318,6 +1322,10 @@
                     <img src="https://image.tmdb.org/t/p/original/it7ZrCZsKvDkvkGX5hiNDF4WjsT.jpg">
                     <div class="ribbon">Now Available!</div>
                 </div>
+                <div class="movie-card" data-movie-id="17" onclick="openModal(17)">
+                    <img src="https://image.tmdb.org/t/p/original/4yz5PvVNRW9IqfRywo9zZ9FCSA5.jpg">
+                    <div class="ribbon">Now Available!</div>
+                </div>
             </div>
             <button class="scroll-button next"></button>
         </div>
@@ -1359,10 +1367,6 @@
                 <div class="movie-card" data-movie-id="20" onclick="openModal(20)">
                     <img src="https://image.tmdb.org/t/p/original/pgy1mO4cnnLKB4E31zY8VxGVTMW.jpg">
                     <div class="ribbon">Available between 1-10 of January</div>
-                </div>
-                <div class="movie-card" data-movie-id="17" onclick="openModal(17)">
-                    <img src="https://image.tmdb.org/t/p/original/4yz5PvVNRW9IqfRywo9zZ9FCSA5.jpg">
-                    <div class="ribbon">Available soon</div>
                 </div>
                 <div class="movie-card" data-movie-id="18" onclick="openModal(18)">
                     <img src="https://image.tmdb.org/t/p/original/gIWrwIlzGmdOn2X4MWTKGZOkmno.jpg">
@@ -2032,6 +2036,48 @@
                             <p><strong>Screenplay:</strong> Zach Lewis, Jim Mahoney</p>
                             <p><strong>Cast:</strong> Jason Schwartzman, J.K. Simmons, Rashida Jones, Joan Cusack, Norm Macdonald, Will Sasso</p>
                             <p><strong>Genre:</strong> Animation, Family, Adventure, Comedy, Fantasy</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+
+        <div class="modal" id="movieModal17">
+            <div class="modal-background"></div>
+            <div class="modal-container">
+                <button class="close-modal" onclick="closeModal(17)">✕</button>
+                
+                <div class="modal-header" style="background-image: url('https://image.tmdb.org/t/p/original/wSnVnhTyECsk27Hd8thO1nHOGSP.jpg')">
+                    <div class="modal-header-content">
+                        <h1 class="modal-title">Drake & Josh</h1>
+                        <div class="movie-meta">
+                            <span>2004-2007</span>
+                            <span>TV-G</span>
+                            <span>Comedy</span>
+                            <button class="add-to-list-btn" onclick="toggleMyList(17)">
+                                <span class="add-text">+ My List</span>
+                                <span class="remove-text">✓ Added</span>
+                            </button>
+                        </div>
+                        <a href="/tv/drakeandjosh" class="watch-button">
+                            <img src="play.png" alt="Play">
+                            Watch Now
+                        </a>
+                    </div>
+                </div>
+    
+                <div class="modal-info">
+                    <img src="https://image.tmdb.org/t/p/original/udCvGctktHvvf8w51XyTPfcmzDa.jpg" class="modal-poster">
+                    <div class="modal-details">
+                        <p class="movie-info">
+                            Fifteen-year-old Drake and Josh are schoolmates, but not close friends. Drake views Josh as weird and a bit of a goof. So, imagine Drake's shock when he finds out that this "goof" is about to become his new step-brother and roommate when his mother marries Josh's father. A spin off of The Amanda Show.
+                        </p>
+                        <div>
+                            <p><strong>Creator:</strong> Dan Schneider</p>
+                            <p><strong>Cast:</strong> Drake Bell, Josh Peck, Miranda Cosgrove, Jonathan Goldstein, Nancy Sullivan, Yvette Nicole Brown</p>
+                            <p><strong>Genre:</strong> Comedy</p>
                         </div>
                     </div>
                 </div>
@@ -3019,6 +3065,8 @@
                 { id: 13, title: "Inside Out", poster: "https://image.tmdb.org/t/p/original/2H1TmgdfNtsKlU9jKdeNyYL5y8T.jpg" },
                 { id: 14, title: "Formula 1: Drive To Survive", poster: "https://image.tmdb.org/t/p/original/bTvsFzYK4ZdbcAIPSEJ3i8uLHSh.jpg" },
                 { id: 15, title: "Squid Game", poster: "https://image.tmdb.org/t/p/original/fRKEvCCELSZwPN5jw3VqvRDnLDZ.jpg" },
+                { id: 16, title: "Klaus", poster: "https://image.tmdb.org/t/p/original/q125RHUDgR4gjwh1QkfYuJLYkL.jpg" },
+                { id: 17, title: "Drake & Josh", poster: "https://image.tmdb.org/t/p/original/udCvGctktHvvf8w51XyTPfcmzDa.jpg" },
                 { id: 19, title: "Home Alone 2: Lost in New York", poster: "https://image.tmdb.org/t/p/original/uuitWHpJwxD1wruFl2nZHIb4UGN.jpg" },
                 { id: 21, title: "Smile 2", poster: "https://image.tmdb.org/t/p/original/ht8Uv9QPv9y7K0RvUyJIaXOZTfd.jpg" },
                 { id: 24, title: "Dream Productions", poster: "https://image.tmdb.org/t/p/original/j9jz5wZlQoq65YuYPNauB72uvFJ.jpg" },
@@ -3112,6 +3160,6 @@
         });
     </script>
 
-    <div class="build-number">BroFlix Web App | Build Number 231224</div>
+    <div class="build-number">BroFlix Web App | Build Number 241224</div>
 </body>
 </html>
