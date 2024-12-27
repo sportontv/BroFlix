@@ -14,35 +14,25 @@
         html, body {
             height: 100%;
             background-color: #141414;
-            overflow-x: hidden;
         }
 
         .video-container {
             position: relative;
             width: 100%;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 60px 0; /* Add padding for the back button */
+            height: 100%;
         }
 
         iframe {
             width: 100%;
             height: 100%;
             border: none;
-            max-height: calc(100vh - 80px); /* Subtract padding */
         }
 
         @media screen and (max-width: 768px) {
             .video-container {
-                height: auto;
-                min-height: 100vh;
-            }
-
-            iframe {
-                height: calc(100vh - 80px);
-                max-height: none;
+                transform: scale(0.7); /* Shrink the container to show full width */
+                transform-origin: center center;
+                height: 100vh;
             }
         }
 
