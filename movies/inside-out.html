@@ -16,12 +16,6 @@
             background-color: #141414;
         }
 
-        .video-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-
         iframe {
             width: 100%;
             height: 100%;
@@ -29,10 +23,13 @@
         }
 
         @media screen and (max-width: 768px) {
-            .video-container {
-                transform: scale(0.7); /* Shrink the container to show full width */
-                transform-origin: center center;
+            html, body {
                 height: 100vh;
+                overflow: hidden;
+            }
+            
+            iframe {
+                height: 90vh; /* Reduce height slightly to ensure controls are visible */
             }
         }
 
@@ -58,8 +55,6 @@
 </head>
 <body>
     <a href="/" class="back-button">Back to Home</a>
-    <div class="video-container">
-        <iframe allowfullscreen scrolling="no" src="https://dropload.io/e/rzrhydqlj3vc"></iframe>
-    </div>
+    <iframe allowfullscreen scrolling="no" src="https://dropload.io/e/rzrhydqlj3vc"></iframe>
 </body>
 </html>
