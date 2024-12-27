@@ -20,29 +20,16 @@
             width: 100%;
             height: 100%;
             border: none;
-            max-width: 100vw; /* Ensures iframe doesn't exceed viewport width */
-            position: relative;
         }
 
         @media screen and (max-width: 768px) {
             html, body {
                 height: 100vh;
                 overflow: hidden;
-                width: 100%;
             }
             
             iframe {
                 height: 90vh; /* Reduce height slightly to ensure controls are visible */
-                width: 100vw;
-                max-width: 100%;
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                transform: scale(1); /* Ensures proper scaling */
-                -webkit-transform: scale(1);
-                -ms-transform: scale(1);
             }
         }
 
