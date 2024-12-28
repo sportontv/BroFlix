@@ -77,12 +77,6 @@
             margin-bottom: 10px;
         }
 
-        .episode-description {
-            font-size: 14px;
-            color: #999;
-            margin-bottom: 15px;
-        }
-
         .watch-button {
             display: inline-block;
             background-color: #e50914;
@@ -127,7 +121,6 @@
                 <img src="https://image.tmdb.org/t/p/original/ctNrx6OZSuatdVW1NidIi9bhrdH.jpg" class="episode-image">
                 <div class="episode-info">
                     <h3 class="episode-title">Episode 1: The Dream Team</h3>
-                    <p class="episode-description">Now that Riley is a teenager, dream director Paula needs to age up her glitter-filled productions.</p>
                     <a href="s1/e1" class="watch-button">Watch Now</a>
                 </div>
             </div>
@@ -136,7 +129,6 @@
                 <img src="https://image.tmdb.org/t/p/original/lypX5LerHWilGfCuHlgbkzLJN0u.jpg" class="episode-image">
                 <div class="episode-info">
                     <h3 class="episode-title">Episode 2: Out of Body</h3>
-                    <p class="episode-description">Paula and her new assistant director Xeni struggle while Janelle's debut dream is a huge hit.</p>
                     <a href="s1/e2" class="watch-button">Watch Now</a>
                 </div>
             </div>
@@ -145,7 +137,6 @@
                 <img src="https://image.tmdb.org/t/p/original/hAuLbhb50r2b7THRCWqP6AK6ABC.jpg" class="episode-image">
                 <div class="episode-info">
                     <h3 class="episode-title">Episode 3: Romance!</h3>
-                    <p class="episode-description">Paula and Xeni's production goes off the rails, leading to dangerous behavior when Riley sleepwalks.</p>
                     <a href="s1/e3" class="watch-button">Watch Now</a>
                 </div>
             </div>
@@ -154,7 +145,6 @@
                 <img src="https://image.tmdb.org/t/p/original/xaioy7HW4FKRGtRVVODWIiQC1LG.jpg" class="episode-image">
                 <div class="episode-info">
                     <h3 class="episode-title">Episode 4: A Night to Remember</h3>
-                    <p class="episode-description">Paula and Xeni team up to stop a nightmare, creating a new dream that may give Riley what she needs.</p>
                     <a href="s1/e4" class="watch-button">Watch Now</a>
                 </div>
             </div>
@@ -165,7 +155,6 @@
         function changeSeason() {
             const season = document.getElementById('seasonSelect').value;
             document.getElementById('season1').style.display = season === '1' ? 'grid' : 'none';
-            document.getElementById('season2').style.display = season === '2' ? 'grid' : 'none';
         }
     </script>
 </body>
