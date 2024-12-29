@@ -1,23 +1,23 @@
 1.
-Inside Out 2
+Inside Out 2 +
 
 2.
-Titanic (1997)
+Titanic (1997) +
 
 3.
-Cars (2006)
+Cars (2006) +
 
 4.
-Ratatouille
+Ratatouille +
 
 5.
-Ted
+Ted +
 
 6.
 The Christmas Chronicles
 
 7.
-Home Alone
+Home Alone +
 
 8.
 Avatar: The Last Airbender
@@ -35,13 +35,13 @@ Spongebob: The Movie
 The Nightmare Before Christmas
 
 13.
-Inside Out
+Inside Out +
 
 14.
 Formula 1: Drive To Survive
 
 15.
-Squid Game
+Squid Game +
 
 16.
 Klaus
@@ -53,7 +53,7 @@ Drake & Josh
 The Loud House
 
 19.
-Home Alone 2: Lost in New York
+Home Alone 2: Lost in New York +
 
 20.
 Moana 2
@@ -68,7 +68,7 @@ Breaking Bad
 Despicable Me 4
 
 24.
-Dream Productions
+Dream Productions +
 
 25.
 Moana
