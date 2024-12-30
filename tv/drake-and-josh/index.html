@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BroFlix</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #141414;
+            color: white;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #e50914;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .season-select {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        select {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .episodes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .episode-card {
+            background-color: #333;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .episode-card:hover {
+            transform: scale(1.05);
+        }
+
+        .episode-image {
+            width: 100%;
+            height: 169px;
+            object-fit: cover;
+        }
+
+        .episode-info {
+            padding: 15px;
+        }
+
+        .episode-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .watch-button {
+            display: inline-block;
+            background-color: #e50914;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .watch-button:hover {
+            background-color: #f40612;
+        }
+
+        @media (max-width: 768px) {
+            .episodes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .episode-card {
+                max-width: 100%;
+            }
+
+            body {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Squid Game</h1>
+        
+        <div class="season-select">
+            <select id="seasonSelect" onchange="changeSeason()">
+                <option value="1">Season 1</option>
+            </select>
+        </div>
+
+        <div class="episodes-grid" id="season1">
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/20dphoYQ2djFzqOlrlEOehKrZtv.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 1: Hug Me, Brother (Pilot)</h3>
+                    <a href="s1/e1" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/f6AYbLIQ6rpSirLPyYWTnwlhEyO.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 2: Dune Buggy</h3>
+                    <a href="s1/e2" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/aA82oPbxL9PhJ4yXNmNfRnA8Lan.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 3: Believe Me, Brother</h3>
+                    <a href="s1/e3" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/aunSWZraeDCGWaPfMx5WqCZuljG.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 4: Two Idiots and a Baby</h3>
+                    <a href="s1/e4" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/txrSmN00YxDHUp4w9ZwXJuxjwRz.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 5: First Crush</h3>
+                    <a href="s1/e5" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/cyvRJBk3cjmDeR81gHqrC8f6UJo.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 6: Grammy</h3>
+                    <a href="s1/e6" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+        <div class="episodes-grid" id="season2" style="display: none;">
+        </div>
+    </div>
+
+    <script>
+        function changeSeason() {
+            const season = document.getElementById('seasonSelect').value;
+            document.getElementById('season1').style.display = season === '1' ? 'grid' : 'none';
+            document.getElementById('season2').style.display = season === '2' ? 'grid' : 'none';
+        }
+    </script>
+</body>
+</html>
