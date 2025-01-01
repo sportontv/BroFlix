@@ -1211,6 +1211,10 @@
                     <img src="https://image.tmdb.org/t/p/original/gxwYr2jtBzMvp85lbCr9ooJMFPc.jpg">
                     <div class="ribbon">New!</div>
                 </div>
+                <div class="movie-card" data-movie-id="11" onclick="openModal(11)">
+                    <img src="https://image.tmdb.org/t/p/original/y8emTndyl9OF9BnuGkLuJ7V2Ubk.jpg">
+                    <div class="ribbon">Now Available!</div>
+                </div>
             </div>
             <button class="scroll-button next"></button>
         </div>
@@ -1246,6 +1250,10 @@
                 </div>
                 <div class="movie-card" data-movie-id="5" onclick="openModal(5)">
                     <img src="https://image.tmdb.org/t/p/original/cfBHNVv9pto26a4qnwJ5F0gq9jg.jpg">
+                </div>
+                <div class="movie-card" data-movie-id="11" onclick="openModal(11)">
+                    <img src="https://image.tmdb.org/t/p/original/y8emTndyl9OF9BnuGkLuJ7V2Ubk.jpg">
+                    <div class="ribbon">Now Available!</div>
                 </div>
                 <div class="movie-card" data-movie-id="9" onclick="openModal(9)">
                     <img src="https://image.tmdb.org/t/p/original/e8rNsJBrOsspbdC9TLbZtZm9npX.jpg">
@@ -1425,10 +1433,6 @@
         <div class="movie-row-container">
             <button class="scroll-button prev hidden"></button>
             <div class="movie-row" id="coming-soon">
-                <div class="movie-card" data-movie-id="11" onclick="openModal(11)">
-                    <img src="https://image.tmdb.org/t/p/original/y8emTndyl9OF9BnuGkLuJ7V2Ubk.jpg">
-                    <div class="ribbon">Available Anytime Before 2025</div>
-                </div>
                 <div class="movie-card" data-movie-id="25" onclick="openModal(25)">
                     <img src="https://image.tmdb.org/t/p/original/mtYxEUvcjrwzfzpJTGqziewyGR3.jpg">
                     <div class="ribbon">Coming Soon</div>
@@ -1918,6 +1922,49 @@
                         <p><strong>Screenplay:</strong> Matt Lieberman</p>
                         <p><strong>Cast:</strong> Kurt Russell, Goldie Hawn, Darby Camp, Julian Dennison, Judah Lewis</p>
                         <p><strong>Genre:</strong> Family, Fantasy, Adventure, Comedy</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+
+    <div class="modal" id="movieModal11">
+        <div class="modal-background"></div>
+        <div class="modal-container">
+            <button class="close-modal" onclick="closeModal(11)">✕</button>
+            
+            <div class="modal-header" style="background-image: url('https://image.tmdb.org/t/p/original/5qWtPhMLxY7cS1GkAvJZlPKgNPd.jpg')">
+                <div class="modal-header-content">
+                    <h1 class="modal-title">The Spongebob Squarepants Movie</h1>
+                    <div class="movie-meta">
+                        <span>2004</span>
+                        <span>1h 27m</span>
+                        <span>Family</span>
+                        <button class="add-to-list-btn" onclick="toggleMyList(11)">
+                            <span class="add-text">+ My List</span>
+                            <span class="remove-text">✓ Added</span>
+                        </button>
+                    </div>
+                    <a href="/movies/the-spongebob-squarepants-movie" class="watch-button">
+                        <img src="play.png" alt="Play">
+                        Watch Now
+                    </a>
+                </div>
+            </div>
+
+            <div class="modal-info">
+                <img src="https://image.tmdb.org/t/p/original/1rvzKV1d18EbDVaEd4VDzK3cgnY.jpg" class="modal-poster">
+                <div class="modal-details">
+                    <p class="movie-info">
+                        There's trouble brewing in Bikini Bottom. Someone has stolen King Neptune's crown, and it looks like Mr. Krab, SpongeBob's boss, is the culprit. Though he's just been passed over for the promotion of his dreams, SpongeBob stands by his boss, and along with his best pal Patrick, sets out on a treacherous mission to Shell City to reclaim the crown and save Mr. Krab's life.
+                    </p>
+                    <div>
+                        <p><strong>Director:</strong> Stephen Hillenburg</p>
+                        <p><strong>Screenplay:</strong> Kent Osborne, Paul Tibbitt, Aaron Springer, Derek Drymon, Tim Hill</p>
+                        <p><strong>Cast:</strong> Tom Kenny, Clancy Brown, Rodger Bumpass, Bill Fagerbakke, Mr. Lawrence, Jill Talley</p>
+                        <p><strong>Genre:</strong> Family, Animation, Comedy, Fantasy, Adventure</p>
                     </div>
                 </div>
             </div>
