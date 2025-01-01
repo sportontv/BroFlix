@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BroFlix</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #141414;
+            color: white;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #e50914;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .season-select {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        select {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .episodes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px 0;
+        }
+
+        .episode-card {
+            background-color: #333;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .episode-card:hover {
+            transform: scale(1.05);
+        }
+
+        .episode-image {
+            width: 100%;
+            height: 169px;
+            object-fit: cover;
+        }
+
+        .episode-info {
+            padding: 15px;
+        }
+
+        .episode-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .watch-button {
+            display: inline-block;
+            background-color: #e50914;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .watch-button:hover {
+            background-color: #f40612;
+        }
+
+        @media (max-width: 768px) {
+            .episodes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .episode-card {
+                max-width: 100%;
+            }
+
+            body {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Squid Game</h1>
+        
+        <div class="season-select">
+            <select id="seasonSelect" onchange="changeSeason()">
+                <option value="1">Season 1</option>
+            </select>
+        </div>
+
+        <div class="episodes-grid" id="season1">
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/gWjnd3MQ4LM0KPMW9fpA7ukuMxf.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 1 & 2: Left in the Dark | Get the Message</h3>
+                    <a href="s1/e1" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/kn2VnvzoD4slrGn0oy65bXnRqUI.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 3 & 4: Heavy Meddle | Making the Case</h3>
+                    <a href="s1/e2" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/m37oLHvAQ4WZeLGr2ljezZzxKvC.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 5 & 6: Along Came a Sister | Chore and Peace</h3>
+                    <a href="s1/e3" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/26F7SRESNmgXo44D9soh4SGwPDg.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 7 & 8: Project Loud House | In Tents Debate</h3>
+                    <a href="s1/e4" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/pedfKGFLXEYbW0xHkJ1bWBOtjUP.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 9 & 10: The Sweet Spot | A Tale of Two Tables</h3>
+                    <a href="s1/e5" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/s0iUwipdaPr0lJgcpGqnV2fFZMu.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 11 & 12: Driving Miss Hazy | No Guts No Glori</h3>
+                    <a href="s1/e6" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/xTVXwNc6VAfUp8C6RRTGRmfpwl9.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 13 & 14: Picture Perfect | Undie Pressure</h3>
+                    <a href="s1/e7" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/n9FQBflGRFClrokmW01QiOv3B7N.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 15 & 18: Linc or Swim | Changing the Baby</h3>
+                    <a href="s1/e8" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/mXVLlgP7nPrLGrmMvdPQ3klV0Wb.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 16 & 17: Hand Me Downer | Sleuth or Consequences</h3>
+                    <a href="s1/e9" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/3wsCEzv1sM9BhwvmYtwpJrM9qP7.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 19 & 20: Sound of Silence | Space Invader</h3>
+                    <a href="s1/e10" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/a8uQ3w6gC4KSj9yuDI6iwFKmXMN.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 21 & 25: For Bros About to Rock | It's a Loud Loud Loud Loud House</h3>
+                    <a href="s1/e11" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/qlohx0bjw1UYC7Ay5LT8zl6zZ8O.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 24 & 23: The Butterfly Effect | The Green House</h3>
+                    <a href="s1/e12" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/qgMqtFZIyNEjmdlMDcQw0DXLfYg.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 26 & 30: House Music | A Novel Idea</h3>
+                    <a href="s1/e13" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/kdHV1fwgwgJ1f4PxMeeJ4ZBRN6z.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 28 & 22: Overnight Success | Ties that Bind</h3>
+                    <a href="s1/e14" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/6foD2xssqUEKSnNmB5eu3OL7Ruz.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 29 & 27: Toads and Tiaras | Two Boys and a Baby</h3>
+                    <a href="s1/e15" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/mRtEAv9t4KyvS7K74oZOSLHDz1V.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 31 & 34: Cover Girls | Save the Date</h3>
+                    <a href="s1/e16" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/eFNYRFrR3fcrbQJGfTgH7MIt3GE.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 33 & 32: Attention Deficit | Out On a Limo</h3>
+                    <a href="s1/e17" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/bFoQLF0pvjCvLE4FKSMUfuqRvd5.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 36 & 35: Lincoln Loud: Girl Guru | Come Sale Away</h3>
+                    <a href="s1/e18" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/w06iV0JeFB1xApm1i2ZbRts52E0.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 37 & 38: Roughin' It | The Waiting Game</h3>
+                    <a href="s1/e19" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/sXymgKiZrSsp6vmrhaSe9wMGDzw.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 39 & 49: The Loudest Yard | Raw Deal</h3>
+                    <a href="s1/e20" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/mRSazai5BQdb4knSGqsTVI0zEHh.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 40 & 41: Dance, Dance Resolution | A Fair to Remember</h3>
+                    <a href="s1/e21" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/qNEOI5KhdtNhx5eGZbojM09eBT7.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 44 & 48: April Fools Rules | Cereal Offender</h3>
+                    <a href="s1/e22" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/yuNxk2w9ysprK87yxPVD10FWSnr.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 45 & 46: The Price of Admission | One Flu Over the Loud House</h3>
+                    <a href="s1/e23" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/y9FWT7yNt2UxhDpfyYv347WUD3c.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 47 & 42: One of the Boys | A Tattler's Tale</h3>
+                    <a href="s1/e24" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/dR7wSDQARS9f7ugO7ZSzMojVap0.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 50 & 43: Study Muffin | Homespun</h3>
+                    <a href="s1/e25" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+
+            <div class="episode-card">
+                <img src="https://image.tmdb.org/t/p/original/10lOMPwqmM7FfMZGW4EamsmpkCc.jpg" class="episode-image">
+                <div class="episode-info">
+                    <h3 class="episode-title">Episode 51 & 52: Funny Business | Snow Bored</h3>
+                    <a href="s1/e26" class="watch-button">Watch Now</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="episodes-grid" id="season2" style="display: none;">
+        </div>
+    </div>
+
+    <script>
+        function changeSeason() {
+            const season = document.getElementById('seasonSelect').value;
+            document.getElementById('season1').style.display = season === '1' ? 'grid' : 'none';
+        }
+    </script>
+</body>
+</html>
