@@ -14,7 +14,7 @@ Ratatouille +
 Ted +
 
 6.
-The Christmas Chronicles
+The Christmas Chronicles +
 
 7.
 Home Alone +
@@ -23,14 +23,13 @@ Home Alone +
 Avatar: The Last Airbender +
 
 9.
-The Truman Show
+The Truman Show +
 
 10.
-The Christmas Chronicles: Part Two
+The Christmas Chronicles: Part Two +
 
 11.
 The Spongebob Squarepants Movie +
-
 
 
 13.
@@ -43,7 +42,7 @@ Formula 1: Drive To Survive
 Squid Game +
 
 16.
-Klaus
+Klaus +
 
 17.
 Drake & Josh +
@@ -58,7 +57,7 @@ Home Alone 2: Lost in New York +
 Moana 2
 
 21.
-Smile 2
+Smile 2 +
 
 22.
 Breaking Bad
