@@ -2,7 +2,7 @@
 Inside Out 2 +
 
 2.
-Titanic (1997) +
+Titanic (1997) + +
 
 3.
 Cars (2006) +
@@ -20,13 +20,13 @@ The Christmas Chronicles +
 Home Alone +
 
 8.
-Avatar: The Last Airbender +
+Avatar: The Last Airbender + +
 
 9.
-The Truman Show +
+The Truman Show + +
 
 10.
-The Christmas Chronicles: Part Two +
+The Christmas Chronicles: Part Two + +
 
 11.
 The Spongebob Squarepants Movie +
@@ -66,7 +66,7 @@ Breaking Bad
 Despicable Me 4
 
 24.
-Dream Productions +
+Dream Productions + +
 
 25.
 Moana
@@ -88,3 +88,9 @@ Beast Games
 
 31.
 Too Hot to Handle
+
+32.
+Cars 2
+
+33.
+Cars 3
