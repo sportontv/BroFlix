@@ -35,8 +35,6 @@ The Spongebob Squarepants Movie +
 13.
 Inside Out +
 
-14.
-Formula 1: Drive To Survive
 
 15.
 Squid Game +
@@ -69,7 +67,7 @@ Despicable Me 4
 Dream Productions + +
 
 25.
-Moana
+Moana +
 
 26.
 Smile

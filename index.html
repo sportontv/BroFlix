@@ -82,7 +82,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
-                        url('https://image.tmdb.org/t/p/original/pW1Oz1qegZmlG5T7InyS0zJi8Rf.jpg') center/cover;
+                        url('https://image.tmdb.org/t/p/original/mHdOWMjPCzF4QPpoKQ3wloLijMq.jpg') center/cover;
         }
 
         .featured-content {
@@ -1169,8 +1169,8 @@
     <section class="featured">
         <div class="featured-image"></div>
         <div class="featured-content">
-            <img src="https://image.tmdb.org/t/p/original/7fqtf9iQCrmF05Nsk2qjZsgxOpu.png" style="width: 400px; margin-bottom: 30px;">
-            <a href="/movies/klaus" class="watch-button">
+            <img src="https://image.tmdb.org/t/p/original/xXev2gzu8elGCE7pQZ2Mvdy2YQV.png" style="width: 400px; margin-bottom: 30px;">
+            <a href="/movies/moana" class="watch-button">
                 <img src="play.png" alt="Play">
                 Watch Now
             </a>            
@@ -1182,6 +1182,10 @@
         <div class="movie-row-container">
             <button class="scroll-button prev hidden"></button>
             <div class="movie-row" id="new-on-broflix">
+                <div class="movie-card" data-movie-id="25" onclick="openModal(25)">
+                    <img src="https://image.tmdb.org/t/p/original/mtYxEUvcjrwzfzpJTGqziewyGR3.jpg">
+                    <div class="ribbon">New!</div>
+                </div>
                 <div class="movie-card" data-movie-id="18" onclick="openModal(18)">
                     <img src="https://image.tmdb.org/t/p/original/gIWrwIlzGmdOn2X4MWTKGZOkmno.jpg">
                     <div class="ribbon">Season 1 Available Now!</div>
@@ -1189,10 +1193,6 @@
                 <div class="movie-card" data-movie-id="17" onclick="openModal(17)">
                     <img src="https://image.tmdb.org/t/p/original/4yz5PvVNRW9IqfRywo9zZ9FCSA5.jpg">
                     <div class="ribbon">Season 2 Coming Soon!</div>
-                </div>
-                <div class="movie-card" data-movie-id="24" onclick="openModal(24)">
-                    <img src="https://image.tmdb.org/t/p/original/it7ZrCZsKvDkvkGX5hiNDF4WjsT.jpg">
-                    <div class="ribbon">Now Available!</div>
                 </div>
                 <div class="movie-card" data-movie-id="21" onclick="openModal(21)">
                     <img src="https://image.tmdb.org/t/p/original/4Nf77qGt4t5Fna6e2PcUtPZRlFA.jpg">
@@ -1226,6 +1226,10 @@
                 <div class="movie-card" data-movie-id="1" onclick="openModal(1)">
                     <img src="https://image.tmdb.org/t/p/original/hLuPF9HxtjbS7ZzSjMRG3RpUffp.jpg">
                 </div>
+                <div class="movie-card" data-movie-id="25" onclick="openModal(25)">
+                    <img src="https://image.tmdb.org/t/p/original/mtYxEUvcjrwzfzpJTGqziewyGR3.jpg">
+                    <div class="ribbon">New!</div>
+                </div>
                 <div class="movie-card" data-movie-id="2" onclick="openModal(2)">
                     <img src="https://image.tmdb.org/t/p/original/envkfRiMpfNHXfxgTX3ZLgLkmoE.jpg">
                 </div>
@@ -1251,10 +1255,6 @@
                 </div>
                 <div class="movie-card" data-movie-id="13" onclick="openModal(13)">
                     <img src="https://image.tmdb.org/t/p/original/9dSyguWPrYKqRGPKlF955M5kKGN.jpg">
-                </div>
-                <div class="movie-card" data-movie-id="14" onclick="openModal(14)">
-                    <img src="https://image.tmdb.org/t/p/original/a6gXQS8V0uoexozgd5FdROFyEtO.jpg">
-                    <div class="ribbon">Last day on BroFlix: 10/1/2025</div>
                 </div>
                 <div class="movie-card" data-movie-id="24" onclick="openModal(24)">
                     <img src="https://image.tmdb.org/t/p/original/it7ZrCZsKvDkvkGX5hiNDF4WjsT.jpg">
@@ -1306,10 +1306,6 @@
                 <div class="movie-card" data-movie-id="15" onclick="openModal(15)">
                     <img src="https://image.tmdb.org/t/p/original/hOsTmukXHBNsxbTfwGYTzMTOkS1.jpg">
                     <div class="ribbon">Season 2 Fully Added!</div>
-                </div>
-                <div class="movie-card" data-movie-id="14" onclick="openModal(14)">
-                    <img src="https://image.tmdb.org/t/p/original/a6gXQS8V0uoexozgd5FdROFyEtO.jpg">
-                    <div class="ribbon">Last day on BroFlix: 10/1/2025</div>
                 </div>
                 <div class="movie-card" data-movie-id="24" onclick="openModal(24)">
                     <img src="https://image.tmdb.org/t/p/original/it7ZrCZsKvDkvkGX5hiNDF4WjsT.jpg">
@@ -1422,10 +1418,6 @@
         <div class="movie-row-container">
             <button class="scroll-button prev hidden"></button>
             <div class="movie-row" id="coming-soon">
-                <div class="movie-card" data-movie-id="25" onclick="openModal(25)">
-                    <img src="https://image.tmdb.org/t/p/original/mtYxEUvcjrwzfzpJTGqziewyGR3.jpg">
-                    <div class="ribbon">Coming Soon</div>
-                </div>
                 <div class="movie-card" data-movie-id="20" onclick="openModal(20)">
                     <img src="https://image.tmdb.org/t/p/original/pgy1mO4cnnLKB4E31zY8VxGVTMW.jpg">
                     <div class="ribbon">Available between 10-15 of January</div>
@@ -2008,48 +2000,6 @@
 
         <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
 
-        <div class="modal" id="movieModal14">
-            <div class="modal-background"></div>
-            <div class="modal-container">
-                <button class="close-modal" onclick="closeModal(14)">✕</button>
-                
-                <div class="modal-header" style="background-image: url('https://image.tmdb.org/t/p/original/4H0LWzEBSPuZhfhedg6wBiD1dba.jpg')">
-                    <div class="modal-header-content">
-                        <h1 class="modal-title">Formula 1: Drive To Survive</h1>
-                        <div class="movie-meta">
-                            <span>2019</span>
-                            <span>15+</span>
-                            <span>Documentary</span>
-                            <button class="add-to-list-btn" onclick="toggleMyList(14)">
-                                <span class="add-text">+ My List</span>
-                                <span class="remove-text">✓ Added</span>
-                            </button>
-                        </div>
-                        <a href="/tv/formula-1-drive-to-survive" class="watch-button">
-                            <img src="play.png" alt="Play">
-                            Watch Now
-                        </a>
-                    </div>
-                </div>
-    
-                <div class="modal-info">
-                    <img src="https://image.tmdb.org/t/p/original/bTvsFzYK4ZdbcAIPSEJ3i8uLHSh.jpg" class="modal-poster">
-                    <div class="modal-details">
-                        <p class="movie-info">
-                            Drivers, managers and team owners live life in the fast lane - both on and off the track - during one cutthroat season of Formula 1 racing.
-                        </p>
-                        <div>
-                            <p><strong>Director:</strong> James Gay-Rees</p>
-                            <p><strong>Cast:</strong> Max Verstappen, Lewis Hamilton, Charles Leclerc, Sergio Pérez, Carlos Sainz Jr., Valtteri Bottas, Daniel Ricciardo</p>
-                            <p><strong>Genre:</strong> Documentary</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
-
         <div class="modal" id="movieModal15">
             <div class="modal-background"></div>
             <div class="modal-container">
@@ -2343,6 +2293,51 @@
                             <p><strong>Director:</strong> Mike Jones, Jaclyn Simon</p>
                             <p><strong>Cast:</strong> Paula Pell, Richard Ayoade, Amy Poehler, Maya Rudolph, Kensington Tallman</p>
                             <p><strong>Genre:</strong> Animation, Comedy, Family</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+
+        <div class="modal" id="movieModal25">
+            <div class="modal-background"></div>
+            <div class="modal-container">
+                <button class="close-modal" onclick="closeModal(25)">✕</button>
+                
+                <div class="modal-header" style="background-image: url('https://image.tmdb.org/t/p/original/iYLKMV7PIBtFmtygRrhSiyzcVsF.jpg')">
+                    <div class="modal-header-content">
+                        <h1 class="modal-title">Moana</h1>
+                        <div class="movie-meta">
+                            <span>2016</span>
+                            <span>PG</span>
+                            <span>Adventure</span>
+                            <span>1h 47m</span>
+                            <button class="add-to-list-btn" onclick="toggleMyList(25)">
+                                <span class="add-text">+ My List</span>
+                                <span class="remove-text">✓ Added</span>
+                            </button>
+                        </div>
+                        <a href="/movies/moana" class="watch-button">
+                            <img src="play.png" alt="Play">
+                            Watch Now
+                        </a>
+                        <a href="https://youtu.be/LKFuXETZUsI" class="watch-now-btn">Trailer</a>
+                    </div>
+                </div>
+    
+                <div class="modal-info">
+                    <img src="https://image.tmdb.org/t/p/original/9tzN8sPbyod2dsa0lwuvrwBDWra.jpg" class="modal-poster">
+                    <div class="modal-details">
+                        <p class="movie-info">
+                            In Ancient Polynesia, when a terrible curse incurred by Maui reaches an impetuous Chieftain's daughter's island, she answers the Ocean's call to seek out the demigod to set things right.
+                        </p>
+                        <div>
+                            <p><strong>Director:</strong> John Musker, Ron Clements</p>
+                            <p><strong>Screenplay:</strong> Jared Bush</p>
+                            <p><strong>Cast:</strong> Auliʻi Cravalho, Dwayne Johnson, Rachel House, Temuera Morrison</p>
+                            <p><strong>Genre:</strong> Adventure, Comedy, Family, Animation</p>
                         </div>
                     </div>
                 </div>
