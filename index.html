@@ -1185,6 +1185,10 @@
         <div class="movie-row-container">
             <button class="scroll-button prev hidden"></button>
             <div class="movie-row" id="new-on-broflix">
+                <div class="movie-card" data-movie-id="29" onclick="openModal(29)">
+                    <img src="https://image.tmdb.org/t/p/original/smI24hE98VAfN4LXeNxXbgkTSms.jpg">
+                    <div class="ribbon">New Addition!</div>
+                </div>
                 <div class="movie-card" data-movie-id="25" onclick="openModal(25)">
                     <img src="https://image.tmdb.org/t/p/original/mtYxEUvcjrwzfzpJTGqziewyGR3.jpg">
                     <div class="ribbon">New!</div>
@@ -1193,16 +1197,8 @@
                     <img src="https://image.tmdb.org/t/p/original/gIWrwIlzGmdOn2X4MWTKGZOkmno.jpg">
                     <div class="ribbon">Season 1 Available Now!</div>
                 </div>
-                <div class="movie-card" data-movie-id="17" onclick="openModal(17)">
-                    <img src="https://image.tmdb.org/t/p/original/4yz5PvVNRW9IqfRywo9zZ9FCSA5.jpg">
-                    <div class="ribbon">Season 2 Coming Soon!</div>
-                </div>
                 <div class="movie-card" data-movie-id="21" onclick="openModal(21)">
                     <img src="https://image.tmdb.org/t/p/original/4Nf77qGt4t5Fna6e2PcUtPZRlFA.jpg">
-                    <div class="ribbon">Now Available!</div>
-                </div>
-                <div class="movie-card" data-movie-id="11" onclick="openModal(11)">
-                    <img src="https://image.tmdb.org/t/p/original/y8emTndyl9OF9BnuGkLuJ7V2Ubk.jpg">
                     <div class="ribbon">Now Available!</div>
                 </div>
             </div>
@@ -1226,6 +1222,10 @@
         <div class="movie-row-container">
             <button class="scroll-button prev hidden"></button>
             <div class="movie-row" id="now-streaming">
+                <div class="movie-card" data-movie-id="29" onclick="openModal(29)">
+                    <img src="https://image.tmdb.org/t/p/original/smI24hE98VAfN4LXeNxXbgkTSms.jpg">
+                    <div class="ribbon">New Addition!</div>
+                </div>
                 <div class="movie-card" data-movie-id="1" onclick="openModal(1)">
                     <img src="https://image.tmdb.org/t/p/original/hLuPF9HxtjbS7ZzSjMRG3RpUffp.jpg">
                 </div>
@@ -1424,10 +1424,6 @@
                 <div class="movie-card" data-movie-id="20" onclick="openModal(20)">
                     <img src="https://image.tmdb.org/t/p/original/pgy1mO4cnnLKB4E31zY8VxGVTMW.jpg">
                     <div class="ribbon">Available between 10-15 of January</div>
-                </div>
-                <div class="movie-card" data-movie-id="29" onclick="openModal(29)">
-                    <img src="https://image.tmdb.org/t/p/original/smI24hE98VAfN4LXeNxXbgkTSms.jpg">
-                    <div class="ribbon">Available on 12th of January</div>
                 </div>
                 <div class="movie-card" data-movie-id="28" onclick="openModal(28)">
                     <img src="https://image.tmdb.org/t/p/original/1djFa00NGyqTFYvZCw8M1a2Y1Lw.jpg">
@@ -2347,6 +2343,52 @@
             </div>
         </div>
 
+        <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+
+        <div class="modal" id="movieModal29">
+            <div class="modal-background"></div>
+            <div class="modal-container">
+                <button class="close-modal" onclick="closeModal(29)">✕</button>
+                
+                <div class="modal-header" style="background-image: url('https://image.tmdb.org/t/p/original/v4W554WRfWdWn1P9WJ9XYbXz36l.jpg')">
+                    <div class="modal-header-content">
+                        <h1 class="modal-title">Despicable Me</h1>
+                        <div class="movie-meta">
+                            <span>2010</span>
+                            <span>PG</span>
+                            <span>Animation</span>
+                            <span>1h 35m</span>
+                            <button class="add-to-list-btn" onclick="toggleMyList(29)">
+                                <span class="add-text">+ My List</span>
+                                <span class="remove-text">✓ Added</span>
+                            </button>
+                        </div>
+                        <a href="/movies/despicable-me" class="watch-button">
+                            <img src="play.png" alt="Play">
+                            Watch Now
+                        </a>
+                        <a href="https://youtu.be/zzCZ1W_CUoI" class="watch-now-btn">Trailer</a>
+                    </div>
+                </div>
+    
+                <div class="modal-info">
+                    <img src="https://image.tmdb.org/t/p/original/6nfkIJB0mIjM9hGL0jPTAOS879P.jpg" class="modal-poster">
+                    <div class="modal-details">
+                        <p class="movie-info">
+                            Villainous Gru lives up to his reputation as a despicable, deplorable and downright unlikable guy when he hatches a plan to steal the moon from the sky. But he has a tough time staying on task after three orphans land in his care.
+                        </p>
+                        <div>
+                            <p><strong>Director:</strong> Pierre Coffin, Chris Renaud</p>
+                            <p><strong>Screenplay:</strong> Ken Daurio, Cinco Paul</p>
+                            <p><strong>Story:</strong> Sergio Pablos</p>
+                            <p><strong>Cast:</strong> Steve Carell, Jason Segel, Miranda Cosgrove, Elsie Fisher, Dana Gaier, Russell Brand, Julie Andrews</p>
+                            <p><strong>Genre:</strong> Animation, Family, Comedy</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     <footer>
         <div class="footer-links">
             <a href="#">Home</a>
@@ -3203,6 +3245,8 @@
                 { id: 19, title: "Home Alone 2: Lost in New York", poster: "https://image.tmdb.org/t/p/original/uuitWHpJwxD1wruFl2nZHIb4UGN.jpg" },
                 { id: 21, title: "Smile 2", poster: "https://image.tmdb.org/t/p/original/ht8Uv9QPv9y7K0RvUyJIaXOZTfd.jpg" },
                 { id: 24, title: "Dream Productions", poster: "https://image.tmdb.org/t/p/original/j9jz5wZlQoq65YuYPNauB72uvFJ.jpg" },
+                { id: 25, title: "Moana", poster: "https://image.tmdb.org/t/p/original/9tzN8sPbyod2dsa0lwuvrwBDWra.jpg" },
+                { id: 29, title: "Despicable Me", poster: "https://image.tmdb.org/t/p/original/6nfkIJB0mIjM9hGL0jPTAOS879P.jpg" },
             ];
 
             searchBox.addEventListener('input', () => {
