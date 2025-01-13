@@ -1093,6 +1093,31 @@
             z-index: 1000;
             pointer-events: none;
         }
+
+        /* Add touch scrolling styles for mobile */
+        @media screen and (max-width: 768px) {
+            .movie-row-container {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+                scroll-snap-type: x mandatory;
+                scrollbar-width: none; /* Hide scrollbar on Firefox */
+                -ms-overflow-style: none; /* Hide scrollbar on IE/Edge */
+            }
+
+            .movie-row-container::-webkit-scrollbar {
+                display: none; /* Hide scrollbar on Chrome/Safari */
+            }
+
+            .movie-row {
+                transform: none !important; /* Remove JS transform */
+                scroll-snap-align: start;
+            }
+
+            /* Hide scroll buttons on mobile */
+            .scroll-button {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -2467,38 +2492,40 @@
                 const nextBtn = container.querySelector('.scroll-button.next');
                 let scrollPosition = 0;
                 
-                function getScrollDistance() {
-                    const movieCard = row.querySelector('.movie-card');
-                    if (movieCard) {
-                        // Get the movie card width plus the gap (15px)
-                        return movieCard.offsetWidth + 15;
+                // Only setup button handlers if not on mobile
+                if (window.innerWidth > 768) {
+                    function getScrollDistance() {
+                        const movieCard = row.querySelector('.movie-card');
+                        if (movieCard) {
+                            return movieCard.offsetWidth + 15;
+                        }
+                        return 300;
                     }
-                    return 300; // fallback value
-                }
 
-                nextBtn.addEventListener('click', () => {
-                    const maxScroll = row.scrollWidth - container.clientWidth;
-                    const scrollDistance = getScrollDistance();
-                    scrollPosition = Math.min(scrollPosition + scrollDistance, maxScroll);
-                    row.style.transform = `translateX(-${scrollPosition}px)`;
+                    nextBtn.addEventListener('click', () => {
+                        const maxScroll = row.scrollWidth - container.clientWidth;
+                        const scrollDistance = getScrollDistance();
+                        scrollPosition = Math.min(scrollPosition + scrollDistance, maxScroll);
+                        row.style.transform = `translateX(-${scrollPosition}px)`;
+                        updateButtons();
+                    });
+
+                    prevBtn.addEventListener('click', () => {
+                        const scrollDistance = getScrollDistance();
+                        scrollPosition = Math.max(scrollPosition - scrollDistance, 0);
+                        row.style.transform = `translateX(-${scrollPosition}px)`;
+                        updateButtons();
+                    });
+
+                    function updateButtons() {
+                        prevBtn.classList.toggle('hidden', scrollPosition === 0);
+                        const maxScroll = row.scrollWidth - container.clientWidth;
+                        nextBtn.classList.toggle('hidden', scrollPosition >= maxScroll);
+                    }
+
                     updateButtons();
-                });
-
-                prevBtn.addEventListener('click', () => {
-                    const scrollDistance = getScrollDistance();
-                    scrollPosition = Math.max(scrollPosition - scrollDistance, 0);
-                    row.style.transform = `translateX(-${scrollPosition}px)`;
-                    updateButtons();
-                });
-
-                function updateButtons() {
-                    prevBtn.classList.toggle('hidden', scrollPosition === 0);
-                    const maxScroll = row.scrollWidth - container.clientWidth;
-                    nextBtn.classList.toggle('hidden', scrollPosition >= maxScroll);
+                    window.addEventListener('resize', updateButtons);
                 }
-
-                updateButtons();
-                window.addEventListener('resize', updateButtons);
             });
         });
 
