@@ -1185,6 +1185,10 @@
         <div class="movie-row-container">
             <button class="scroll-button prev hidden"></button>
             <div class="movie-row" id="new-on-broflix">
+                <div class="movie-card" data-movie-id="28" onclick="openModal(28)">
+                    <img src="https://image.tmdb.org/t/p/original/1djFa00NGyqTFYvZCw8M1a2Y1Lw.jpg">
+                    <div class="ribbon">New Addition!</div>
+                </div>
                 <div class="movie-card" data-movie-id="29" onclick="openModal(29)">
                     <img src="https://image.tmdb.org/t/p/original/smI24hE98VAfN4LXeNxXbgkTSms.jpg">
                     <div class="ribbon">New Addition!</div>
@@ -1224,6 +1228,10 @@
             <div class="movie-row" id="now-streaming">
                 <div class="movie-card" data-movie-id="29" onclick="openModal(29)">
                     <img src="https://image.tmdb.org/t/p/original/smI24hE98VAfN4LXeNxXbgkTSms.jpg">
+                    <div class="ribbon">New Addition!</div>
+                </div>
+                <div class="movie-card" data-movie-id="28" onclick="openModal(28)">
+                    <img src="https://image.tmdb.org/t/p/original/1djFa00NGyqTFYvZCw8M1a2Y1Lw.jpg">
                     <div class="ribbon">New Addition!</div>
                 </div>
                 <div class="movie-card" data-movie-id="1" onclick="openModal(1)">
@@ -1421,10 +1429,6 @@
                 <div class="movie-card" data-movie-id="20" onclick="openModal(20)">
                     <img src="https://image.tmdb.org/t/p/original/pgy1mO4cnnLKB4E31zY8VxGVTMW.jpg">
                     <div class="ribbon">Available between 10-15 of January</div>
-                </div>
-                <div class="movie-card" data-movie-id="28" onclick="openModal(28)">
-                    <img src="https://image.tmdb.org/t/p/original/1djFa00NGyqTFYvZCw8M1a2Y1Lw.jpg">
-                    <div class="ribbon">Available on 13th of January</div>
                 </div>
                 <div class="movie-card" data-movie-id="27" onclick="openModal(27)">
                     <img src="https://image.tmdb.org/t/p/original/kNhsBc0sJdzglKx7ouHsdYUm6TB.jpg">
@@ -2340,6 +2344,51 @@
             </div>
         </div>
 
+                <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+
+                <div class="modal" id="movieModal28">
+                    <div class="modal-background"></div>
+                    <div class="modal-container">
+                        <button class="close-modal" onclick="closeModal(28)">✕</button>
+                        
+                        <div class="modal-header" style="background-image: url('https://image.tmdb.org/t/p/original/fOipappvgVtUbbHOtmCkHzcwJjC.jpg')">
+                            <div class="modal-header-content">
+                                <h1 class="modal-title">Despicable Me 2</h1>
+                                <div class="movie-meta">
+                                    <span>2013</span>
+                                    <span>PG</span>
+                                    <span>Animation</span>
+                                    <span>1h 38m</span>
+                                    <button class="add-to-list-btn" onclick="toggleMyList(28)">
+                                        <span class="add-text">+ My List</span>
+                                        <span class="remove-text">✓ Added</span>
+                                    </button>
+                                </div>
+                                <a href="/movies/despicable-me-2" class="watch-button">
+                                    <img src="play.png" alt="Play">
+                                    Watch Now
+                                </a>
+                                <a href="https://youtu.be/EK3j98PHaGM" class="watch-now-btn">Trailer</a>
+                            </div>
+                        </div>
+            
+                        <div class="modal-info">
+                            <img src="https://image.tmdb.org/t/p/original/A2ikUV6WHqhR6XpLUE0UjXvazTC.jpg" class="modal-poster">
+                            <div class="modal-details">
+                                <p class="movie-info">
+                                    Gru is recruited by the Anti-Villain League to help deal with a powerful new super criminal.
+                                </p>
+                                <div>
+                                    <p><strong>Director:</strong> Chris Renaud, Pierre Coffin</p>
+                                    <p><strong>Writer:</strong> Ken Daurio, Cinco Paul</p>
+                                    <p><strong>Cast:</strong> Steve Carell, Kristen Wiig, Benjamin Bratt, Miranda Cosgrove, Russell Brand</p>
+                                    <p><strong>Genre:</strong> Animation, Comedy, Family</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
         <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
 
         <div class="modal" id="movieModal29">
@@ -3242,6 +3291,7 @@
                 { id: 21, title: "Smile 2", poster: "https://image.tmdb.org/t/p/original/ht8Uv9QPv9y7K0RvUyJIaXOZTfd.jpg" },
                 { id: 24, title: "Dream Productions", poster: "https://image.tmdb.org/t/p/original/j9jz5wZlQoq65YuYPNauB72uvFJ.jpg" },
                 { id: 25, title: "Moana", poster: "https://image.tmdb.org/t/p/original/9tzN8sPbyod2dsa0lwuvrwBDWra.jpg" },
+                { id: 28, title: "Despicable Me 2", poster: "https://image.tmdb.org/t/p/original/A2ikUV6WHqhR6XpLUE0UjXvazTC.jpg" },
                 { id: 29, title: "Despicable Me", poster: "https://image.tmdb.org/t/p/original/6nfkIJB0mIjM9hGL0jPTAOS879P.jpg" },
             ];
 
