@@ -1094,7 +1094,6 @@
             pointer-events: none;
         }
 
-        /* Update mobile styles for smooth scrolling */
         @media screen and (max-width: 768px) {
             .movie-row-container {
                 overflow-x: auto;
@@ -1110,19 +1109,18 @@
 
             .movie-row {
                 transform: none !important;
-                scroll-snap-type: x proximity; /* Changed from mandatory to proximity for smoother scrolling */
+                scroll-snap-type: x proximity;
                 display: flex;
                 gap: 15px;
-                padding: 10px 4px; /* Added horizontal padding */
+                padding: 10px 4px;
             }
 
             .movie-card {
                 scroll-snap-align: start;
-                scroll-snap-stop: normal; /* Allows smooth scrolling past items */
+                scroll-snap-stop: normal;
                 flex: 0 0 auto;
             }
 
-            /* Hide scroll buttons on mobile */
             .scroll-button {
                 display: none;
             }
@@ -2499,38 +2497,16 @@
                 const row = container.querySelector('.movie-row');
                 const prevBtn = container.querySelector('.scroll-button.prev');
                 const nextBtn = container.querySelector('.scroll-button.next');
+                let scrollPosition = 0;
                 
+                // Different behavior based on screen width
                 if (window.innerWidth <= 768) {
-                    // Mobile touch scrolling setup
-                    let touchStartX = 0;
-                    let touchEndX = 0;
-                    
-                    container.addEventListener('touchstart', (e) => {
-                        touchStartX = e.touches[0].clientX;
-                    }, { passive: true });
-
-                    container.addEventListener('touchend', (e) => {
-                        touchEndX = e.changedTouches[0].clientX;
-                        const swipeDistance = touchEndX - touchStartX;
-                        
-                        // Only handle significant swipes
-                        if (Math.abs(swipeDistance) > 50) {
-                            const movieCard = row.querySelector('.movie-card');
-                            const cardWidth = movieCard ? movieCard.offsetWidth + 15 : 300;
-                            const currentScroll = container.scrollLeft;
-                            const targetScroll = swipeDistance > 0 
-                                ? Math.floor(currentScroll / cardWidth) * cardWidth
-                                : Math.ceil(currentScroll / cardWidth) * cardWidth;
-                            
-                            container.scrollTo({
-                                left: targetScroll,
-                                behavior: 'smooth'
-                            });
-                        }
-                    }, { passive: true });
+                    // Mobile touch scrolling
+                    container.style.overflowX = 'auto';
+                    row.style.transform = 'none';
                 } else {
-                    // Desktop button scrolling (existing code)
-                    let scrollPosition = 0;
+                    // Desktop button scrolling
+                    container.style.overflowX = 'hidden';
                     
                     function getScrollDistance() {
                         const movieCard = row.querySelector('.movie-card');
@@ -2540,7 +2516,46 @@
                         return 300;
                     }
 
-                    // Rest of your existing desktop scrolling code...
+                    nextBtn.addEventListener('click', () => {
+                        const maxScroll = row.scrollWidth - container.clientWidth;
+                        const scrollDistance = getScrollDistance();
+                        scrollPosition = Math.min(scrollPosition + scrollDistance, maxScroll);
+                        row.style.transform = `translateX(-${scrollPosition}px)`;
+                        updateButtons();
+                    });
+
+                    prevBtn.addEventListener('click', () => {
+                        const scrollDistance = getScrollDistance();
+                        scrollPosition = Math.max(scrollPosition - scrollDistance, 0);
+                        row.style.transform = `translateX(-${scrollPosition}px)`;
+                        updateButtons();
+                    });
+
+                    function updateButtons() {
+                        prevBtn.classList.toggle('hidden', scrollPosition === 0);
+                        const maxScroll = row.scrollWidth - container.clientWidth;
+                        nextBtn.classList.toggle('hidden', scrollPosition >= maxScroll);
+                    }
+
+                    // Initial button state
+                    updateButtons();
+                    
+                    // Update buttons on window resize
+                    window.addEventListener('resize', () => {
+                        if (window.innerWidth <= 768) {
+                            // Switch to mobile mode
+                            container.style.overflowX = 'auto';
+                            row.style.transform = 'none';
+                            prevBtn.style.display = 'none';
+                            nextBtn.style.display = 'none';
+                        } else {
+                            // Switch back to desktop mode
+                            container.style.overflowX = 'hidden';
+                            scrollPosition = 0;
+                            row.style.transform = 'translateX(0)';
+                            updateButtons();
+                        }
+                    });
                 }
             });
         });
