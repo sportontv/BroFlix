@@ -1094,23 +1094,32 @@
             pointer-events: none;
         }
 
-        /* Add touch scrolling styles for mobile */
+        /* Update mobile styles for smooth scrolling */
         @media screen and (max-width: 768px) {
             .movie-row-container {
                 overflow-x: auto;
-                -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-                scroll-snap-type: x mandatory;
-                scrollbar-width: none; /* Hide scrollbar on Firefox */
-                -ms-overflow-style: none; /* Hide scrollbar on IE/Edge */
+                -webkit-overflow-scrolling: touch;
+                scroll-behavior: smooth;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
             }
 
             .movie-row-container::-webkit-scrollbar {
-                display: none; /* Hide scrollbar on Chrome/Safari */
+                display: none;
             }
 
             .movie-row {
-                transform: none !important; /* Remove JS transform */
+                transform: none !important;
+                scroll-snap-type: x proximity; /* Changed from mandatory to proximity for smoother scrolling */
+                display: flex;
+                gap: 15px;
+                padding: 10px 4px; /* Added horizontal padding */
+            }
+
+            .movie-card {
                 scroll-snap-align: start;
+                scroll-snap-stop: normal; /* Allows smooth scrolling past items */
+                flex: 0 0 auto;
             }
 
             /* Hide scroll buttons on mobile */
@@ -2490,10 +2499,39 @@
                 const row = container.querySelector('.movie-row');
                 const prevBtn = container.querySelector('.scroll-button.prev');
                 const nextBtn = container.querySelector('.scroll-button.next');
-                let scrollPosition = 0;
                 
-                // Only setup button handlers if not on mobile
-                if (window.innerWidth > 768) {
+                if (window.innerWidth <= 768) {
+                    // Mobile touch scrolling setup
+                    let touchStartX = 0;
+                    let touchEndX = 0;
+                    
+                    container.addEventListener('touchstart', (e) => {
+                        touchStartX = e.touches[0].clientX;
+                    }, { passive: true });
+
+                    container.addEventListener('touchend', (e) => {
+                        touchEndX = e.changedTouches[0].clientX;
+                        const swipeDistance = touchEndX - touchStartX;
+                        
+                        // Only handle significant swipes
+                        if (Math.abs(swipeDistance) > 50) {
+                            const movieCard = row.querySelector('.movie-card');
+                            const cardWidth = movieCard ? movieCard.offsetWidth + 15 : 300;
+                            const currentScroll = container.scrollLeft;
+                            const targetScroll = swipeDistance > 0 
+                                ? Math.floor(currentScroll / cardWidth) * cardWidth
+                                : Math.ceil(currentScroll / cardWidth) * cardWidth;
+                            
+                            container.scrollTo({
+                                left: targetScroll,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }, { passive: true });
+                } else {
+                    // Desktop button scrolling (existing code)
+                    let scrollPosition = 0;
+                    
                     function getScrollDistance() {
                         const movieCard = row.querySelector('.movie-card');
                         if (movieCard) {
@@ -2502,29 +2540,7 @@
                         return 300;
                     }
 
-                    nextBtn.addEventListener('click', () => {
-                        const maxScroll = row.scrollWidth - container.clientWidth;
-                        const scrollDistance = getScrollDistance();
-                        scrollPosition = Math.min(scrollPosition + scrollDistance, maxScroll);
-                        row.style.transform = `translateX(-${scrollPosition}px)`;
-                        updateButtons();
-                    });
-
-                    prevBtn.addEventListener('click', () => {
-                        const scrollDistance = getScrollDistance();
-                        scrollPosition = Math.max(scrollPosition - scrollDistance, 0);
-                        row.style.transform = `translateX(-${scrollPosition}px)`;
-                        updateButtons();
-                    });
-
-                    function updateButtons() {
-                        prevBtn.classList.toggle('hidden', scrollPosition === 0);
-                        const maxScroll = row.scrollWidth - container.clientWidth;
-                        nextBtn.classList.toggle('hidden', scrollPosition >= maxScroll);
-                    }
-
-                    updateButtons();
-                    window.addEventListener('resize', updateButtons);
+                    // Rest of your existing desktop scrolling code...
                 }
             });
         });
