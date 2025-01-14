@@ -3523,16 +3523,20 @@
         });
 
 
-        window.addEventListener('load', function () {
-        // Dynamically create a script element pointing to a common ad-related file
-        const testAd = document.createElement('script');
-        testAd.type = 'text/javascript';
-        testAd.src = '/ads.js'; // This file doesn't exist but is commonly blocked by ad blockers
-        testAd.onerror = function () {
-            // If the ad script fails to load, show the adblock popup
-            document.body.classList.add('adblock-active');
-        };
-        document.head.appendChild(testAd);
+        document.addEventListener("DOMContentLoaded", function () {
+        // Create an element that ad blockers usually block
+        const adBlockTest = document.createElement('div');
+        adBlockTest.className = 'adsbox';
+        adBlockTest.style.display = 'none';
+        document.body.appendChild(adBlockTest);
+
+        // Check if the element is blocked
+        setTimeout(() => {
+            if (!adBlockTest.offsetParent) {
+                document.body.classList.add('adblock-active'); // Show popup
+            }
+            adBlockTest.remove(); // Clean up
+        }, 100);
     });
 
 
