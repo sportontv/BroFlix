@@ -1154,6 +1154,21 @@
             width: 80%;
             max-width: 500px;
         }
+
+        /* Update the adblock popup styles */
+        #adblock-popup {
+            display: none; /* Hide by default */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.95);
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            z-index: 10000;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
     </style>
 </head>
 <body>
@@ -3526,25 +3541,25 @@
         });
 
 
-        // Replace the existing adblock detection code with this:
-        document.addEventListener('DOMContentLoaded', function() {
-            // Create a test element
-            const testAd = document.createElement('div');
-            testAd.innerHTML = '&nbsp;';
-            testAd.className = 'adsbox';
-            testAd.style.cssText = 'position: absolute; top: -100px; left: -100px; width: 1px; height: 1px;';
-            document.body.appendChild(testAd);
+        // Update the adblock detection code
+            document.addEventListener('DOMContentLoaded', function() {
+                const testAd = document.createElement('div');
+                testAd.innerHTML = '&nbsp;';
+                testAd.className = 'adsbox';
+                testAd.style.cssText = 'position: absolute; top: -100px; left: -100px; width: 1px; height: 1px;';
+                document.body.appendChild(testAd);
 
-            // Check if the test element is hidden
-            setTimeout(function() {
-                const isAdBlocked = testAd.offsetHeight === 0;
-                if (isAdBlocked) {
-                    document.body.classList.add('adblock-active');
-                }
-                testAd.remove(); // Clean up
-            }, 300); // Increased timeout for better reliability
-        });
-
+                setTimeout(function() {
+                    const isAdBlocked = testAd.offsetHeight === 0;
+                    const popup = document.getElementById('adblock-popup');
+                    
+                    if (isAdBlocked) {
+                        popup.style.display = 'block';
+                        document.body.style.overflow = 'hidden'; // Prevent scrolling
+                    }
+                    testAd.remove();
+                }, 300);
+            });
 
     </script>
 
