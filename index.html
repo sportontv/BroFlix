@@ -1126,30 +1126,33 @@
             }
         }
 
-        body.adblock-active #adblock-popup {
+        .adsbox {
             display: block;
         }
-        #adblock-popup {
-            display: none;
+
+        .adblock-active::before {
+            content: '';
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: red;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+        }
+
+        .adblock-active::after {
+            content: 'Please disable your ad blocker to continue using BroFlix';
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             color: white;
+            font-size: 24px;
             text-align: center;
-            padding: 20px;
-            font-family: Arial, sans-serif;
             z-index: 10000;
-        }
-        #adblock-popup h1 {
-            margin-top: 20%;
-            font-size: 2rem;
-        }
-        #adblock-popup p {
-            font-size: 1rem;
-            margin-top: 20px;
+            width: 80%;
+            max-width: 500px;
         }
     </style>
 </head>
@@ -3523,22 +3526,24 @@
         });
 
 
-        document.addEventListener("DOMContentLoaded", function () {
-        // Create an element that ad blockers usually block
-        const adBlockTest = document.createElement('div');
-        adBlockTest.className = 'adsbox';
-        adBlockTest.style.display = 'none';
-        document.body.appendChild(adBlockTest);
+        // Replace the existing adblock detection code with this:
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create a test element
+            const testAd = document.createElement('div');
+            testAd.innerHTML = '&nbsp;';
+            testAd.className = 'adsbox';
+            testAd.style.cssText = 'position: absolute; top: -100px; left: -100px; width: 1px; height: 1px;';
+            document.body.appendChild(testAd);
 
-        // Check if the element is blocked
-        setTimeout(() => {
-            if (!adBlockTest.offsetParent) {
-                document.body.classList.add('adblock-active'); // Show popup
-            }
-            adBlockTest.remove(); // Clean up
-        }, 100);
-    });
-
+            // Check if the test element is hidden
+            setTimeout(function() {
+                const isAdBlocked = testAd.offsetHeight === 0;
+                if (isAdBlocked) {
+                    document.body.classList.add('adblock-active');
+                }
+                testAd.remove(); // Clean up
+            }, 300); // Increased timeout for better reliability
+        });
 
 
     </script>
