@@ -1272,6 +1272,10 @@
         <div class="movie-row-container">
             <button class="scroll-button prev hidden"></button>
             <div class="movie-row" id="new-on-broflix">
+                <div class="movie-card" data-movie-id="23" onclick="openModal(23)">
+                    <img src="https://image.tmdb.org/t/p/original/mFP1aLKpwo0Bkt7aD3FHcp537ft.jpg">
+                    <div class="ribbon">New!</div>
+                </div>
                 <div class="movie-card" data-movie-id="27" onclick="openModal(27)">
                     <img src="https://image.tmdb.org/t/p/original/kNhsBc0sJdzglKx7ouHsdYUm6TB.jpg">
                     <div class="ribbon">New Addition!</div>
@@ -1324,6 +1328,10 @@
                 <div class="movie-card" data-movie-id="27" onclick="openModal(27)">
                     <img src="https://image.tmdb.org/t/p/original/kNhsBc0sJdzglKx7ouHsdYUm6TB.jpg">
                     <div class="ribbon">New Addition!</div>
+                </div>
+                <div class="movie-card" data-movie-id="23" onclick="openModal(23)">
+                    <img src="https://image.tmdb.org/t/p/original/mFP1aLKpwo0Bkt7aD3FHcp537ft.jpg">
+                    <div class="ribbon">New!</div>
                 </div>
                 <div class="movie-card" data-movie-id="1" onclick="openModal(1)">
                     <img src="https://image.tmdb.org/t/p/original/hLuPF9HxtjbS7ZzSjMRG3RpUffp.jpg">
@@ -1458,9 +1466,9 @@
                     <img src="https://image.tmdb.org/t/p/original/7U2m2dMSIfHx2gWXKq78Xj1weuH.jpg">
                     <div class="ribbon">Inside Out Collection</div>
                 </a>
-                <a href="/" class="movie-card">
+                <a href="/collections/despicable-me" class="movie-card">
                     <img src="https://image.tmdb.org/t/p/original/37xamYKRUGCRux532lKcZdVGYuR.jpg">
-                    <div class="ribbon">Despicable Me Collection Coming Soon</div>
+                    <div class="ribbon">Despicable Me Collection</div>
                 </a>
                 <a href="/" class="movie-card">
                     <img src="https://image.tmdb.org/t/p/original/z5A5W3WYJc3UVEWljSGwdjDgQ0j.jpg">
@@ -1492,10 +1500,6 @@
                 <div class="movie-card" data-movie-id="20" onclick="openModal(20)">
                     <img src="https://image.tmdb.org/t/p/original/pgy1mO4cnnLKB4E31zY8VxGVTMW.jpg">
                     <div class="ribbon">Available between 10-15 of January</div>
-                </div>
-                <div class="movie-card" data-movie-id="23" onclick="openModal(23)">
-                    <img src="https://image.tmdb.org/t/p/original/mFP1aLKpwo0Bkt7aD3FHcp537ft.jpg">
-                    <div class="ribbon">Available on 15th of January</div>
                 </div>
                 <div class="movie-card" data-movie-id="22" onclick="openModal(22)">
                     <img src="https://image.tmdb.org/t/p/original/hwIAR9FDsKULo8efoOUuxsFtO2u.jpg">
@@ -2308,6 +2312,51 @@
                             <p><strong>Director:</strong> Parker Finn</p>
                             <p><strong>Cast:</strong> Naomi Scott, Rosemarie DeWitt, Lukas Gage, Miles Gutierrez-Riley</p>
                             <p><strong>Genre:</strong> Horror, Mystery</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+
+        <div class="modal" id="movieModal23">
+            <div class="modal-background"></div>
+            <div class="modal-container">
+                <button class="close-modal" onclick="closeModal(23)">✕</button>
+                
+                <div class="modal-header" style="background-image: url('https://image.tmdb.org/t/p/original/76nJGpUuMCJZk8kB2ihpfnU4qPF.jpg')">
+                    <div class="modal-header-content">
+                        <h1 class="modal-title">Despicable Me 4</h1>
+                        <div class="movie-meta">
+                            <span>2024</span>
+                            <span>PG</span>
+                            <span>1h 34m</span>
+                            <span>Animation</span>
+                            <button class="add-to-list-btn" onclick="toggleMyList(23)">
+                                <span class="add-text">+ My List</span>
+                                <span class="remove-text">✓ Added</span>
+                            </button>
+                        </div>
+                        <a href="/movies/despicable-me-4" class="watch-button">
+                            <img src="play.png" alt="Play">
+                            Watch Now
+                        </a>
+                        <a href="https://youtu.be/LtNYaH61dXY" class="watch-now-btn">Trailer</a>
+                    </div>
+                </div>
+    
+                <div class="modal-info">
+                    <img src="https://image.tmdb.org/t/p/original/tsqNiZI9g5FIVrtLHlPP9BDMOXn.jpg" class="modal-poster">
+                    <div class="modal-details">
+                        <p class="movie-info">
+                            Gru and Lucy and their girls—Margo, Edith and Agnes—welcome a new member to the Gru family, Gru Jr., who is intent on tormenting his dad. Gru also faces a new nemesis in Maxime Le Mal and his femme fatale girlfriend Valentina, forcing the family to go on the run.
+                        </p>
+                        <div>
+                            <p><strong>Director:</strong> Chris Renaud</p>
+                            <p><strong>Writer:</strong> Mike White, Ken Daurio</p>
+                            <p><strong>Cast:</strong> Steve Carell, Kristen Wiig, Will Ferrell, Sofía Vergara, Miranda Cosgrove, Dana Gaier, Madison Polan, Pierre Coffin</p>
+                            <p><strong>Genre:</strong> Animation, Family, Comedy, Science Fiction</p>
                         </div>
                     </div>
                 </div>
@@ -3419,6 +3468,7 @@
                 { id: 18, title: "The Loud House", poster: "https://image.tmdb.org/t/p/original/v0xMCeZIkgBUQtiije0IDc8ReHr.jpg" },
                 { id: 19, title: "Home Alone 2: Lost in New York", poster: "https://image.tmdb.org/t/p/original/uuitWHpJwxD1wruFl2nZHIb4UGN.jpg" },
                 { id: 21, title: "Smile 2", poster: "https://image.tmdb.org/t/p/original/ht8Uv9QPv9y7K0RvUyJIaXOZTfd.jpg" },
+                { id: 23, title: "Despicable Me 4", poster: "https://image.tmdb.org/t/p/original/tsqNiZI9g5FIVrtLHlPP9BDMOXn.jpg" },
                 { id: 24, title: "Dream Productions", poster: "https://image.tmdb.org/t/p/original/j9jz5wZlQoq65YuYPNauB72uvFJ.jpg" },
                 { id: 25, title: "Moana", poster: "https://image.tmdb.org/t/p/original/9tzN8sPbyod2dsa0lwuvrwBDWra.jpg" },
                 { id: 27, title: "Despicable Me 3", poster: "https://image.tmdb.org/t/p/original/bdUwq8JN8WuZy21VfVKWFv9Dieh.jpg" },
