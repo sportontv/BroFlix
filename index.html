@@ -1272,6 +1272,10 @@
         <div class="movie-row-container">
             <button class="scroll-button prev hidden"></button>
             <div class="movie-row" id="new-on-broflix">
+                <div class="movie-card" data-movie-id="20" onclick="openModal(20)">
+                    <img src="https://image.tmdb.org/t/p/original/pgy1mO4cnnLKB4E31zY8VxGVTMW.jpg">
+                    <div class="ribbon">Available now!</div>
+                </div>
                 <div class="movie-card" data-movie-id="23" onclick="openModal(23)">
                     <img src="https://image.tmdb.org/t/p/original/mFP1aLKpwo0Bkt7aD3FHcp537ft.jpg">
                     <div class="ribbon">New!</div>
@@ -1358,6 +1362,10 @@
                 <div class="movie-card" data-movie-id="9" onclick="openModal(9)">
                     <img src="https://image.tmdb.org/t/p/original/e8rNsJBrOsspbdC9TLbZtZm9npX.jpg">
                 </div>
+                <div class="movie-card" data-movie-id="20" onclick="openModal(20)">
+                    <img src="https://image.tmdb.org/t/p/original/pgy1mO4cnnLKB4E31zY8VxGVTMW.jpg">
+                    <div class="ribbon">Available now!</div>
+                </div>
                 <div class="movie-card" data-movie-id="15" onclick="openModal(15)">
                     <img src="https://image.tmdb.org/t/p/original/hOsTmukXHBNsxbTfwGYTzMTOkS1.jpg">
                     <div class="ribbon">New Season!</div>
@@ -1393,6 +1401,10 @@
                 <div class="movie-card" data-movie-id="15" onclick="openModal(15)">
                     <img src="https://image.tmdb.org/t/p/original/hOsTmukXHBNsxbTfwGYTzMTOkS1.jpg">
                     <div class="ribbon">New Season!</div>
+                </div>
+                <div class="movie-card" data-movie-id="20" onclick="openModal(20)">
+                    <img src="https://image.tmdb.org/t/p/original/pgy1mO4cnnLKB4E31zY8VxGVTMW.jpg">
+                    <div class="ribbon">Available now!</div>
                 </div>
             </div>
             <button class="scroll-button next"></button>
@@ -1497,10 +1509,6 @@
         <div class="movie-row-container">
             <button class="scroll-button prev hidden"></button>
             <div class="movie-row" id="coming-soon">
-                <div class="movie-card" data-movie-id="20" onclick="openModal(20)">
-                    <img src="https://image.tmdb.org/t/p/original/pgy1mO4cnnLKB4E31zY8VxGVTMW.jpg">
-                    <div class="ribbon">Available between 10-15 of January</div>
-                </div>
                 <div class="movie-card" data-movie-id="22" onclick="openModal(22)">
                     <img src="https://image.tmdb.org/t/p/original/hwIAR9FDsKULo8efoOUuxsFtO2u.jpg">
                     <div class="ribbon">Season 1 & 2 Coming on March</div>
@@ -2269,6 +2277,52 @@
                             <p><strong>Screenplay:</strong> John Hughes</p>
                             <p><strong>Cast:</strong> Macaulay Culkin, Joe Pesci, Daniel Stern, Catherine O'Hara, John Heard, Brenda Fricker</p>
                             <p><strong>Genre:</strong> Comedy, Family, Adventure</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+
+        <div class="modal" id="movieModal20">
+            <div class="modal-background"></div>
+            <div class="modal-container">
+                <button class="close-modal" onclick="closeModal(20)">✕</button>
+                
+                <div class="modal-header" style="background-image: url('https://image.tmdb.org/t/p/original/iTNS4nPPPnqGRdbnbSpnJLjg3pT.jpg')">
+                    <div class="modal-header-content">
+                        <h1 class="modal-title">Moana 2</h1>
+                        <div class="movie-meta">
+                            <span>2024</span>
+                            <span>PG</span>
+                            <span>1h 40m</span>
+                            <span>Animation</span>
+                            <button class="add-to-list-btn" onclick="toggleMyList(20)">
+                                <span class="add-text">+ My List</span>
+                                <span class="remove-text">✓ Added</span>
+                            </button>
+                        </div>
+                        <a href="/movies/moana-2" class="watch-button">
+                            <img src="play.png" alt="Play">
+                            Watch Now
+                        </a>
+                        <a href="https://youtu.be/9IisFuMUz44" class="watch-now-btn">Trailer</a>
+                    </div>
+                </div>
+    
+                <div class="modal-info">
+                    <img src="https://image.tmdb.org/t/p/original/uuitWHpJwxD1wruFl2nZHIb4UGN.jpg" class="modal-poster">
+                    <div class="modal-details">
+                        <p class="movie-info">
+                            After receiving an unexpected call from her wayfinding ancestors, Moana journeys alongside Maui and a new crew to the far seas of Oceania and into dangerous, long-lost waters for an adventure unlike anything she's ever faced.
+                        </p>
+                        <div>
+                            <p><strong>Director:</strong> Dana Ledoux Miller, Jason Hand, David G. Derrick Jr.</p>
+                            <p><strong>Screenplay:</strong> Jared Bush</p>
+                            <p><strong>Story:</strong> Jared Bush, Bek Smith</p>
+                            <p><strong>Cast:</strong> Auliʻi Cravalho, Dwayne Johnson, Hualālai Chung, Rose Matafeo, David Fane, Awhimai Fraser</p>
+                            <p><strong>Genre:</strong> Animation, Adventure, Family, Comedy</p>
                         </div>
                     </div>
                 </div>
