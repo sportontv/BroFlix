@@ -1272,6 +1272,10 @@
         <div class="movie-row-container">
             <button class="scroll-button prev hidden"></button>
             <div class="movie-row" id="new-on-broflix">
+                <div class="movie-card" data-movie-id="32" onclick="openModal(32)">
+                    <img src="https://image.tmdb.org/t/p/original/jrlq8lWxB3OKjKwJ0kCjtg5fIII.jpg">
+                    <div class="ribbon">Now Available!</div>
+                </div>
                 <div class="movie-card" data-movie-id="20" onclick="openModal(20)">
                     <img src="https://image.tmdb.org/t/p/original/pgy1mO4cnnLKB4E31zY8VxGVTMW.jpg">
                     <div class="ribbon">Available now!</div>
@@ -1350,6 +1354,10 @@
                 <div class="movie-card" data-movie-id="3" onclick="openModal(3)">
                     <img src="https://image.tmdb.org/t/p/original/k1gZafHuIIlqnzBgFCTYc0IkpLL.jpg">
                 </div>
+                <div class="movie-card" data-movie-id="32" onclick="openModal(32)">
+                    <img src="https://image.tmdb.org/t/p/original/jrlq8lWxB3OKjKwJ0kCjtg5fIII.jpg">
+                    <div class="ribbon">Now Available!</div>
+                </div>
                 <div class="movie-card" data-movie-id="4" onclick="openModal(4)">
                     <img src="https://image.tmdb.org/t/p/original/qkQGUK99fKQ45JuLRK2v4D6DLgl.jpg">
                 </div>
@@ -1391,6 +1399,10 @@
             <div class="movie-row" id="action">
                 <div class="movie-card" data-movie-id="3" onclick="openModal(3)">
                     <img src="https://image.tmdb.org/t/p/original/k1gZafHuIIlqnzBgFCTYc0IkpLL.jpg">
+                </div>
+                <div class="movie-card" data-movie-id="32" onclick="openModal(32)">
+                    <img src="https://image.tmdb.org/t/p/original/jrlq8lWxB3OKjKwJ0kCjtg5fIII.jpg">
+                    <div class="ribbon">Now Available!</div>
                 </div>
                 <div class="movie-card" data-movie-id="5" onclick="openModal(5)">
                     <img src="https://image.tmdb.org/t/p/original/cfBHNVv9pto26a4qnwJ5F0gq9jg.jpg">
@@ -1512,10 +1524,6 @@
                 <div class="movie-card" data-movie-id="22" onclick="openModal(22)">
                     <img src="https://image.tmdb.org/t/p/original/hwIAR9FDsKULo8efoOUuxsFtO2u.jpg">
                     <div class="ribbon">Season 1 & 2 Coming on March</div>
-                </div>
-                <div class="movie-card" data-movie-id="32" onclick="openModal(32)">
-                    <img src="https://image.tmdb.org/t/p/original/jrlq8lWxB3OKjKwJ0kCjtg5fIII.jpg">
-                    <div class="ribbon">Coming 16th Jan.</div>
                 </div>
                 <div class="movie-card" data-movie-id="33" onclick="openModal(33)">
                     <img src="https://image.tmdb.org/t/p/original/gqyTUMNrMjyIVNVIgGMdurrNPWb.jpg">
@@ -2636,6 +2644,51 @@
                             <p><strong>Story:</strong> Sergio Pablos</p>
                             <p><strong>Cast:</strong> Steve Carell, Jason Segel, Miranda Cosgrove, Elsie Fisher, Dana Gaier, Russell Brand, Julie Andrews</p>
                             <p><strong>Genre:</strong> Animation, Family, Comedy</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+
+        <div class="modal" id="movieModal32">
+            <div class="modal-background"></div>
+            <div class="modal-container">
+                <button class="close-modal" onclick="closeModal(32)">✕</button>
+                
+                <div class="modal-header" style="background-image: url('https://image.tmdb.org/t/p/original/v4W554WRfWdWn1P9WJ9XYbXz36l.jpg')">
+                    <div class="modal-header-content">
+                        <h1 class="modal-title">Cars 2</h1>
+                        <div class="movie-meta">
+                            <span>2011</span>
+                            <span>G</span>
+                            <span>Animation</span>
+                            <span>1h 46m</span>
+                            <button class="add-to-list-btn" onclick="toggleMyList(32)">
+                                <span class="add-text">+ My List</span>
+                                <span class="remove-text">✓ Added</span>
+                            </button>
+                        </div>
+                        <a href="/movies/cars-2" class="watch-button">
+                            <img src="play.png" alt="Play">
+                            Watch Now
+                        </a>
+                        <a href="https://youtu.be/lg5hj2c5Nkk" class="watch-now-btn">Trailer</a>
+                    </div>
+                </div>
+    
+                <div class="modal-info">
+                    <img src="https://image.tmdb.org/t/p/original/6nfkIJB0mIjM9hGL0jPTAOS879P.jpg" class="modal-poster">
+                    <div class="modal-details">
+                        <p class="movie-info">
+                            Star race car Lightning McQueen and his pal Mater head overseas to compete in the World Grand Prix race. But the road to the championship becomes rocky as Mater gets caught up in an intriguing adventure of his own: international espionage.
+                        </p>
+                        <div>
+                            <p><strong>Director:</strong> John Lasseter</p>
+                            <p><strong>Screenplay:</strong> Ben Queen</p>
+                            <p><strong>Cast:</strong> Larry the Cable Guy, Owen Wilson, Michael Caine, Emily Mortimer, Eddie Izzard, John Turturro</p>
+                            <p><strong>Genre:</strong> Animation, Family, Adventure, Comedy</p>
                         </div>
                     </div>
                 </div>
