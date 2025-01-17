@@ -1272,6 +1272,10 @@
         <div class="movie-row-container">
             <button class="scroll-button prev hidden"></button>
             <div class="movie-row" id="new-on-broflix">
+                <div class="movie-card" data-movie-id="33" onclick="openModal(33)">
+                    <img src="https://image.tmdb.org/t/p/original/gqyTUMNrMjyIVNVIgGMdurrNPWb.jpg">
+                    <div class="ribbon">Now Available!</div>
+                </div>
                 <div class="movie-card" data-movie-id="32" onclick="openModal(32)">
                     <img src="https://image.tmdb.org/t/p/original/jrlq8lWxB3OKjKwJ0kCjtg5fIII.jpg">
                     <div class="ribbon">Now Available!</div>
@@ -1358,6 +1362,10 @@
                     <img src="https://image.tmdb.org/t/p/original/jrlq8lWxB3OKjKwJ0kCjtg5fIII.jpg">
                     <div class="ribbon">Now Available!</div>
                 </div>
+                <div class="movie-card" data-movie-id="33" onclick="openModal(33)">
+                    <img src="https://image.tmdb.org/t/p/original/gqyTUMNrMjyIVNVIgGMdurrNPWb.jpg">
+                    <div class="ribbon">Now Available!</div>
+                </div>
                 <div class="movie-card" data-movie-id="4" onclick="openModal(4)">
                     <img src="https://image.tmdb.org/t/p/original/qkQGUK99fKQ45JuLRK2v4D6DLgl.jpg">
                 </div>
@@ -1402,6 +1410,10 @@
                 </div>
                 <div class="movie-card" data-movie-id="32" onclick="openModal(32)">
                     <img src="https://image.tmdb.org/t/p/original/jrlq8lWxB3OKjKwJ0kCjtg5fIII.jpg">
+                    <div class="ribbon">Now Available!</div>
+                </div>
+                <div class="movie-card" data-movie-id="33" onclick="openModal(33)">
+                    <img src="https://image.tmdb.org/t/p/original/gqyTUMNrMjyIVNVIgGMdurrNPWb.jpg">
                     <div class="ribbon">Now Available!</div>
                 </div>
                 <div class="movie-card" data-movie-id="5" onclick="openModal(5)">
@@ -1524,10 +1536,6 @@
                 <div class="movie-card" data-movie-id="22" onclick="openModal(22)">
                     <img src="https://image.tmdb.org/t/p/original/hwIAR9FDsKULo8efoOUuxsFtO2u.jpg">
                     <div class="ribbon">Season 1 & 2 Coming on March</div>
-                </div>
-                <div class="movie-card" data-movie-id="33" onclick="openModal(33)">
-                    <img src="https://image.tmdb.org/t/p/original/gqyTUMNrMjyIVNVIgGMdurrNPWb.jpg">
-                    <div class="ribbon">Coming 17th Jan.</div>
                 </div>
                 <div class="movie-card" data-movie-id="31" onclick="openModal(31)">
                     <img src="https://image.tmdb.org/t/p/original/wV6YSaRbA1RNI7ge71yZn3CJGzN.jpg">
@@ -2689,6 +2697,51 @@
                             <p><strong>Screenplay:</strong> Ben Queen</p>
                             <p><strong>Cast:</strong> Larry the Cable Guy, Owen Wilson, Michael Caine, Emily Mortimer, Eddie Izzard, John Turturro</p>
                             <p><strong>Genre:</strong> Animation, Family, Adventure, Comedy</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+
+        <div class="modal" id="movieModal32">
+            <div class="modal-background"></div>
+            <div class="modal-container">
+                <button class="close-modal" onclick="closeModal(32)">✕</button>
+                
+                <div class="modal-header" style="background-image: url('https://image.tmdb.org/t/p/original/v4W554WRfWdWn1P9WJ9XYbXz36l.jpg')">
+                    <div class="modal-header-content">
+                        <h1 class="modal-title">Cars 3</h1>
+                        <div class="movie-meta">
+                            <span>2017</span>
+                            <span>G</span>
+                            <span>Family</span>
+                            <span>1h 42m</span>
+                            <button class="add-to-list-btn" onclick="toggleMyList(32)">
+                                <span class="add-text">+ My List</span>
+                                <span class="remove-text">✓ Added</span>
+                            </button>
+                        </div>
+                        <a href="/movies/cars-3" class="watch-button">
+                            <img src="play.png" alt="Play">
+                            Watch Now
+                        </a>
+                        <a href="https://youtu.be/ZuaseSovWDY" class="watch-now-btn">Trailer</a>
+                    </div>
+                </div>
+    
+                <div class="modal-info">
+                    <img src="https://image.tmdb.org/t/p/original/6nfkIJB0mIjM9hGL0jPTAOS879P.jpg" class="modal-poster">
+                    <div class="modal-details">
+                        <p class="movie-info">
+                            Blindsided by a new generation of blazing-fast racers, the legendary Lightning McQueen is suddenly pushed out of the sport he loves. To get back in the game, he will need the help of an eager young race technician with her own plan to win, inspiration from the late Fabulous Hudson Hornet, and a few unexpected turns. Proving that #95 isn't through yet will test the heart of a champion on Piston Cup Racing’s biggest stage!
+                        </p>
+                        <div>
+                            <p><strong>Director:</strong> Brian Fee</p>
+                            <p><strong>Screenplay:</strong> Mike Rich, Bob Peterson, Kiel Murray</p>
+                            <p><strong>Cast:</strong> Owen Wilson, Cristela Alonzo, Chris Cooper, Nathan Fillion, Larry the Cable Guy, Armie Hammer</p>
+                            <p><strong>Genre:</strong> Family, Animation, Adventure, Comedy</p>
                         </div>
                     </div>
                 </div>
