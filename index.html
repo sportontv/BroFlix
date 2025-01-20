@@ -1218,14 +1218,18 @@
             will-change: background-color, color;
             word-break: break-word;
             white-space: nowrap;
-            margin-bottom: 1rem;
-            margin-right: 1rem;
             background-color: white;
             color: black;
             margin-left: 0;
             padding-left: 2rem;
             padding-right: 2.4rem;
         }
+
+        a {
+            display: inline-block; /* Ensures the <a> element behaves like a block-level element */
+            width: fit-content; /* Matches the button's width */
+            height: fit-content; /* Matches the button's height */
+            }
     </style>
 </head>
 <body>
