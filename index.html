@@ -1184,7 +1184,24 @@
         }
 
         /* Netflix button styles */
-        .ltr-podnco {
+        .button {
+            -webkit-text-size-adjust: 100%;
+            --main-css-scanner-bg-dark: rgba(30, 30, 30, .95);
+            --main-css-scanner-bg-dark-highlight: rgba(54, 53, 53, 0.95);
+            --main-css-scanner-bg-light: rgba(255, 255, 255, 0.067);
+            --main-css-scanner-title-color: rgb(114, 243, 148);
+            --main-css-scanner-color-green: #7dffb3;
+            --main-css-scanner-color-highlight: #9CDCFD;
+            --main-css-scanner-color-property-name: #9CDCFD;
+            --main-css-scanner-color-property-value-w-num: #fff3bc;
+            --main-css-scanner-color-property-value: rgb(184, 205, 209);
+            --main-css-scanner-color-red: rgb(254, 84, 84);
+            --main-css-scanner-color-subheading: #dfdfdf;
+            -webkit-font-smoothing: antialiased;
+            font: inherit;
+            margin: 0;
+            overflow: visible;
+            text-transform: none;
             -webkit-box-align: center;
             align-items: center;
             appearance: none;
@@ -1201,77 +1218,13 @@
             will-change: background-color, color;
             word-break: break-word;
             white-space: nowrap;
-        }
-
-        .ltr-podnco.color-primary {
+            margin-bottom: 1rem;
+            margin-right: 1rem;
             background-color: white;
             color: black;
-        }
-
-        .ltr-podnco.hasLabel {
-            padding-left: 2.4rem;
-            padding-right: 2.4rem;
-        }
-
-        .ltr-podnco.hasIcon {
-            padding-left: 1.6rem;
-            padding-right: 1.6rem;
-        }
-
-        .ltr-podnco.hasLabel.hasIcon {
+            margin-left: 0;
             padding-left: 2rem;
             padding-right: 2.4rem;
-        }
-
-        .ltr-podnco.color-primary:disabled {
-            background-color: rgba(255, 255, 255, 0.25);
-            color: rgba(0, 0, 0, 0.4);
-        }
-
-        .ltr-podnco:disabled {
-            cursor: default;
-        }
-
-        .ltr-1st24vv {
-            line-height: 0;
-        }
-
-        .ltr-iyulz3 {
-            display: flex;
-            -webkit-box-align: center;
-            align-items: center;
-            -webkit-box-pack: center;
-            justify-content: center;
-        }
-
-        .ltr-iyulz3.medium {
-            height: 2.4rem;
-            width: 2.4rem;
-        }
-
-        .ltr-iyulz3 svg {
-            height: 100%;
-            width: 100%;
-        }
-
-        .ltr-1npqywr {
-            box-sizing: border-box;
-            display: flex;
-            height: 100%;
-            position: relative;
-            width: 100%;
-        }
-
-        inline-style {
-            width: 1rem;
-        }
-
-        .ltr-1vh9doa {
-            -webkit-font-smoothing: antialiased;
-            display: block;
-            font-size: 1.6rem;
-            font-weight: 500;
-            line-height: 2.4rem;
         }
     </style>
 </head>
@@ -1363,7 +1316,7 @@
             <img src="https://image.tmdb.org/t/p/original/xXev2gzu8elGCE7pQZ2Mvdy2YQV.png" style="width: 400px; margin-bottom: 30px;">
             <p style="color: white; font-weight: 600; margin-bottom: 20px; font-size: 30px;">New on BroFlix</p>
             <a href="movies/moana" style="text-decoration: none;">
-                <button class="color-primary hasLabel hasIcon ltr-podnco" tabindex="-1" type="button"><div class="ltr-1st24vv"><div class="medium ltr-iyulz3" role="presentation"><svg xmlns="http://www.w3.org/2000/svg" fill="none" role="img" viewBox="0 0 24 24" width="24" height="24" data-icon="PlayStandard" aria-hidden="true"><path d="M5 2.69127C5 1.93067 5.81547 1.44851 6.48192 1.81506L23.4069 11.1238C24.0977 11.5037 24.0977 12.4963 23.4069 12.8762L6.48192 22.1849C5.81546 22.5515 5 22.0693 5 21.3087V2.69127Z" fill="currentColor"></path></svg></div></div><div class="ltr-1npqywr" style="width: 1rem;"></div><span class="ltr-1vh9doa">Watch Now</span></button>
+                <button class="button" tabindex="-1" type="button"><div class="ltr-1st24vv"><div class="medium ltr-iyulz3" role="presentation"><svg xmlns="http://www.w3.org/2000/svg" fill="none" role="img" viewBox="0 0 24 24" width="24" height="24" data-icon="PlayStandard" aria-hidden="true"><path d="M5 2.69127C5 1.93067 5.81547 1.44851 6.48192 1.81506L23.4069 11.1238C24.0977 11.5037 24.0977 12.4963 23.4069 12.8762L6.48192 22.1849C5.81546 22.5515 5 22.0693 5 21.3087V2.69127Z" fill="currentColor"></path></svg></div></div><div class="ltr-1npqywr" style="width: 1rem;"></div><span class="ltr-1vh9doa">Watch Now</span></button>
             </a>
         </div>
     </section>
