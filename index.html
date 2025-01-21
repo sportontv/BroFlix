@@ -87,7 +87,7 @@
             height: 80vh;
             width: 100%;
             overflow: hidden;
-            margin-bottom: 20px;
+            margin-bottom: -50px;
         }
 
         .featured-image {
@@ -143,6 +143,14 @@
         .movie-section {
             position: relative;
             padding: 20px;
+        }
+
+        .movie-section:first-of-type {
+            position: relative;
+            padding: 20px;
+            z-index: 2; /* Ensure it's above the featured section */
+            background: linear-gradient(to bottom, transparent, #141414 150px);
+            margin-top: -50px; /* Pull it up into the featured section */
         }
 
         .movie-section h2 {
@@ -1577,16 +1585,6 @@
                 <a href="/" class="movie-card">
                     <img src="https://image.tmdb.org/t/p/original/yCfXHlXIIVi9gfX6FjiBPKNtw8I.jpg">
                 </a>
-            </div>
-            <button class="scroll-button next"></button>
-        </div>
-    </section>    
-
-    <section class="movie-section">
-        <h2>Live Events</h2>
-        <div class="movie-row-container">
-            <button class="scroll-button prev hidden"></button>
-            <div class="movie-row" id="live-events">
             </div>
             <button class="scroll-button next"></button>
         </div>
