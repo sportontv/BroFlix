@@ -1344,6 +1344,10 @@
         <div class="movie-row-container">
             <button class="scroll-button prev hidden"></button>
             <div class="movie-row" id="new-on-broflix">
+                <div class="movie-card" data-movie-id="31" onclick="openModal(31)">
+                    <img src="https://image.tmdb.org/t/p/original/wV6YSaRbA1RNI7ge71yZn3CJGzN.jpg">
+                    <div class="ribbon">New!</div>
+                </div>
                 <div class="movie-card" data-movie-id="33" onclick="openModal(33)">
                     <img src="https://image.tmdb.org/t/p/original/gqyTUMNrMjyIVNVIgGMdurrNPWb.jpg">
                     <div class="ribbon">Now Available!</div>
@@ -1415,6 +1419,10 @@
                 </div>
                 <div class="movie-card" data-movie-id="23" onclick="openModal(23)">
                     <img src="https://image.tmdb.org/t/p/original/mFP1aLKpwo0Bkt7aD3FHcp537ft.jpg">
+                    <div class="ribbon">New!</div>
+                </div>
+                <div class="movie-card" data-movie-id="31" onclick="openModal(31)">
+                    <img src="https://image.tmdb.org/t/p/original/wV6YSaRbA1RNI7ge71yZn3CJGzN.jpg">
                     <div class="ribbon">New!</div>
                 </div>
                 <div class="movie-card" data-movie-id="1" onclick="openModal(1)">
@@ -1598,10 +1606,6 @@
                 <div class="movie-card" data-movie-id="22" onclick="openModal(22)">
                     <img src="https://image.tmdb.org/t/p/original/hwIAR9FDsKULo8efoOUuxsFtO2u.jpg">
                     <div class="ribbon">Season 1 & 2 Coming on March</div>
-                </div>
-                <div class="movie-card" data-movie-id="31" onclick="openModal(31)">
-                    <img src="https://image.tmdb.org/t/p/original/wV6YSaRbA1RNI7ge71yZn3CJGzN.jpg">
-                    <div class="ribbon">Available Between 20-30 Jan.</div>
                 </div>
                 <div class="movie-card" data-movie-id="26" onclick="openModal(26)">
                     <img src="https://image.tmdb.org/t/p/original/tF4sj6Z8mLuEWQrtgZgwNLGPsf2.jpg">
@@ -2368,7 +2372,7 @@
             <div class="modal-container">
                 <button class="close-modal" onclick="closeModal(20)">✕</button>
                 
-                <div class="modal-header" style="background-image: url('https://image.tmdb.org/t/p/original/iTNS4nPPPnqGRdbnbSpnJLjg3pT.jpg')">
+                <div class="modal-header" style="background-image: url('https://image.tmdb.org/t/p/original/jucn2CMjsraKDGUJ9eAfm3ZqvMI.jpg')">
                     <div class="modal-header-content">
                         <h1 class="modal-title">Moana 2</h1>
                         <div class="movie-meta">
@@ -2714,6 +2718,49 @@
                             <p><strong>Story:</strong> Sergio Pablos</p>
                             <p><strong>Cast:</strong> Steve Carell, Jason Segel, Miranda Cosgrove, Elsie Fisher, Dana Gaier, Russell Brand, Julie Andrews</p>
                             <p><strong>Genre:</strong> Animation, Family, Comedy</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals --><!-- Modals -->
+
+        <div class="modal" id="movieModal31">
+            <div class="modal-background"></div>
+            <div class="modal-container">
+                <button class="close-modal" onclick="closeModal(31)">✕</button>
+                
+                <div class="modal-header" style="background-image: url('https://image.tmdb.org/t/p/original/wV6YSaRbA1RNI7ge71yZn3CJGzN.jpg')">
+                    <div class="modal-header-content">
+                        <h1 class="modal-title">Too Hot to Handle</h1>
+                        <div class="movie-meta">
+                            <span>2020</span>
+                            <span>16+</span>
+                            <span>Reality</span>
+                            <button class="add-to-list-btn" onclick="toggleMyList(31)">
+                                <span class="add-text">+ My List</span>
+                                <span class="remove-text">✓ Added</span>
+                            </button>
+                        </div>
+                        <a href="/tv/too-hot-to-handle" class="watch-button">
+                            <img src="play.png" alt="Play">
+                            Watch Now
+                        </a>
+                        <a href="https://youtu.be/2JgPJpgnut4" class="watch-now-btn">Trailer</a>
+                    </div>
+                </div>
+    
+                <div class="modal-info">
+                    <img src="https://image.tmdb.org/t/p/original/jr21CagMMfglh7YVgcyov3Cj833.jpg" class="modal-poster">
+                    <div class="modal-details">
+                        <p class="movie-info">
+                            On the shores of paradise, gorgeous singles meet and mingle. But there’s a twist. To win a $100,000 grand prize, they’ll have to give up sex.
+                        </p>
+                        <div>
+                            <p><strong>Creator:</strong> Laura Gibson, Charlie Bennett</p>
+                            <p><strong>Cast:</strong> Desiree Burch, Flavia Laos Urbina, Louis Russell, Cam Holmes, Christine Obanor, Emily Faye Miller, Elys Hutchinson, Chase DeMoor, Alex Snell</p>
+                            <p><strong>Genre:</strong> Reality</p>
                         </div>
                     </div>
                 </div>
@@ -3689,6 +3736,7 @@
                 { id: 17, title: "Drake & Josh", poster: "https://image.tmdb.org/t/p/original/udCvGctktHvvf8w51XyTPfcmzDa.jpg" },
                 { id: 18, title: "The Loud House", poster: "https://image.tmdb.org/t/p/original/v0xMCeZIkgBUQtiije0IDc8ReHr.jpg" },
                 { id: 19, title: "Home Alone 2: Lost in New York", poster: "https://image.tmdb.org/t/p/original/uuitWHpJwxD1wruFl2nZHIb4UGN.jpg" },
+                { id: 20, title: "Moana 2", poster: "https://image.tmdb.org/t/p/original/uuitWHpJwxD1wruFl2nZHIb4UGN.jpg" },
                 { id: 21, title: "Smile 2", poster: "https://image.tmdb.org/t/p/original/ht8Uv9QPv9y7K0RvUyJIaXOZTfd.jpg" },
                 { id: 23, title: "Despicable Me 4", poster: "https://image.tmdb.org/t/p/original/tsqNiZI9g5FIVrtLHlPP9BDMOXn.jpg" },
                 { id: 24, title: "Dream Productions", poster: "https://image.tmdb.org/t/p/original/j9jz5wZlQoq65YuYPNauB72uvFJ.jpg" },
@@ -3696,6 +3744,7 @@
                 { id: 27, title: "Despicable Me 3", poster: "https://image.tmdb.org/t/p/original/bdUwq8JN8WuZy21VfVKWFv9Dieh.jpg" },
                 { id: 28, title: "Despicable Me 2", poster: "https://image.tmdb.org/t/p/original/A2ikUV6WHqhR6XpLUE0UjXvazTC.jpg" },
                 { id: 29, title: "Despicable Me", poster: "https://image.tmdb.org/t/p/original/6nfkIJB0mIjM9hGL0jPTAOS879P.jpg" },
+                { id: 31, title: "Too Hot to Handle", poster: "https://image.tmdb.org/t/p/original/jr21CagMMfglh7YVgcyov3Cj833.jpg" },
                 { id: 32, title: "Cars 2", poster: "https://image.tmdb.org/t/p/original/6nfkIJB0mIjM9hGL0jPTAOS879P.jpg" },
                 { id: 33, title: "Cars 3", poster: "https://image.tmdb.org/t/p/original/6485g21CJuFmekWchDFf3EtVU82.jpg" },
             ];
