@@ -44,7 +44,7 @@
             position: relative;
             height: 80vh;
             background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-                        url('https://images.ctfassets.net/3m6gg2lxde82/TMiEcMTDjDPJYiGdNfqnB/fc4790d43dd71bc70b6223dde2bea161/inside-out-2.png?w=2048&h=1137&fit=fill&f=faces&q=90&fm=webp') center/cover;
+                        url('https://image.tmdb.org/t/p/original/i428ahSEoj2ju9xu1NLxstYJROb.jpg') center/cover;
             margin-bottom: 20px;
         }
 
@@ -207,6 +207,28 @@
             color: white;
         }
 
+        .watch-button {
+            background-color: #e50914;
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-right: 10px;
+        }
+
+        .watch-button img {
+            width: 20px;
+            height: 20px;
+            filter: invert(1);
+        }
+
+        .watch-button:hover {
+            background-color: #f40612;
+        }
+
         .watch-now-btn {
             background-color: #e50914;
             color: white;
@@ -328,7 +350,7 @@
 
     <div class="banner">
         <div class="banner-content">
-            <h1 class="banner-title">Inside Out Collection</h1>
+            <h1 class="banner-title">Despicable Me Collection</h1>
         </div>
     </div>
 
@@ -364,15 +386,8 @@
                             <span>PG</span>
                             <span>1h 34m</span>
                             <span>Animation</span>
-                            <button class="add-to-list-btn" onclick="toggleMyList(23)">
-                                <span class="add-text">+ My List</span>
-                                <span class="remove-text">✓ Added</span>
-                            </button>
                         </div>
-                        <a href="/movies/despicable-me-4" class="watch-button">
-                            <img src="play.png" alt="Play">
-                            Watch Now
-                        </a>
+                        <a href="../movies/despicable-me-4" class="watch-now-btn">Watch Now</a>
                         <a href="https://youtu.be/LtNYaH61dXY" class="watch-now-btn">Trailer</a>
                     </div>
                 </div>
@@ -409,15 +424,8 @@
                             <span>PG</span>
                             <span>Action</span>
                             <span>1h 30m</span>
-                            <button class="add-to-list-btn" onclick="toggleMyList(27)">
-                                <span class="add-text">+ My List</span>
-                                <span class="remove-text">✓ Added</span>
-                            </button>
                         </div>
-                        <a href="/movies/despicable-me-3" class="watch-button">
-                            <img src="play.png" alt="Play">
-                            Watch Now
-                        </a>
+                        <a href="../movies/despicable-me-3" class="watch-now-btn">Watch Now</a>
                         <a href="https://youtu.be/euz-KBBfAAo" class="watch-now-btn">Trailer</a>
                     </div>
                 </div>
@@ -454,15 +462,8 @@
                                     <span>PG</span>
                                     <span>Animation</span>
                                     <span>1h 38m</span>
-                                    <button class="add-to-list-btn" onclick="toggleMyList(28)">
-                                        <span class="add-text">+ My List</span>
-                                        <span class="remove-text">✓ Added</span>
-                                    </button>
                                 </div>
-                                <a href="/movies/despicable-me-2" class="watch-button">
-                                    <img src="play.png" alt="Play">
-                                    Watch Now
-                                </a>
+                                <a href="../movies/despicable-me-2" class="watch-now-btn">Watch Now</a>
                                 <a href="https://youtu.be/EK3j98PHaGM" class="watch-now-btn">Trailer</a>
                             </div>
                         </div>
@@ -499,15 +500,8 @@
                             <span>PG</span>
                             <span>Animation</span>
                             <span>1h 35m</span>
-                            <button class="add-to-list-btn" onclick="toggleMyList(29)">
-                                <span class="add-text">+ My List</span>
-                                <span class="remove-text">✓ Added</span>
-                            </button>
                         </div>
-                        <a href="/movies/despicable-me" class="watch-button">
-                            <img src="play.png" alt="Play">
-                            Watch Now
-                        </a>
+                        <a href="../movies/despicable-me" class="watch-now-btn">Watch Now</a>
                         <a href="https://youtu.be/zzCZ1W_CUoI" class="watch-now-btn">Trailer</a>
                     </div>
                 </div>

@@ -220,6 +220,56 @@
             margin-top: 15px;
         }
 
+        /* Add these styles for the watch button and my list button */
+        .watch-button {
+            background-color: #e50914;
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-right: 10px;
+        }
+
+        .watch-button img {
+            width: 20px;
+            height: 20px;
+            filter: invert(1);
+        }
+
+        .watch-button:hover {
+            background-color: #f40612;
+        }
+
+        .add-to-list-btn {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 2px solid white;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .add-to-list-btn .remove-text {
+            display: none;
+        }
+
+        .add-to-list-btn.added .add-text {
+            display: none;
+        }
+
+        .add-to-list-btn.added .remove-text {
+            display: inline;
+        }
+
+        .add-to-list-btn.added {
+            background-color: white;
+            color: black;
+        }
+
         @media screen and (max-width: 768px) {
             .burger-menu {
                 display: block;
@@ -358,8 +408,16 @@
                         <span>2015</span>
                         <span>1h 35m</span>
                         <span>Animation</span>
+                        <button class="add-to-list-btn" onclick="toggleMyList(13)">
+                            <span class="add-text">+ My List</span>
+                            <span class="remove-text">✓ Added</span>
+                        </button>
                     </div>
-                    <a href="../movies/inside-out" class="watch-now-btn">Watch Now</a>
+                    <a href="../movies/inside-out" class="watch-button">
+                        <img src="../play.png" alt="Play">
+                        Watch Now
+                    </a>
+                    <a href="https://youtu.be/yRUAzGQ3nSY" class="watch-now-btn">Trailer</a>
                 </div>
             </div>
             <div class="modal-info">
@@ -496,6 +554,13 @@
                 });
             }
         });
+
+        function toggleMyList(movieId) {
+            const button = document.querySelector(`[onclick="toggleMyList(${movieId})"]`);
+            if (button) {
+                button.classList.toggle('added');
+            }
+        }
     </script>
 </body>
 </html>
